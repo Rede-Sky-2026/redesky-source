@@ -26,10 +26,10 @@ public final class KCoreSettings {
   /** Informações globais da rede (tab, scoreboard, links, loja). */
   public static final class Network {
     public static final String NAME = "Rede Sky";
-    public static final String DOMAIN = "redesky.com";
-    public static final String STORE = "loja.redesky.com";
-    public static final String FORUM = "redesky.com/forum";
-    public static final String DISCORD = "redesky.com/discord";
+    public static final String DOMAIN = "redesky.fun";
+    public static final String STORE = "loja.redesky.fun";
+    public static final String FORUM = "redesky.fun/forum";
+    public static final String DISCORD = "discord.redesky.fun";
     public static final String TWITTER = "@RedeSky";
 
     public static String coloredName() {
