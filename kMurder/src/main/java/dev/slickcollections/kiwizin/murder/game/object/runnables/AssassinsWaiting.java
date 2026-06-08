@@ -5,7 +5,7 @@ import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.utils.StringUtils;
 import dev.slickcollections.kiwizin.utils.enums.EnumSound;
 import org.bukkit.scheduler.BukkitRunnable;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.murder.game.Murder;
 
 public class AssassinsWaiting extends BukkitRunnable {
@@ -24,16 +24,16 @@ public class AssassinsWaiting extends BukkitRunnable {
     }
 
     if (this.game.getOnline() < this.game.getConfig().getMinPlayers()) {
-      if (this.game.getTimer() != (Language.options$start$waiting + 1)) {
-        this.game.setTimer(Language.options$start$waiting + 1);
+      if (this.game.getTimer() != (KCoreSettings.Murder.options$start$waiting + 1)) {
+        this.game.setTimer(KCoreSettings.Murder.options$start$waiting + 1);
       }
 
       this.game.listPlayers().forEach(player -> Profile.getProfile(player.getName()).update());
       return;
     }
 
-    if (this.game.getTimer() == (Language.options$start$waiting + 1)) {
-      this.game.setTimer(Language.options$start$waiting);
+    if (this.game.getTimer() == (KCoreSettings.Murder.options$start$waiting + 1)) {
+      this.game.setTimer(KCoreSettings.Murder.options$start$waiting);
     }
 
     this.game.listPlayers().forEach(player -> {
@@ -45,7 +45,7 @@ public class AssassinsWaiting extends BukkitRunnable {
 
     if (this.game.getTimer() == 30 || this.game.getTimer() == 15 || this.game.getTimer() == 10 || this.game.getTimer() <= 5) {
       this.game
-        .broadcastMessage(Language.ingame$broadcast$starting.replace("{time}", StringUtils.formatNumber(this.game.getTimer())).replace("{s}", this.game.getTimer() > 1 ? "s" : ""));
+        .broadcastMessage(KCoreSettings.Murder.ingame$broadcast$starting.replace("{time}", StringUtils.formatNumber(this.game.getTimer())).replace("{s}", this.game.getTimer() > 1 ? "s" : ""));
     }
 
     this.game.setTimer(this.game.getTimer() - 1);

@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.cmd;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.game.BedWars;
 import dev.slickcollections.kiwizin.game.GameState;
 import dev.slickcollections.kiwizin.player.Profile;
@@ -37,7 +37,7 @@ public class JoinCommand extends Commands {
         return;
       }
       
-      player.sendMessage(Language.lobby$npc$play$connect);
+      player.sendMessage(KCoreSettings.BedWars.lobby$npc$play$connect);
       game.join(profile);
     }
   }

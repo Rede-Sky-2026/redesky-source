@@ -55,9 +55,7 @@ public class Main extends KPlugin {
     Cosmetic.setupCosmetics();
 
     PlayNPC.setupNPCs();
-    StatsNPC.setupNPCs();
-    Language.setupLanguage();
-    DeliveryNPC.setupNPCs();
+    StatsNPC.setupNPCs();    DeliveryNPC.setupNPCs();
     Leaderboard.setupLeaderboards();
 
     Listeners.setupListeners();

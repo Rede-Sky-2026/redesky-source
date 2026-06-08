@@ -1,7 +1,7 @@
 package dev.slickcollections.kiwizin.murder.menus;
 
 import dev.slickcollections.kiwizin.libraries.menu.UpdatablePlayerMenu;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.murder.Main;
 import dev.slickcollections.kiwizin.murder.game.Murder;
 import dev.slickcollections.kiwizin.murder.game.enums.MurderMode;
@@ -39,7 +39,7 @@ public class MenuPlay extends UpdatablePlayerMenu {
               EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
               Murder game = Murder.findRandom(this.mode);
               if (game != null) {
-                this.player.sendMessage(Language.lobby$npc$play$connect);
+                this.player.sendMessage(KCoreSettings.Murder.lobby$npc$play$connect);
                 game.join(profile);
               }
             } else if (evt.getSlot() == 14) {

@@ -2,7 +2,7 @@ package dev.slickcollections.kiwizin.murder.lobby;
 
 import dev.slickcollections.kiwizin.libraries.holograms.HologramLibrary;
 import dev.slickcollections.kiwizin.libraries.holograms.api.Hologram;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.murder.Main;
 import dev.slickcollections.kiwizin.murder.lobby.leaderboards.DetectiveLeaderboard;
 import dev.slickcollections.kiwizin.murder.lobby.leaderboards.KillerLeaderboard;
@@ -92,7 +92,7 @@ public abstract class Leaderboard {
     Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getInstance(), () -> {
       Profile.listProfiles().forEach(Profile::saveSync);
       listLeaderboards().forEach(Leaderboard::update);
-    }, 0, Language.lobby$leaderboard$minutes * 1200);
+    }, 0, KCoreSettings.Murder.lobby$leaderboard$minutes * 1200);
   }
 
   public static void add(Location location, String id, String type) {

@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.skywars.game.events;
 
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.game.AbstractSkyWars;
 import dev.slickcollections.kiwizin.skywars.game.SkyWarsEvent;
 
@@ -13,6 +13,6 @@ public class EndEvent extends SkyWarsEvent {
   
   @Override
   public String getName() {
-    return Language.options$events$end;
+    return KCoreSettings.SkyWars.options$events$end;
   }
 }

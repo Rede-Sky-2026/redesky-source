@@ -4,7 +4,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import dev.slickcollections.kiwizin.Core;
 import dev.slickcollections.kiwizin.achievements.Achievement;
 import dev.slickcollections.kiwizin.achievements.types.BedWarsAchievement;
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.bedwars.game.BedWars;
 import dev.slickcollections.kiwizin.bedwars.game.BedWarsTeam;
@@ -52,7 +52,7 @@ public class BWCoreHook {
           }
         });
       }
-    }.runTaskTimerAsynchronously(Main.getInstance(), 0, Language.scoreboards$scroller$every_tick);
+    }.runTaskTimerAsynchronously(Main.getInstance(), 0, KCoreSettings.BedWars.scoreboards$scroller$every_tick);
     
     new BukkitRunnable() {
       @Override
@@ -72,7 +72,7 @@ public class BWCoreHook {
     Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
       Achievement.listAchievements(BedWarsAchievement.class).stream().filter(bwa -> bwa.canComplete(profile)).forEach(bwa -> {
         bwa.complete(profile);
-        profile.getPlayer().sendMessage(Language.lobby$achievement.replace("{name}", bwa.getName()));
+        profile.getPlayer().sendMessage(KCoreSettings.BedWars.lobby$achievement.replace("{name}", bwa.getName()));
       });
     });
   }
@@ -84,8 +84,8 @@ public class BWCoreHook {
     
     Player player = profile.getPlayer();
     BedWars game = profile.getGame(BedWars.class);
-    List<String> lines = game == null ? Language.scoreboards$lobby :
-        game.getState() == GameState.AGUARDANDO ? Language.scoreboards$waiting : (Language.scoreboards$ingame);
+    List<String> lines = game == null ? KCoreSettings.BedWars.scoreboards$lobby :
+        game.getState() == GameState.AGUARDANDO ? KCoreSettings.BedWars.scoreboards$waiting : (KCoreSettings.BedWars.scoreboards$ingame);
     profile.setScoreboard(new KScoreboard() {
       @Override
       public void update() {
@@ -124,7 +124,7 @@ public class BWCoreHook {
                 .replace("{next_event}", game.getEvent())
                 .replace("{players}", StringUtils.formatNumber(game.getOnline()))
                 .replace("{teams}", StringUtils.formatNumber(game.listTeams().stream().filter(BedWarsTeam::isAlive).count())).replace("{max_players}", StringUtils.formatNumber(game.getMaxPlayers()))
-                .replace("{time}", game.getTimer() == 46 ? Language.scoreboards$time$waiting : Language.scoreboards$time$starting.replace("{time}", StringUtils.formatNumber(game.getTimer())))
+                .replace("{time}", game.getTimer() == 46 ? KCoreSettings.BedWars.scoreboards$time$waiting : KCoreSettings.BedWars.scoreboards$time$starting.replace("{time}", StringUtils.formatNumber(game.getTimer())))
                 .replace("{kills}", StringUtils.formatNumber(game.getKills(player)));
             
             
@@ -135,7 +135,7 @@ public class BWCoreHook {
           this.add(15 - index, line);
         }
       }
-    }.scroller(new ScoreboardScroller(Language.scoreboards$scroller$titles)).to(player).build());
+    }.scroller(new ScoreboardScroller(KCoreSettings.BedWars.scoreboards$scroller$titles)).to(player).build());
     if (game != null && game.getState() != GameState.AGUARDANDO) {
       profile.getScoreboard().health().updateHealth();
     }

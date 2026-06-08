@@ -4,7 +4,7 @@ import dev.slickcollections.kiwizin.libraries.holograms.HologramLibrary;
 import dev.slickcollections.kiwizin.libraries.holograms.api.Hologram;
 import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.plugin.config.KConfig;
-import dev.slickcollections.kiwizin.thebridge.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.thebridge.Main;
 import dev.slickcollections.kiwizin.thebridge.lobby.leaderboards.KillsLeaderboard;
 import dev.slickcollections.kiwizin.thebridge.lobby.leaderboards.PointsLeaderboard;
@@ -54,7 +54,7 @@ public abstract class Leaderboard {
     }, 0, 5);
     Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getInstance(), () -> {
       Profile.listProfiles().forEach(Profile::saveSync);
-    }, 0, Language.lobby$leaderboard$minutes * 1200);
+    }, 0, KCoreSettings.TheBridge.lobby$leaderboard$minutes * 1200);
   }
   
   public static void add(Location location, String id, String type) {

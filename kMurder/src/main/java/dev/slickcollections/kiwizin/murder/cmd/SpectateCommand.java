@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.murder.cmd;
 
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.player.Profile;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -40,7 +40,7 @@ public class SpectateCommand extends Commands {
           return;
         }
 
-        player.sendMessage(Language.lobby$npc$play$connect);
+        player.sendMessage(KCoreSettings.Murder.lobby$npc$play$connect);
         profile.getGame(Murder.class).spectate(player, target);
       }
     }

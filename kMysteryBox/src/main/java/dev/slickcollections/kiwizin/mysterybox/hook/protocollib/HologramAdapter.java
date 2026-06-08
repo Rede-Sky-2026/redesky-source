@@ -7,7 +7,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedWatchableObject;
 import dev.slickcollections.kiwizin.libraries.holograms.HologramLibrary;
 import dev.slickcollections.kiwizin.libraries.holograms.api.Hologram;
-import dev.slickcollections.kiwizin.mysterybox.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.mysterybox.api.MysteryBoxAPI;
 import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.utils.StringUtils;
@@ -70,8 +70,8 @@ public class HologramAdapter extends PacketAdapter {
         if (boxes == 0) {
           name = "";
         } else {
-          name = Language.lobby$mysterybox$mysteryboxes.replace("{boxes}",
-              StringUtils.formatNumber(boxes)).replace("{s}", boxes > 1 ? Language.lobby$mysterybox$mysteryboxes_replace : "");
+          name = KCoreSettings.MysteryBox.lobby$mysterybox$mysteryboxes.replace("{boxes}",
+              StringUtils.formatNumber(boxes)).replace("{s}", boxes > 1 ? KCoreSettings.MysteryBox.lobby$mysterybox$mysteryboxes_replace : "");
         }
       }
       

@@ -3,7 +3,7 @@ package dev.slickcollections.kiwizin.bedwars.game;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.hook.container.SelectedContainer;
 import dev.slickcollections.kiwizin.bedwars.cosmetics.CosmeticType;
 import dev.slickcollections.kiwizin.bedwars.cosmetics.object.IslandBalloon;
@@ -282,7 +282,7 @@ public class BedWarsTeam extends GameTeam {
         this.breakBed();
       }
       
-      this.getGame().listPlayers().forEach(co -> co.sendMessage(Language.ingame$broadcast$team_eliminated.replace("{team}", this.getName())));
+      this.getGame().listPlayers().forEach(co -> co.sendMessage(KCoreSettings.BedWars.ingame$broadcast$team_eliminated.replace("{team}", this.getName())));
     }
   }
   

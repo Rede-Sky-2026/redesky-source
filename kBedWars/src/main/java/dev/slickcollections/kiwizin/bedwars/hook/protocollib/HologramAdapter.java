@@ -5,7 +5,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedWatchableObject;
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.deliveries.Delivery;
 import dev.slickcollections.kiwizin.libraries.holograms.HologramLibrary;
 import dev.slickcollections.kiwizin.libraries.holograms.api.Hologram;
@@ -72,7 +72,7 @@ public class HologramAdapter extends PacketAdapter {
         if (deliveries == 0) {
           name = "";
         } else {
-          name = Language.lobby$npc$deliveries$deliveries.replace("{deliveries}", StringUtils.formatNumber(deliveries)).replace("{s}", deliveries > 1 ? "s" : "");
+          name = KCoreSettings.BedWars.lobby$npc$deliveries$deliveries.replace("{deliveries}", StringUtils.formatNumber(deliveries)).replace("{s}", deliveries > 1 ? "s" : "");
         }
       }
       

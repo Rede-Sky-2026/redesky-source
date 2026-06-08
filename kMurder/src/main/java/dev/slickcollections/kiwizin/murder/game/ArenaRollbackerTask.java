@@ -1,7 +1,7 @@
 package dev.slickcollections.kiwizin.murder.game;
 
 import dev.slickcollections.kiwizin.game.GameState;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -17,7 +17,7 @@ public class ArenaRollbackerTask extends BukkitRunnable {
     if (this.rollbacking != null) {
       this.rollbacking.getWorld().getEntities().stream().filter(entity -> !(entity instanceof Player)).forEach(Entity::remove);
       this.rollbacking.setState(GameState.AGUARDANDO);
-      this.rollbacking.setTimer(Language.options$start$waiting + 1);
+      this.rollbacking.setTimer(KCoreSettings.Murder.options$start$waiting + 1);
       this.rollbacking.getTask().reset();
       this.rollbacking = null;
     } else {

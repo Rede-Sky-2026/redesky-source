@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.game.object;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.bedwars.game.generators.Generator;
 import dev.slickcollections.kiwizin.bedwars.hook.container.SelectedContainer;
@@ -56,8 +56,8 @@ public class BedWarsTask {
       @Override
       public void run() {
         if (game.getOnline() < game.getConfig().getMinPlayers()) {
-          if (game.getTimer() != (Language.options$start$waiting + 1)) {
-            game.setTimer(Language.options$start$waiting + 1);
+          if (game.getTimer() != (KCoreSettings.BedWars.options$start$waiting + 1)) {
+            game.setTimer(KCoreSettings.BedWars.options$start$waiting + 1);
           }
     
           game.listPlayers().forEach(player -> Profile.getProfile(player.getName()).update());
@@ -69,8 +69,8 @@ public class BedWarsTask {
           return;
         }
         
-        if (game.getTimer() == (Language.options$start$waiting + 1)) {
-          game.setTimer(Language.options$start$waiting);
+        if (game.getTimer() == (KCoreSettings.BedWars.options$start$waiting + 1)) {
+          game.setTimer(KCoreSettings.BedWars.options$start$waiting);
         }
         
         game.listPlayers().forEach(player -> {
@@ -81,7 +81,7 @@ public class BedWarsTask {
         });
         
         if (game.getTimer() == 30 || game.getTimer() == 15 || game.getTimer() == 10 || game.getTimer() <= 5) {
-          game.broadcastMessage(Language.ingame$broadcast$starting.replace("{time}", StringUtils.formatNumber(game.getTimer())).replace("{s}", game.getTimer() > 1 ? "s" : ""));
+          game.broadcastMessage(KCoreSettings.BedWars.ingame$broadcast$starting.replace("{time}", StringUtils.formatNumber(game.getTimer())).replace("{s}", game.getTimer() > 1 ? "s" : ""));
         }
         
         game.setTimer(game.getTimer() - 1);

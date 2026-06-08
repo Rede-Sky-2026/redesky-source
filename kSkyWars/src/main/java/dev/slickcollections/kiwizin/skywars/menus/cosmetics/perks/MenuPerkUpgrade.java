@@ -4,7 +4,7 @@ package dev.slickcollections.kiwizin.skywars.menus.cosmetics.perks;
 import dev.slickcollections.kiwizin.cash.CashManager;
 import dev.slickcollections.kiwizin.libraries.menu.PlayerMenu;
 import dev.slickcollections.kiwizin.player.Profile;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.container.CosmeticsContainer;
 import dev.slickcollections.kiwizin.skywars.container.SelectedContainer;
@@ -55,11 +55,11 @@ public class MenuPerkUpgrade<T extends Perk> extends PlayerMenu {
       String desc = id.equals("13") ?
           "\n \n&aVocê já possui este upgrade." :
           id.equals("4") ?
-              Language.cosmetics$perk$icon$buy_desc$start.replace("{rarity}", cosmetic.getRarity().getName()).replace("{cash}", StringUtils.formatNumber(perkLevel.getCash()))
+              KCoreSettings.SkyWars.cosmetics$perk$icon$buy_desc$start.replace("{rarity}", cosmetic.getRarity().getName()).replace("{cash}", StringUtils.formatNumber(perkLevel.getCash()))
                   .replace("{coins}", StringUtils.formatNumber(perkLevel.getCoins())).replace("{buy_desc_status}",
                   ((coins >= perkLevel.getCoins() || (CashManager.CASH && cash >= perkLevel.getCash())) ?
-                      Language.cosmetics$icon$buy_desc$click_to_buy :
-                      Language.cosmetics$icon$buy_desc$enough)) :
+                      KCoreSettings.SkyWars.cosmetics$icon$buy_desc$click_to_buy :
+                      KCoreSettings.SkyWars.cosmetics$icon$buy_desc$enough)) :
               "\n \n&cVocê não pode comprar este upgrade.";
       ItemStack item =
           BukkitUtils.deserializeItemStack("STAINED_GLASS_PANE:" + id + " : 1 : nome>" + color + cosmetic.getName() + levelName + " : desc>&8" + perkLevel.getDescription() + desc);

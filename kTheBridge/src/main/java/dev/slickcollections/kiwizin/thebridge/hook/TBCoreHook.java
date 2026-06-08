@@ -13,7 +13,7 @@ import dev.slickcollections.kiwizin.player.hotbar.HotbarButton;
 import dev.slickcollections.kiwizin.player.scoreboard.KScoreboard;
 import dev.slickcollections.kiwizin.player.scoreboard.scroller.ScoreboardScroller;
 import dev.slickcollections.kiwizin.plugin.config.KConfig;
-import dev.slickcollections.kiwizin.thebridge.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.thebridge.Main;
 import dev.slickcollections.kiwizin.thebridge.container.HotbarContainer;
 import dev.slickcollections.kiwizin.thebridge.container.SelectedContainer;
@@ -52,7 +52,7 @@ public class TBCoreHook {
           }
         });
       }
-    }.runTaskTimer(Main.getInstance(), 0, Language.scoreboards$scroller$every_tick);
+    }.runTaskTimer(Main.getInstance(), 0, KCoreSettings.TheBridge.scoreboards$scroller$every_tick);
     
     new BukkitRunnable() {
       @Override
@@ -73,7 +73,7 @@ public class TBCoreHook {
     Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
       Achievement.listAchievements(TheBridgeAchievement.class).stream().filter(tba -> tba.canComplete(profile)).forEach(tba -> {
         tba.complete(profile);
-        profile.getPlayer().sendMessage(Language.lobby$achievement.replace("{name}", tba.getName()));
+        profile.getPlayer().sendMessage(KCoreSettings.TheBridge.lobby$achievement.replace("{name}", tba.getName()));
       });
     });
   }
@@ -117,7 +117,7 @@ public class TBCoreHook {
     }
     Player player = profile.getPlayer();
     TheBridge game = profile.getGame(TheBridge.class);
-    List<String> lines = game == null ? Language.scoreboards$lobby : game.getState() == GameState.AGUARDANDO ? Language.scoreboards$waiting : Language.scoreboards$ingame;
+    List<String> lines = game == null ? KCoreSettings.TheBridge.scoreboards$lobby : game.getState() == GameState.AGUARDANDO ? KCoreSettings.TheBridge.scoreboards$waiting : KCoreSettings.TheBridge.scoreboards$ingame;
     profile.setScoreboard(new KScoreboard() {
       @Override
       public void update() {
@@ -132,7 +132,7 @@ public class TBCoreHook {
             line = line.replace("{players}", StringUtils.formatNumber(game.getOnline()));
             line = line.replace("{max_players}", StringUtils.formatNumber(game.getMaxPlayers()));
             line = line.replace("{time}",
-                game.getTimer() == 11 ? Language.scoreboards$time$waiting : Language.scoreboards$time$starting.replace("{time}", StringUtils.formatNumber(game.getTimer())));
+                game.getTimer() == 11 ? KCoreSettings.TheBridge.scoreboards$time$waiting : KCoreSettings.TheBridge.scoreboards$time$starting.replace("{time}", StringUtils.formatNumber(game.getTimer())));
             line = line.replace("{red}", StringUtils.formatNumber(game.listTeams().get(0).getScore()));
             line = line.replace("{blue}", StringUtils.formatNumber(game.listTeams().get(1).getScore()));
             line = line.replace("{points}", StringUtils.formatNumber(team == null ? 0 : team.getScore()));
@@ -144,7 +144,7 @@ public class TBCoreHook {
           this.add(15 - index, line);
         }
       }
-    }.scroller(new ScoreboardScroller(Language.scoreboards$scroller$titles)).to(profile.getPlayer()).build());
+    }.scroller(new ScoreboardScroller(KCoreSettings.TheBridge.scoreboards$scroller$titles)).to(profile.getPlayer()).build());
     if (game != null && game.getState() != GameState.AGUARDANDO) {
       profile.getScoreboard().health().updateHealth();
     }

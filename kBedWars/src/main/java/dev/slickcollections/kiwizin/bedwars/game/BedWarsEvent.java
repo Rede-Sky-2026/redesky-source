@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.game;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.bedwars.game.events.*;
 import dev.slickcollections.kiwizin.plugin.logger.KLogger;
@@ -20,7 +20,7 @@ public abstract class BedWarsEvent {
     BED_EVENT = new BedDestroy();
     DIAMOND_EVENT = new DiamondUpgrade();
     EMERALD_EVENT = new EmeraldUpgrade();
-    for (String evt : Language.options$events$all$timings) {
+    for (String evt : KCoreSettings.BedWars.options$events$all$timings) {
       Object[] event = parseEvent(evt);
       if (event == null) {
         LOGGER.log(Level.WARNING, "O evento  \"" + evt + "\" nao e valido");

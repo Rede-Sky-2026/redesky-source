@@ -2,7 +2,7 @@ package dev.slickcollections.kiwizin.skywars.menus;
 
 import dev.slickcollections.kiwizin.libraries.menu.UpdatablePlayerPagedMenu;
 import dev.slickcollections.kiwizin.player.Profile;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.game.AbstractSkyWars;
 import dev.slickcollections.kiwizin.skywars.game.enums.SkyWarsMode;
@@ -73,7 +73,7 @@ public class MenuMapSelector extends UpdatablePlayerPagedMenu {
                 EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
                 for (AbstractSkyWars game : this.games.get(mapName)) {
                   if (game.getState().canJoin() && game.getOnline() < game.getMaxPlayers()) {
-                    this.player.sendMessage(Language.lobby$npc$play$connect);
+                    this.player.sendMessage(KCoreSettings.SkyWars.lobby$npc$play$connect);
                     this.profile.setStats("kCoreSkyWars", System.currentTimeMillis() + TimeUtils.getExpireIn(1), "lastmap");
                     game.join(this.profile);
                     break;
@@ -109,9 +109,9 @@ public class MenuMapSelector extends UpdatablePlayerPagedMenu {
       return;
     }
     
-    this.removeSlotsWith(BukkitUtils.deserializeItemStack(Language.lobby$npc$play$menu$info$item.replace("{desc}", this.player.hasPermission("kskywars.menu.selector") ?
-        Language.lobby$npc$play$menu$info$desc_not_limit :
-        Language.lobby$npc$play$menu$info$desc_limit.replace("{limit}", this.can ? "0/1" : "1/1"))), 48);
+    this.removeSlotsWith(BukkitUtils.deserializeItemStack(KCoreSettings.SkyWars.lobby$npc$play$menu$info$item.replace("{desc}", this.player.hasPermission("kskywars.menu.selector") ?
+        KCoreSettings.SkyWars.lobby$npc$play$menu$info$desc_not_limit :
+        KCoreSettings.SkyWars.lobby$npc$play$menu$info$desc_limit.replace("{limit}", this.can ? "0/1" : "1/1"))), 48);
     this.setItems(items);
   }
   

@@ -44,9 +44,7 @@ public class Main extends KPlugin {
     
     kMysteryBox = Bukkit.getPluginManager().getPlugin("kMysteryBox") != null;
   
-    Cosmetic.setupCosmetics();
-    Language.setupLanguage();
-    
+    Cosmetic.setupCosmetics();    
     Commands.setupCommands();
     Listeners.setupListeners();
     

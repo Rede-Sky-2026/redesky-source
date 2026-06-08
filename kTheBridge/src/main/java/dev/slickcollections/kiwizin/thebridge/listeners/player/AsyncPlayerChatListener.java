@@ -3,7 +3,7 @@ package dev.slickcollections.kiwizin.thebridge.listeners.player;
 import dev.slickcollections.kiwizin.database.data.DataContainer;
 import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.player.role.Role;
-import dev.slickcollections.kiwizin.thebridge.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.thebridge.game.TheBridge;
 import dev.slickcollections.kiwizin.utils.StringUtils;
 import org.bukkit.entity.Player;
@@ -47,7 +47,7 @@ public class AsyncPlayerChatListener implements Listener {
             timeString = timeString.substring(0, timeString.lastIndexOf("."));
           }
           
-          player.sendMessage(Language.chat$delay.replace("{time}", timeString));
+          player.sendMessage(KCoreSettings.TheBridge.chat$delay.replace("{time}", timeString));
           return;
         }
       }
@@ -71,11 +71,11 @@ public class AsyncPlayerChatListener implements Listener {
       }
     }
     if (game == null || !game.isSpectator(player)) {
-      evt.setFormat(Language.chat$format$lobby.replace("{player}", role.getPrefix() + "%s")
-          .replace("{color}", role.isDefault() ? Language.chat$color$default : Language.chat$color$custom).replace("{message}", "%s"));
+      evt.setFormat(KCoreSettings.TheBridge.chat$format$lobby.replace("{player}", role.getPrefix() + "%s")
+          .replace("{color}", role.isDefault() ? KCoreSettings.TheBridge.chat$color$default : KCoreSettings.TheBridge.chat$color$custom).replace("{message}", "%s"));
     } else {
-      evt.setFormat(Language.chat$format$spectator.replace("{player}", role.getPrefix() + "%s")
-          .replace("{color}", role.isDefault() ? Language.chat$color$default : Language.chat$color$custom).replace("{message}", "%s"));
+      evt.setFormat(KCoreSettings.TheBridge.chat$format$spectator.replace("{player}", role.getPrefix() + "%s")
+          .replace("{color}", role.isDefault() ? KCoreSettings.TheBridge.chat$color$default : KCoreSettings.TheBridge.chat$color$custom).replace("{message}", "%s"));
     }
     evt.getRecipients().clear();
     evt.setFormat((suffix.equals(" ") ? "" : suffix) + "§r" + evt.getFormat());

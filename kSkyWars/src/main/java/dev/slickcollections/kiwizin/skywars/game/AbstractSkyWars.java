@@ -14,7 +14,7 @@ import dev.slickcollections.kiwizin.player.hotbar.Hotbar;
 import dev.slickcollections.kiwizin.player.role.Role;
 import dev.slickcollections.kiwizin.plugin.config.KConfig;
 import dev.slickcollections.kiwizin.plugin.logger.KLogger;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.api.SWEvent;
 import dev.slickcollections.kiwizin.skywars.api.event.game.SWGameStartEvent;
@@ -79,7 +79,7 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
   
   public AbstractSkyWars(String name, LoadCallback callback) {
     this.name = name;
-    this.timer = Language.options$start$waiting + 1;
+    this.timer = KCoreSettings.SkyWars.options$start$waiting + 1;
     this.task = new SkyWarsTask(this);
     this.config = new SkyWarsConfig(this);
     this.config.setupSpawns();
@@ -89,7 +89,7 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
     this.kills = new HashMap<>();
     this.task.reset();
     
-    if (!Language.options$regen$world_reload) {
+    if (!KCoreSettings.SkyWars.options$regen$world_reload) {
       KConfig config = Main.getInstance().getConfig("blocos", name);
       if (config.contains("dataBlocks")) {
         for (String blockdata : config.getStringList("dataBlocks")) {
@@ -115,7 +115,7 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
   
   public static void setupGames() {
     SkyWarsEvent.setupEvents();
-    new ArenaRollbackerTask().runTaskTimer(Main.getInstance(), 0, Language.options$regen$world_reload ? 100 : 1);
+    new ArenaRollbackerTask().runTaskTimer(Main.getInstance(), 0, KCoreSettings.SkyWars.options$regen$world_reload ? 100 : 1);
     
     File ymlFolder = new File("plugins/kSkyWars/arenas");
     File mapFolder = new File("plugins/kSkyWars/mundos");
@@ -358,10 +358,10 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
       players.showPlayer(player);
     }
     
-    this.broadcastMessage(Language.ingame$broadcast$join.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+    this.broadcastMessage(KCoreSettings.SkyWars.ingame$broadcast$join.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
         .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
-    if (this.getOnline() == this.getMaxPlayers() && this.timer > Language.options$start$full) {
-      this.timer = Language.options$start$full;
+    if (this.getOnline() == this.getMaxPlayers() && this.timer > KCoreSettings.SkyWars.options$start$full) {
+      this.timer = KCoreSettings.SkyWars.options$start$full;
     }
   }
   
@@ -393,7 +393,7 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
         List<Profile> hitters = profile.getLastHitters();
         Profile killer = hitters.size() > 0 ? hitters.get(0) : null;
         killLeave(profile, killer);
-        this.listPlayers().forEach(players -> NMS.sendActionBar(players, Language.ingame$actionbar$killed.replace("{alive}", StringUtils.formatNumber(this.getOnline()))));
+        this.listPlayers().forEach(players -> NMS.sendActionBar(players, KCoreSettings.SkyWars.ingame$actionbar$killed.replace("{alive}", StringUtils.formatNumber(this.getOnline()))));
         for (Profile hitter : hitters) {
           if (!hitter.equals(killer) && hitter.playingGame() && hitter.getGame().equals(this) && !this.isSpectator(hitter.getPlayer())) {
             hitter.addStats("kCoreSkyWars", this.getMode().getStats() + "assists");
@@ -415,7 +415,7 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
         TagUtils.setTag(player);
       }
       if (this.state == GameState.AGUARDANDO) {
-        this.broadcastMessage(Language.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+        this.broadcastMessage(KCoreSettings.SkyWars.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
             .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
       }
       this.check();
@@ -426,7 +426,7 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
       List<Profile> hitters = profile.getLastHitters();
       Profile killer = hitters.size() > 0 ? hitters.get(0) : null;
       killLeave(profile, killer);
-      this.listPlayers().forEach(players -> NMS.sendActionBar(players, Language.ingame$actionbar$killed.replace("{alive}", StringUtils.formatNumber(this.getOnline()))));
+      this.listPlayers().forEach(players -> NMS.sendActionBar(players, KCoreSettings.SkyWars.ingame$actionbar$killed.replace("{alive}", StringUtils.formatNumber(this.getOnline()))));
       for (Profile hitter : hitters) {
         if (!hitter.equals(killer) && hitter.playingGame() && hitter.getGame().equals(this) && !this.isSpectator(hitter.getPlayer())) {
           hitter.addStats("kCoreSkyWars", this.getMode().getStats() + "assists");
@@ -449,7 +449,7 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
     profile.setHotbar(Hotbar.getHotbarById("lobby"));
     profile.refresh();
     if (this.state == GameState.AGUARDANDO) {
-      this.broadcastMessage(Language.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+      this.broadcastMessage(KCoreSettings.SkyWars.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
           .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
     }
     this.check();
@@ -506,7 +506,7 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
       team.removeMember(player);
     }
     this.players.remove(player.getUniqueId());
-    this.listPlayers().forEach(players -> NMS.sendActionBar(players, Language.ingame$actionbar$killed.replace("{alive}", StringUtils.formatNumber(this.getOnline()))));
+    this.listPlayers().forEach(players -> NMS.sendActionBar(players, KCoreSettings.SkyWars.ingame$actionbar$killed.replace("{alive}", StringUtils.formatNumber(this.getOnline()))));
     this.spectators.add(player.getUniqueId());
     profile.setHotbar(Hotbar.getHotbarById("spectator"));
     for (Player players : this.listPlayers()) {
@@ -529,22 +529,22 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
         }
         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
           if (player.isOnline()) {
-            int coinsKill = (int) profile.calculateWM(this.getKills(player) * Language.options$coins$kills);
-            int pointsKill = this.getKills(player) * Language.options$points$kills;
+            int coinsKill = (int) profile.calculateWM(this.getKills(player) * KCoreSettings.SkyWars.options$coins$kills);
+            int pointsKill = this.getKills(player) * KCoreSettings.SkyWars.options$points$kills;
             
             if (coinsKill > 0) {
-              player.sendMessage(Language.ingame$messages$coins$base.replace("{points}", StringUtils.formatNumber(pointsKill)).replace("{coins}", StringUtils.formatNumber(coinsKill)).replace("{points_win}", "").replace("{coins_win}", "").replace("{coins_kills}",
-                  Language.ingame$messages$coins$kills.replace("{coins}", StringUtils.formatNumber(coinsKill)).replace("{kills}", StringUtils.formatNumber(this.getKills(player)))
-                      .replace("{s}", this.getKills(player) > 1 ? "s" : "")).replace("{points_kills}", pointsKill < 1 ? "" : Language.ingame$messages$points$kills.replace("{s}", this.getKills(player) > 1 ? "s" : "").replace("{points}", StringUtils.formatNumber(pointsKill))));
+              player.sendMessage(KCoreSettings.SkyWars.ingame$messages$coins$base.replace("{points}", StringUtils.formatNumber(pointsKill)).replace("{coins}", StringUtils.formatNumber(coinsKill)).replace("{points_win}", "").replace("{coins_win}", "").replace("{coins_kills}",
+                  KCoreSettings.SkyWars.ingame$messages$coins$kills.replace("{coins}", StringUtils.formatNumber(coinsKill)).replace("{kills}", StringUtils.formatNumber(this.getKills(player)))
+                      .replace("{s}", this.getKills(player) > 1 ? "s" : "")).replace("{points_kills}", pointsKill < 1 ? "" : KCoreSettings.SkyWars.ingame$messages$points$kills.replace("{s}", this.getKills(player) > 1 ? "s" : "").replace("{points}", StringUtils.formatNumber(pointsKill))));
             }
             
             if (this.getMode().equals(SkyWarsMode.RANKED) && pointsKill > 0) {
-              player.sendMessage(Language.ingame$messages$points$base.replace("{points}", StringUtils.formatNumber(pointsKill)).replace("{coins}", StringUtils.formatNumber(coinsKill)).replace("{points_win}", "").replace("{coins_win}", "").replace("{coins_kills}", this.getKills(player) < 1 ? "" :
-                  Language.ingame$messages$points$kills.replace("{points}", StringUtils.formatNumber(coinsKill)).replace("{kills}", StringUtils.formatNumber(this.getKills(player)))
-                      .replace("{s}", this.getKills(player) > 1 ? "s" : "")).replace("{points_kills}", Language.ingame$messages$points$kills.replace("{kills}", StringUtils.formatNumber(this.getKills(player))).replace("{s}", this.getKills(player) > 1 ? "s" : "").replace("{points}", StringUtils.formatNumber(pointsKill))));
+              player.sendMessage(KCoreSettings.SkyWars.ingame$messages$points$base.replace("{points}", StringUtils.formatNumber(pointsKill)).replace("{coins}", StringUtils.formatNumber(coinsKill)).replace("{points_win}", "").replace("{coins_win}", "").replace("{coins_kills}", this.getKills(player) < 1 ? "" :
+                  KCoreSettings.SkyWars.ingame$messages$points$kills.replace("{points}", StringUtils.formatNumber(coinsKill)).replace("{kills}", StringUtils.formatNumber(this.getKills(player)))
+                      .replace("{s}", this.getKills(player) > 1 ? "s" : "")).replace("{points_kills}", KCoreSettings.SkyWars.ingame$messages$points$kills.replace("{kills}", StringUtils.formatNumber(this.getKills(player))).replace("{s}", this.getKills(player) > 1 ? "s" : "").replace("{points}", StringUtils.formatNumber(pointsKill))));
             }
             
-            NMS.sendTitle(player, Language.ingame$titles$death$header, Language.ingame$titles$death$footer, 0, 60, 0);
+            NMS.sendTitle(player, KCoreSettings.SkyWars.ingame$titles$death$header, KCoreSettings.SkyWars.ingame$titles$death$footer, 0, 60, 0);
           }
         }, 27);
       }
@@ -565,7 +565,7 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
     profile.addStats("kCoreSkyWars", this.getMode().getStats() + "deaths");
     profile.addStats("kCoreSkyWars", "monthlydeaths");
     if (pk == null) {
-      this.broadcastMessage(Language.ingame$broadcast$suicide.replace("{name}", Role.getColored(player.getName())));
+      this.broadcastMessage(KCoreSettings.SkyWars.ingame$broadcast$suicide.replace("{name}", Role.getColored(player.getName())));
     } else {
       if (player.getLastDamageCause() == null || player.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.VOID) {
         KillEffect ke = killer.getAbstractContainer("kCoreSkyWars", "selected", SelectedContainer.class).getSelected(CosmeticType.KILL_EFFECT, KillEffect.class);
@@ -578,9 +578,9 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
       String suffix = this.addKills(pk);
       EnumSound.ORB_PICKUP.play(pk, 1.0F, 1.0F);
       if (this.getMode() == SkyWarsMode.RANKED) {
-        killer.addStats("kCoreSkyWars", Language.options$points$kills, "rankedpoints");
+        killer.addStats("kCoreSkyWars", KCoreSettings.SkyWars.options$points$kills, "rankedpoints");
       }
-      killer.addCoinsWM("kCoreSkyWars", Language.options$coins$kills);
+      killer.addCoinsWM("kCoreSkyWars", KCoreSettings.SkyWars.options$coins$kills);
       killer.addStats("kCoreSkyWars", this.getMode().getStats() + "kills");
       killer.addStats("kCoreSkyWars", "monthlykills");
       
@@ -588,7 +588,7 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
       if (dm != null) {
         this.broadcastMessage(dm.getRandomMessage().replace("{name}", Role.getColored(player.getName())).replace("{killer}", Role.getColored(pk.getName())) + suffix);
       } else {
-        this.broadcastMessage(Language.ingame$broadcast$default_killed_message.replace("{name}", Role.getColored(player.getName())).replace("{killer}", Role.getColored(pk.getName())) + suffix);
+        this.broadcastMessage(KCoreSettings.SkyWars.ingame$broadcast$default_killed_message.replace("{name}", Role.getColored(player.getName())).replace("{killer}", Role.getColored(pk.getName())) + suffix);
       }
     }
     
@@ -633,19 +633,19 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
       players.clear();
     }
     if (name.toString().isEmpty()) {
-      this.broadcastMessage(Language.ingame$broadcast$end);
+      this.broadcastMessage(KCoreSettings.SkyWars.ingame$broadcast$end);
     } else {
-      this.broadcastMessage((this.getMode() == SkyWarsMode.SOLO || this.getMode() == SkyWarsMode.RANKED ? Language.ingame$broadcast$win$solo : Language.ingame$broadcast$win$dupla).replace("{name}", name.toString()));
+      this.broadcastMessage((this.getMode() == SkyWarsMode.SOLO || this.getMode() == SkyWarsMode.RANKED ? KCoreSettings.SkyWars.ingame$broadcast$win$solo : KCoreSettings.SkyWars.ingame$broadcast$win$dupla).replace("{name}", name.toString()));
     }
     for (Player player : this.listPlayers(false)) {
       Profile profile = Profile.getProfile(player.getName());
       profile.update();
       SkyWarsTeam team = this.getTeam(player);
       if (team != null) {
-        int coinsWin = (int) (team.equals(winners) ? profile.calculateWM(Language.options$coins$wins) : 0);
-        int coinsKill = (int) profile.calculateWM(this.getKills(player) * Language.options$coins$kills);
-        int pointsKill = this.getKills(player) * Language.options$points$kills;
-        int pointsWin = (team.equals(winners) ? Language.options$points$wins : 0);
+        int coinsWin = (int) (team.equals(winners) ? profile.calculateWM(KCoreSettings.SkyWars.options$coins$wins) : 0);
+        int coinsKill = (int) profile.calculateWM(this.getKills(player) * KCoreSettings.SkyWars.options$coins$kills);
+        int pointsKill = this.getKills(player) * KCoreSettings.SkyWars.options$points$kills;
+        int pointsWin = (team.equals(winners) ? KCoreSettings.SkyWars.options$points$wins : 0);
         int totalPoints = pointsKill + pointsWin;
         int totalCoins = coinsWin + coinsKill;
         
@@ -653,28 +653,28 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
           Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
             if (totalCoins > 0) {
               player.sendMessage(
-                  Language.ingame$messages$coins$base.replace("{points}", StringUtils.formatNumber(totalPoints)).replace("{coins}", StringUtils.formatNumber(totalCoins))
-                      .replace("{points_kills}", pointsKill < 1 ? "" : Language.ingame$messages$points$kills.replace("{s}", this.getKills(player) > 1 ? "s" : "").replace("{points}", StringUtils.formatNumber(pointsKill))).replace("{points_win}", pointsWin > 0 ? Language.ingame$messages$points$win.replace("{points}", StringUtils.formatNumber(pointsWin)) : "").replace("{coins_win}", coinsWin > 0 ? Language.ingame$messages$coins$win.replace("{coins}", StringUtils.formatNumber(coinsWin)) : "").replace("{coins_kills}",
+                  KCoreSettings.SkyWars.ingame$messages$coins$base.replace("{points}", StringUtils.formatNumber(totalPoints)).replace("{coins}", StringUtils.formatNumber(totalCoins))
+                      .replace("{points_kills}", pointsKill < 1 ? "" : KCoreSettings.SkyWars.ingame$messages$points$kills.replace("{s}", this.getKills(player) > 1 ? "s" : "").replace("{points}", StringUtils.formatNumber(pointsKill))).replace("{points_win}", pointsWin > 0 ? KCoreSettings.SkyWars.ingame$messages$points$win.replace("{points}", StringUtils.formatNumber(pointsWin)) : "").replace("{coins_win}", coinsWin > 0 ? KCoreSettings.SkyWars.ingame$messages$coins$win.replace("{coins}", StringUtils.formatNumber(coinsWin)) : "").replace("{coins_kills}",
                       coinsKill > 0 ?
-                          Language.ingame$messages$coins$kills.replace("{coins}", StringUtils.formatNumber(coinsKill)).replace("{kills}", StringUtils.formatNumber(this.getKills(player)))
+                          KCoreSettings.SkyWars.ingame$messages$coins$kills.replace("{coins}", StringUtils.formatNumber(coinsKill)).replace("{kills}", StringUtils.formatNumber(this.getKills(player)))
                               .replace("{s}", this.getKills(player) > 1 ? "s" : "") :
                           ""));
             }
             if (totalPoints > 0 && this.getMode().equals(SkyWarsMode.RANKED)) {
               player.sendMessage(
-                  Language.ingame$messages$points$base
+                  KCoreSettings.SkyWars.ingame$messages$points$base
                       .replace("{points}", StringUtils.formatNumber(totalPoints))
-                      .replace("{points_kills}", pointsKill < 1 ? "" : Language.ingame$messages$points$kills
+                      .replace("{points_kills}", pointsKill < 1 ? "" : KCoreSettings.SkyWars.ingame$messages$points$kills
                           .replace("{kills}", StringUtils.formatNumber(this.getKills(player)))
                           .replace("{s}", this.getKills(player) > 1 ? "s" : "")
                           .replace("{points}", StringUtils.formatNumber(pointsKill)))
-                      .replace("{points_win}", pointsWin > 0 ? Language.ingame$messages$points$win.
+                      .replace("{points_win}", pointsWin > 0 ? KCoreSettings.SkyWars.ingame$messages$points$win.
                           replace("{points}", StringUtils.formatNumber(pointsWin)) : "")
-                      .replace("{coins_win}", coinsWin > 0 ? Language.ingame$messages$coins$win
+                      .replace("{coins_win}", coinsWin > 0 ? KCoreSettings.SkyWars.ingame$messages$coins$win
                           .replace("{coins}", StringUtils.formatNumber(coinsWin)) : "")
                       .replace("{coins_kills}",
                           coinsKill > 0 ?
-                              Language.ingame$messages$coins$kills.replace("{coins}",
+                              KCoreSettings.SkyWars.ingame$messages$coins$kills.replace("{coins}",
                                   StringUtils.formatNumber(coinsKill)).replace("{kills}", StringUtils.formatNumber(this.getKills(player)))
                                   .replace("{s}", this.getKills(player) > 1 ? "s" : "") :
                               ""));
@@ -684,15 +684,15 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
       }
       
       if (winners != null && winners.hasMember(player)) {
-        profile.addCoinsWM("kCoreSkyWars", Language.options$coins$wins);
+        profile.addCoinsWM("kCoreSkyWars", KCoreSettings.SkyWars.options$coins$wins);
         if (this.getMode().equals(SkyWarsMode.RANKED)) {
-          profile.addStats("kCoreSkyWars", Language.options$points$wins, "rankedpoints");
+          profile.addStats("kCoreSkyWars", KCoreSettings.SkyWars.options$points$wins, "rankedpoints");
         }
         profile.addStats("kCoreSkyWars", this.getMode().getStats() + "wins");
         profile.addStats("kCoreSkyWars", "monthlywins");
-        NMS.sendTitle(player, Language.ingame$titles$win$header, Language.ingame$titles$win$footer, 10, 80, 10);
+        NMS.sendTitle(player, KCoreSettings.SkyWars.ingame$titles$win$header, KCoreSettings.SkyWars.ingame$titles$win$footer, 10, 80, 10);
       } else {
-        NMS.sendTitle(player, Language.ingame$titles$lose$header, Language.ingame$titles$lose$footer, 10, 80, 10);
+        NMS.sendTitle(player, KCoreSettings.SkyWars.ingame$titles$lose$header, KCoreSettings.SkyWars.ingame$titles$lose$footer, 10, 80, 10);
       }
       
       this.spectators.add(player.getUniqueId());
@@ -828,8 +828,8 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
         this.streak.get(player.getName())[0] = System.currentTimeMillis();
         this.streak.get(player.getName())[1] = streak + 1L;
         return streak == 2 ?
-            Language.ingame$broadcast$double_kill :
-            streak == 3 ? Language.ingame$broadcast$triple_kill : streak == 4 ? Language.ingame$broadcast$quadra_kill : Language.ingame$broadcast$monster_kill;
+            KCoreSettings.SkyWars.ingame$broadcast$double_kill :
+            streak == 3 ? KCoreSettings.SkyWars.ingame$broadcast$triple_kill : streak == 4 ? KCoreSettings.SkyWars.ingame$broadcast$quadra_kill : KCoreSettings.SkyWars.ingame$broadcast$monster_kill;
       }
     }
     
@@ -847,10 +847,10 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
   public String getTopKill(int ranking) {
     Map.Entry<String, Integer> entry = this.topKills.size() < ranking ? null : this.topKills.get(ranking - 1);
     if (entry == null) {
-      return Language.scoreboards$ranking$empty;
+      return KCoreSettings.SkyWars.scoreboards$ranking$empty;
     }
     
-    return Language.scoreboards$ranking$format.replace("{name}", Role.getColored(entry.getKey())).replace("{kills}", StringUtils.formatNumber(entry.getValue()));
+    return KCoreSettings.SkyWars.scoreboards$ranking$format.replace("{name}", Role.getColored(entry.getKey())).replace("{kills}", StringUtils.formatNumber(entry.getValue()));
   }
   
   @Override
@@ -898,7 +898,7 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
   
   public String getEvent() {
     if (this.event == null) {
-      return Language.options$events$end;
+      return KCoreSettings.SkyWars.options$events$end;
     }
     
     return this.event.getValue().getName() + " " + SDF.format((this.event.getKey() - this.getTimer()) * 1000);

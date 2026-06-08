@@ -3,7 +3,7 @@ package dev.slickcollections.kiwizin.thebridge.listeners.entity;
 import dev.slickcollections.kiwizin.game.GameState;
 import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.player.enums.BloodAndGore;
-import dev.slickcollections.kiwizin.thebridge.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.thebridge.Main;
 import dev.slickcollections.kiwizin.thebridge.game.TheBridge;
 import dev.slickcollections.kiwizin.thebridge.game.TheBridgeTeam;
@@ -74,7 +74,7 @@ public class EntityListener implements Listener {
               if (proj instanceof Arrow) {
                 Player finalDamager = damager;
                 Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> finalDamager.sendMessage(
-                    Language.ingame$messages$bow$hit.replace("{name}", team != null ? (team.getColor() + player.getName()) : player.getName())
+                    KCoreSettings.TheBridge.ingame$messages$bow$hit.replace("{name}", team != null ? (team.getColor() + player.getName()) : player.getName())
                         .replace("{hp}", StringUtils.formatNumber(player.getHealth()))), 5L);
               }
             }

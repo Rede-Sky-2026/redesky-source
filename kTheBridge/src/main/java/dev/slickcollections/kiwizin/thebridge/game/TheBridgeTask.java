@@ -3,7 +3,7 @@ package dev.slickcollections.kiwizin.thebridge.game;
 import dev.slickcollections.kiwizin.game.GameState;
 import dev.slickcollections.kiwizin.nms.NMS;
 import dev.slickcollections.kiwizin.player.Profile;
-import dev.slickcollections.kiwizin.thebridge.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.thebridge.Main;
 import dev.slickcollections.kiwizin.thebridge.container.HotbarContainer;
 import dev.slickcollections.kiwizin.thebridge.container.SelectedContainer;
@@ -69,7 +69,7 @@ public class TheBridgeTask {
         });
         
         if (game.getTimer() <= 5) {
-          game.broadcastMessage(Language.ingame$broadcast$starting.replace("{time}", StringUtils.formatNumber(game.getTimer())).replace("{s}", game.getTimer() > 1 ? "s" : ""));
+          game.broadcastMessage(KCoreSettings.TheBridge.ingame$broadcast$starting.replace("{time}", StringUtils.formatNumber(game.getTimer())).replace("{s}", game.getTimer() > 1 ? "s" : ""));
         }
         
         game.setTimer(game.getTimer() - 1);
@@ -91,8 +91,8 @@ public class TheBridgeTask {
           
           game.listPlayers(false).forEach(player -> {
             EnumSound.NOTE_PLING.play(player, 0.5F, 1.0F);
-            NMS.sendTitle(player, Language.ingame$titles$cage$header.replace("{time}", (game.getTimer() > 3 ? "§a§l" : "§c§l") + game.getTimer()),
-                Language.ingame$titles$cage$footer, 0, 20, 0);
+            NMS.sendTitle(player, KCoreSettings.TheBridge.ingame$titles$cage$header.replace("{time}", (game.getTimer() > 3 ? "§a§l" : "§c§l") + game.getTimer()),
+                KCoreSettings.TheBridge.ingame$titles$cage$footer, 0, 20, 0);
           });
           game.setTimer(game.getTimer() - 1);
         }

@@ -2,7 +2,7 @@ package dev.slickcollections.kiwizin.thebridge.lobby.leaderboards;
 
 import dev.slickcollections.kiwizin.database.Database;
 import dev.slickcollections.kiwizin.player.role.Role;
-import dev.slickcollections.kiwizin.thebridge.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.thebridge.lobby.Leaderboard;
 import dev.slickcollections.kiwizin.utils.StringUtils;
 import org.bukkit.Location;
@@ -38,13 +38,13 @@ public class WinstreakLeaderboard extends Leaderboard {
     }
 
     while (list.size() < 10) {
-      list.add(new String[] {Language.lobby$leaderboard$empty, "0"});
+      list.add(new String[] {KCoreSettings.TheBridge.lobby$leaderboard$empty, "0"});
     }
     return list;
   }
 
   @Override
   public List<String> getHologramLines() {
-    return Language.lobby$leaderboard$daily_winstreak$holograms;
+    return KCoreSettings.TheBridge.lobby$leaderboard$daily_winstreak$holograms;
   }
 }

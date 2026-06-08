@@ -1,7 +1,7 @@
 package dev.slickcollections.kiwizin.bedwars.listeners.entity;
 
 import dev.slickcollections.kiwizin.Core;
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.bedwars.game.BedWars;
 import dev.slickcollections.kiwizin.bedwars.game.BedWarsTeam;
@@ -100,7 +100,7 @@ public class EntityListener implements Listener {
           if (proj instanceof Arrow) {
             Player finalDamager = damager;
             Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> finalDamager
-                    .sendMessage(Language.ingame$messages$bow$hit.replace("{name}", Role.getColored(player.getName())).replace("{hp}", StringUtils.formatNumber(player.getHealth()))),
+                    .sendMessage(KCoreSettings.BedWars.ingame$messages$bow$hit.replace("{name}", Role.getColored(player.getName())).replace("{hp}", StringUtils.formatNumber(player.getHealth()))),
                 5L);
           }
         }

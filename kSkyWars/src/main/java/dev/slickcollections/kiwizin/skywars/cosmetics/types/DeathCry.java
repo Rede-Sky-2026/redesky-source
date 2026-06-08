@@ -5,7 +5,7 @@ import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.player.role.Role;
 import dev.slickcollections.kiwizin.plugin.config.KConfig;
 import dev.slickcollections.kiwizin.plugin.logger.KLogger;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.container.SelectedContainer;
 import dev.slickcollections.kiwizin.skywars.cosmetics.Cosmetic;
@@ -98,15 +98,15 @@ public class DeathCry extends Cosmetic {
     
     Role role = Role.getRoleByPermission(this.getPermission());
     String color = has ?
-        (isSelected ? Language.cosmetics$color$selected : Language.cosmetics$color$unlocked) :
-        (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) && canBuy ? Language.cosmetics$color$canbuy : Language.cosmetics$color$locked;
+        (isSelected ? KCoreSettings.SkyWars.cosmetics$color$selected : KCoreSettings.SkyWars.cosmetics$color$unlocked) :
+        (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) && canBuy ? KCoreSettings.SkyWars.cosmetics$color$canbuy : KCoreSettings.SkyWars.cosmetics$color$locked;
     String desc = (has && canBuy ?
-        Language.cosmetics$deathcry$icon$has_desc$start.replace("{has_desc_status}", isSelected ? Language.cosmetics$icon$has_desc$selected : Language.cosmetics$icon$has_desc$select) :
+        KCoreSettings.SkyWars.cosmetics$deathcry$icon$has_desc$start.replace("{has_desc_status}", isSelected ? KCoreSettings.SkyWars.cosmetics$icon$has_desc$selected : KCoreSettings.SkyWars.cosmetics$icon$has_desc$select) :
         canBuy ?
-            Language.cosmetics$deathcry$icon$buy_desc$start
-                .replace("{buy_desc_status}", (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) ? Language.cosmetics$icon$buy_desc$click_to_buy : Language.cosmetics$icon$buy_desc$enough) :
-            Language.cosmetics$deathcry$icon$perm_desc$start
-                .replace("{perm_desc_status}", (role == null ? Language.cosmetics$icon$perm_desc$common : Language.cosmetics$icon$perm_desc$role.replace("{role}", role.getName()))))
+            KCoreSettings.SkyWars.cosmetics$deathcry$icon$buy_desc$start
+                .replace("{buy_desc_status}", (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) ? KCoreSettings.SkyWars.cosmetics$icon$buy_desc$click_to_buy : KCoreSettings.SkyWars.cosmetics$icon$buy_desc$enough) :
+            KCoreSettings.SkyWars.cosmetics$deathcry$icon$perm_desc$start
+                .replace("{perm_desc_status}", (role == null ? KCoreSettings.SkyWars.cosmetics$icon$perm_desc$common : KCoreSettings.SkyWars.cosmetics$icon$perm_desc$role.replace("{role}", role.getName()))))
         .replace("{name}", this.name).replace("{rarity}", this.getRarity().getName()).replace("{coins}", StringUtils.formatNumber(this.getCoins())).replace("{cash}", StringUtils.formatNumber(this.getCash()));
     ItemStack item = BukkitUtils.deserializeItemStack(this.icon + " : nome>" + color + this.name + " : desc>" + desc);
     if (isSelected) {

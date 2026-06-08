@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.bedwars.game.BedWars;
 import dev.slickcollections.kiwizin.bedwars.game.enums.BedWarsMode;
@@ -36,15 +36,15 @@ public class Generator {
     this.level = 1;
     this.serialized = BukkitUtils.serializeLocation(location);
     this.type = type;
-    this.countdown = this.type == Type.DIAMOND ? Language.options$generator$diamond$countdown_tier_1 : Language.options$generator$emerald$countdown_tier_1;
+    this.countdown = this.type == Type.DIAMOND ? KCoreSettings.BedWars.options$generator$diamond$countdown_tier_1 : KCoreSettings.BedWars.options$generator$emerald$countdown_tier_1;
   }
   
   public void upgrade() {
     this.level++;
     if (this.type == Type.DIAMOND) {
-      this.countdown = this.level == 2 ? Language.options$generator$diamond$countdown_tier_2 : Language.options$generator$diamond$countdown_tier_3;
+      this.countdown = this.level == 2 ? KCoreSettings.BedWars.options$generator$diamond$countdown_tier_2 : KCoreSettings.BedWars.options$generator$diamond$countdown_tier_3;
     } else {
-      this.countdown = this.level == 2 ? Language.options$generator$emerald$countdown_tier_2 : Language.options$generator$emerald$countdown_tier_3;
+      this.countdown = this.level == 2 ? KCoreSettings.BedWars.options$generator$emerald$countdown_tier_2 : KCoreSettings.BedWars.options$generator$emerald$countdown_tier_3;
     }
     
     this.update();
@@ -52,19 +52,19 @@ public class Generator {
   
   public void update() {
     if (hologram != null) {
-      for (int index = Language.ingame$generators$hologram.size(); index > 0; index--) {
-        this.hologram.updateLine( Language.ingame$generators$hologram.size() - (index - 1) ,
-            Language.ingame$generators$hologram.get(index - 1).replace("{tier}", StringUtils.repeat("I", this.level)).replace("{type}", this.type.getName()).replace("{s}", this.countdown > 1 ? "s" : "").replace("{time}", String.valueOf(this.countdown)));
+      for (int index = KCoreSettings.BedWars.ingame$generators$hologram.size(); index > 0; index--) {
+        this.hologram.updateLine( KCoreSettings.BedWars.ingame$generators$hologram.size() - (index - 1) ,
+            KCoreSettings.BedWars.ingame$generators$hologram.get(index - 1).replace("{tier}", StringUtils.repeat("I", this.level)).replace("{type}", this.type.getName()).replace("{s}", this.countdown > 1 ? "s" : "").replace("{time}", String.valueOf(this.countdown)));
       }
     }
     
     if (countdown == 0) {
       if (this.type == Type.DIAMOND) {
-        this.countdown = this.level == 1 ? Language.options$generator$diamond$countdown_tier_1
-            : this.level == 2 ? Language.options$generator$diamond$countdown_tier_2 : Language.options$generator$diamond$countdown_tier_3;
+        this.countdown = this.level == 1 ? KCoreSettings.BedWars.options$generator$diamond$countdown_tier_1
+            : this.level == 2 ? KCoreSettings.BedWars.options$generator$diamond$countdown_tier_2 : KCoreSettings.BedWars.options$generator$diamond$countdown_tier_3;
       } else {
-        this.countdown = this.level == 1 ? Language.options$generator$emerald$countdown_tier_1
-            : this.level == 2 ? Language.options$generator$emerald$countdown_tier_2 : Language.options$generator$emerald$countdown_tier_3;
+        this.countdown = this.level == 1 ? KCoreSettings.BedWars.options$generator$emerald$countdown_tier_1
+            : this.level == 2 ? KCoreSettings.BedWars.options$generator$emerald$countdown_tier_2 : KCoreSettings.BedWars.options$generator$emerald$countdown_tier_3;
       }
       if (PlayerUtils.getAmountOfItem(Material.valueOf(type.name()),
           this.getLocation()) < (4)) {
@@ -84,9 +84,9 @@ public class Generator {
     }
     
     this.hologram = HologramLibrary.createHologram(this.item.getLocation().clone().add(0, 0.6, 0));
-    List<String> lines = Language.ingame$generators$hologram;
-    for (int index = Language.ingame$generators$hologram.size(); index > 0; index--) {
-      this.hologram.withLine(Language.ingame$generators$hologram.get(index - 1));
+    List<String> lines = KCoreSettings.BedWars.ingame$generators$hologram;
+    for (int index = KCoreSettings.BedWars.ingame$generators$hologram.size(); index > 0; index--) {
+      this.hologram.withLine(KCoreSettings.BedWars.ingame$generators$hologram.get(index - 1));
     }
     
     this.item.spawn(BukkitUtils.deserializeItemStack(type.name() + "_BLOCK : 1"), true);
@@ -95,7 +95,7 @@ public class Generator {
   
   public void reset() {
     this.level = 1;
-    this.countdown = this.type == Type.DIAMOND ? Language.options$generator$diamond$countdown_tier_1 : Language.options$generator$emerald$countdown_tier_1;
+    this.countdown = this.type == Type.DIAMOND ? KCoreSettings.BedWars.options$generator$diamond$countdown_tier_1 : KCoreSettings.BedWars.options$generator$emerald$countdown_tier_1;
     if (item != null) {
       this.item.disable();
       this.item = null;

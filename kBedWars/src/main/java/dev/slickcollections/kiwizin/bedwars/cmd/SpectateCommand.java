@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.cmd;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.game.BedWars;
 import dev.slickcollections.kiwizin.player.Profile;
 import org.bukkit.Bukkit;
@@ -40,7 +40,7 @@ public class SpectateCommand extends Commands {
           return;
         }
         
-        player.sendMessage(Language.lobby$npc$play$connect);
+        player.sendMessage(KCoreSettings.BedWars.lobby$npc$play$connect);
         profile.getGame(BedWars.class).spectate(player, target);
       }
     }

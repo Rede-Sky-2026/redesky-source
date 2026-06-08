@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.lobby;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.libraries.holograms.HologramLibrary;
 import dev.slickcollections.kiwizin.libraries.holograms.api.Hologram;
@@ -89,8 +89,8 @@ public class StatsNPC {
     }
     
     this.hologram = HologramLibrary.createHologram(this.location.clone().add(0, 0.5, 0));
-    for (int index = Language.lobby$npc$stats$hologram.size(); index > 0; index--) {
-      this.hologram.withLine(Language.lobby$npc$stats$hologram.get(index - 1));
+    for (int index = KCoreSettings.BedWars.lobby$npc$stats$hologram.size(); index > 0; index--) {
+      this.hologram.withLine(KCoreSettings.BedWars.lobby$npc$stats$hologram.get(index - 1));
     }
     
     this.npc = NPCLibrary.createNPC(EntityType.PLAYER, "§8[NPC] ");

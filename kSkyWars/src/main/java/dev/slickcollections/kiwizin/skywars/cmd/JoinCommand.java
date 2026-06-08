@@ -3,7 +3,7 @@ package dev.slickcollections.kiwizin.skywars.cmd;
 
 import dev.slickcollections.kiwizin.game.GameState;
 import dev.slickcollections.kiwizin.player.Profile;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.game.AbstractSkyWars;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -42,7 +42,7 @@ public class JoinCommand extends Commands {
       return;
     }
     
-    player.sendMessage(Language.lobby$npc$play$connect);
+    player.sendMessage(KCoreSettings.SkyWars.lobby$npc$play$connect);
     game.join(profile);
   }
 }

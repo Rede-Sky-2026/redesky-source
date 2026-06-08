@@ -13,7 +13,7 @@ import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.player.hotbar.Hotbar;
 import dev.slickcollections.kiwizin.player.role.Role;
 import dev.slickcollections.kiwizin.plugin.logger.KLogger;
-import dev.slickcollections.kiwizin.thebridge.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.thebridge.Main;
 import dev.slickcollections.kiwizin.thebridge.container.SelectedContainer;
 import dev.slickcollections.kiwizin.thebridge.cosmetics.CosmeticType;
@@ -190,11 +190,11 @@ public class TheBridge implements Game<TheBridgeTeam> {
   
   public void point(Profile profile, TheBridgeTeam team) {
     team.increaseScore();
-    team.listPlayers().forEach(player -> Profile.getProfile(player.getName()).addCoinsWM("kCoreTheBridge", Language.options$coins$score));
+    team.listPlayers().forEach(player -> Profile.getProfile(player.getName()).addCoinsWM("kCoreTheBridge", KCoreSettings.TheBridge.options$coins$score));
     profile.addStats("kCoreTheBridge", this.getMode().getName() + "points");
     profile.addStats("kCoreTheBridge", "monthlypoints");
   
-    this.broadcastMessage(Language.ingame$broadcast$point.replace("{name}", team.getColor() + profile.getName()));
+    this.broadcastMessage(KCoreSettings.TheBridge.ingame$broadcast$point.replace("{name}", team.getColor() + profile.getName()));
     this.check();
     if (this.state == GameState.EMJOGO) {
       this.cage();
@@ -323,7 +323,7 @@ public class TheBridge implements Game<TheBridgeTeam> {
       players.showPlayer(player);
     }
     
-    this.broadcastMessage(Language.ingame$broadcast$join.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+    this.broadcastMessage(KCoreSettings.TheBridge.ingame$broadcast$join.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
         .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
   }
   
@@ -364,7 +364,7 @@ public class TheBridge implements Game<TheBridgeTeam> {
         TagUtils.setTag(player);
       }
       if (this.state != GameState.ENCERRADO && alive) {
-        this.broadcastMessage(Language.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+        this.broadcastMessage(KCoreSettings.TheBridge.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
             .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
       }
       this.check();
@@ -390,7 +390,7 @@ public class TheBridge implements Game<TheBridgeTeam> {
     profile.setHotbar(Hotbar.getHotbarById("lobby"));
     profile.refresh();
     if (this.state != GameState.ENCERRADO && alive) {
-      this.broadcastMessage(Language.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+      this.broadcastMessage(KCoreSettings.TheBridge.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
           .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
     }
     this.check();
@@ -458,7 +458,7 @@ public class TheBridge implements Game<TheBridgeTeam> {
     }
     
     if (pk == null) {
-      this.broadcastMessage(Language.ingame$broadcast$suicide.replace("{name}", team.getColor() + player.getName()));
+      this.broadcastMessage(KCoreSettings.TheBridge.ingame$broadcast$suicide.replace("{name}", team.getColor() + player.getName()));
     } else {
       if (player.getLastDamageCause() == null || player.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.VOID) {
         KillEffect ke = killer.getAbstractContainer("kCoreTheBridge", "selected", SelectedContainer.class).getSelected(CosmeticType.KILL_EFFECT, KillEffect.class);
@@ -469,7 +469,7 @@ public class TheBridge implements Game<TheBridgeTeam> {
       
       this.addKills(pk);
       EnumSound.ORB_PICKUP.play(pk, 1.0F, 1.0F);
-      killer.addCoinsWM("kCoreTheBridge", Language.options$coins$kills);
+      killer.addCoinsWM("kCoreTheBridge", KCoreSettings.TheBridge.options$coins$kills);
       killer.addStats("kCoreTheBridge", this.getMode().getName() + "kills");
       killer.addStats("kCoreTheBridge", "monthlykills");
   
@@ -477,7 +477,7 @@ public class TheBridge implements Game<TheBridgeTeam> {
       if (dm != null) {
         this.broadcastMessage(dm.getRandomMessage().replace("{name}", team.getColor() + player.getName()).replace("{killer}", this.getTeam(pk).getColor() + pk.getName()));
       } else {
-        this.broadcastMessage(Language.ingame$broadcast$killed.replace("{name}", team.getColor() + player.getName()).replace("{killer}", this.getTeam(pk).getColor() + pk.getName()));
+        this.broadcastMessage(KCoreSettings.TheBridge.ingame$broadcast$killed.replace("{name}", team.getColor() + player.getName()).replace("{killer}", this.getTeam(pk).getColor() + pk.getName()));
       }
     }
     
@@ -512,11 +512,11 @@ public class TheBridge implements Game<TheBridgeTeam> {
     }
     
     if (pk == null) {
-      this.broadcastMessage(Language.ingame$broadcast$suicide.replace("{name}", team.getColor() + player.getName()));
+      this.broadcastMessage(KCoreSettings.TheBridge.ingame$broadcast$suicide.replace("{name}", team.getColor() + player.getName()));
     } else {
       this.addKills(pk);
       EnumSound.ORB_PICKUP.play(pk, 1.0F, 1.0F);
-      killer.addCoinsWM("kCoreTheBridge", Language.options$coins$kills);
+      killer.addCoinsWM("kCoreTheBridge", KCoreSettings.TheBridge.options$coins$kills);
       killer.addStats("kCoreTheBridge", this.getMode().getName() + "kills");
       killer.addStats("kCoreTheBridge", "monthlykills");
   
@@ -524,7 +524,7 @@ public class TheBridge implements Game<TheBridgeTeam> {
       if (dm != null) {
         this.broadcastMessage(dm.getRandomMessage().replace("{name}", team.getColor() + player.getName()).replace("{killer}", this.getTeam(pk).getColor() + pk.getName()));
       } else {
-        this.broadcastMessage(Language.ingame$broadcast$killed.replace("{name}", team.getColor() + player.getName()).replace("{killer}", this.getTeam(pk).getColor() + pk.getName()));
+        this.broadcastMessage(KCoreSettings.TheBridge.ingame$broadcast$killed.replace("{name}", team.getColor() + player.getName()).replace("{killer}", this.getTeam(pk).getColor() + pk.getName()));
       }
     }
     
@@ -576,38 +576,38 @@ public class TheBridge implements Game<TheBridgeTeam> {
       
       players.clear();
     }
-    this.broadcastMessage((this.getMode() == TheBridgeMode.SOLO ? Language.ingame$broadcast$win$solo : Language.ingame$broadcast$win$dupla).replace("{name}", name.toString()));
+    this.broadcastMessage((this.getMode() == TheBridgeMode.SOLO ? KCoreSettings.TheBridge.ingame$broadcast$win$solo : KCoreSettings.TheBridge.ingame$broadcast$win$dupla).replace("{name}", name.toString()));
     for (Player player : this.listPlayers(false)) {
       Profile profile = Profile.getProfile(player.getName());
       profile.update();
       TheBridgeTeam team = this.getTeam(player);
       if (team != null) {
-        int coinsWin = (int) (team.equals(winners) ? profile.calculateWM(Language.options$coins$wins) : 0);
-        int coinsKill = (int) profile.calculateWM(this.getKills(player) * Language.options$coins$kills);
-        int coinsScore = (int) profile.calculateWM(team.getScore() * Language.options$coins$score);
+        int coinsWin = (int) (team.equals(winners) ? profile.calculateWM(KCoreSettings.TheBridge.options$coins$wins) : 0);
+        int coinsKill = (int) profile.calculateWM(this.getKills(player) * KCoreSettings.TheBridge.options$coins$kills);
+        int coinsScore = (int) profile.calculateWM(team.getScore() * KCoreSettings.TheBridge.options$coins$score);
         int totalCoins = coinsWin + coinsKill + coinsScore;
         
         if (totalCoins > 0) {
           Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> player.sendMessage(
-              Language.ingame$messages$coins$base.replace("{coins}", StringUtils.formatNumber(totalCoins))
-                  .replace("{coins_win}", coinsWin > 0 ? Language.ingame$messages$coins$win.replace("{coins}", StringUtils.formatNumber(coinsWin)) : "").replace("{coins_points}",
+              KCoreSettings.TheBridge.ingame$messages$coins$base.replace("{coins}", StringUtils.formatNumber(totalCoins))
+                  .replace("{coins_win}", coinsWin > 0 ? KCoreSettings.TheBridge.ingame$messages$coins$win.replace("{coins}", StringUtils.formatNumber(coinsWin)) : "").replace("{coins_points}",
                       coinsScore > 0 ?
-                          Language.ingame$messages$coins$points.replace("{coins}", StringUtils.formatNumber(coinsScore)).replace("{points}", StringUtils.formatNumber(team.getScore())) :
+                          KCoreSettings.TheBridge.ingame$messages$coins$points.replace("{coins}", StringUtils.formatNumber(coinsScore)).replace("{points}", StringUtils.formatNumber(team.getScore())) :
                           "").replace("{coins_kills}", coinsKill > 0 ?
-                      Language.ingame$messages$coins$kills.replace("{coins}", StringUtils.formatNumber(coinsKill)).replace("{kills}", StringUtils.formatNumber(this.getKills(player))) :
+                      KCoreSettings.TheBridge.ingame$messages$coins$kills.replace("{coins}", StringUtils.formatNumber(coinsKill)).replace("{kills}", StringUtils.formatNumber(this.getKills(player))) :
                       "")), 30);
         }
       }
       
       if (team != null && team.equals(winners)) {
-        profile.addCoinsWM("kCoreTheBridge", Language.options$coins$wins);
+        profile.addCoinsWM("kCoreTheBridge", KCoreSettings.TheBridge.options$coins$wins);
         profile.addStats("kCoreTheBridge", this.getMode().getName() + "wins");
         profile.addStats("kCoreTheBridge", "monthlywins");
         profile.updateDailyStats("kCoreTheBridge", "laststreak", 1, "winstreak");
-        NMS.sendTitle(player, Language.ingame$titles$win$header, Language.ingame$titles$win$footer, 10, 80, 10);
+        NMS.sendTitle(player, KCoreSettings.TheBridge.ingame$titles$win$header, KCoreSettings.TheBridge.ingame$titles$win$footer, 10, 80, 10);
       } else {
         profile.updateDailyStats("kCoreTheBridge", "laststreak", 0, "winstreak");
-        NMS.sendTitle(player, Language.ingame$titles$lose$header, Language.ingame$titles$lose$footer, 10, 80, 10);
+        NMS.sendTitle(player, KCoreSettings.TheBridge.ingame$titles$lose$header, KCoreSettings.TheBridge.ingame$titles$lose$footer, 10, 80, 10);
       }
       
       this.spectators.add(player.getUniqueId());

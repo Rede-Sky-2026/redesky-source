@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.collectibles.cmd;
 
-import dev.slickcollections.kiwizin.collectibles.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.collectibles.Main;
 import dev.slickcollections.kiwizin.collectibles.cosmetics.Cosmetic;
 import dev.slickcollections.kiwizin.collectibles.cosmetics.CosmeticType;
@@ -57,13 +57,13 @@ public class CosmeticsCommand extends Commands {
         
         Cosmetic cosmetic = Cosmetic.findById(args[3]);
         if (user.hasCosmetic(cosmetic)) {
-          user.getProfile().addCoins("kCoreTheBridge", Language.settings$coins$duplicated);
-          user.getProfile().addCoins("kCoreSkyWars", Language.settings$coins$duplicated);
-          user.getProfile().addCoins("kCoreBedWars", Language.settings$coins$duplicated);
-          user.getProfile().addCoins("kCoreMurder", Language.settings$coins$duplicated);
+          user.getProfile().addCoins("kCoreTheBridge", KCoreSettings.Collectibles.settings$coins$duplicated);
+          user.getProfile().addCoins("kCoreSkyWars", KCoreSettings.Collectibles.settings$coins$duplicated);
+          user.getProfile().addCoins("kCoreBedWars", KCoreSettings.Collectibles.settings$coins$duplicated);
+          user.getProfile().addCoins("kCoreMurder", KCoreSettings.Collectibles.settings$coins$duplicated);
           user.getProfile().addStats("kMysteryBox", 50, "mystery_frags");
           user.getPlayer().sendMessage(
-              "§aVocê recebeu §6" + Language.settings$coins$duplicated + " Coins §apor já possuir " + cosmetic.getRarity().getTagged() + " " + cosmetic.getName() + "§a!");
+              "§aVocê recebeu §6" + KCoreSettings.Collectibles.settings$coins$duplicated + " Coins §apor já possuir " + cosmetic.getRarity().getTagged() + " " + cosmetic.getName() + "§a!");
         } else {
           user.addCosmetic(cosmetic);
           user.getPlayer().sendMessage("§aVocê recebeu " + cosmetic.getRarity().getTagged() + " " + cosmetic.getName() + " §aatravés de uma Cápsula Mágica!");

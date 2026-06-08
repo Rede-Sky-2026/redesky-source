@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.menus;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.bedwars.game.BedWars;
 import dev.slickcollections.kiwizin.bedwars.game.enums.BedWarsMode;
@@ -73,7 +73,7 @@ public class MenuMapSelector extends UpdatablePlayerPagedMenu {
                 EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
                 for (BedWars game : this.games.get(mapName)) {
                   if (game.getState().canJoin() && game.getOnline() < game.getMaxPlayers()) {
-                    this.player.sendMessage(Language.lobby$npc$play$connect);
+                    this.player.sendMessage(KCoreSettings.BedWars.lobby$npc$play$connect);
                     this.profile.setStats("kCoreBedWars", System.currentTimeMillis() + TimeUtils.getExpireIn(1), "lastmap");
                     game.join(this.profile);
                     break;
@@ -109,9 +109,9 @@ public class MenuMapSelector extends UpdatablePlayerPagedMenu {
       return;
     }
     
-    this.removeSlotsWith(BukkitUtils.deserializeItemStack(Language.lobby$npc$play$menu$info$item.replace("{desc}", this.player.hasPermission("kbedwars.menu.selector") ?
-        Language.lobby$npc$play$menu$info$desc_not_limit :
-        Language.lobby$npc$play$menu$info$desc_limit.replace("{limit}", this.can ? "0/1" : "1/1"))), 48);
+    this.removeSlotsWith(BukkitUtils.deserializeItemStack(KCoreSettings.BedWars.lobby$npc$play$menu$info$item.replace("{desc}", this.player.hasPermission("kbedwars.menu.selector") ?
+        KCoreSettings.BedWars.lobby$npc$play$menu$info$desc_not_limit :
+        KCoreSettings.BedWars.lobby$npc$play$menu$info$desc_limit.replace("{limit}", this.can ? "0/1" : "1/1"))), 48);
     this.setItems(items);
   }
   

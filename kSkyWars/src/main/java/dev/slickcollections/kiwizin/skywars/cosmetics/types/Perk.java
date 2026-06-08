@@ -4,7 +4,7 @@ import dev.slickcollections.kiwizin.cash.CashManager;
 import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.player.role.Role;
 import dev.slickcollections.kiwizin.plugin.config.KConfig;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.api.SWEvent;
 import dev.slickcollections.kiwizin.skywars.api.SWEventHandler;
@@ -178,20 +178,20 @@ public abstract class Perk extends Cosmetic implements SWEventHandler {
     PerkLevel perkLevel = this.levels.get(currentLevel - 1);
     String levelName = " " + (currentLevel > 3 ? currentLevel == 4 ? "IV" : "V" : StringUtils.repeat("I", currentLevel));
     String color = has ?
-        Language.cosmetics$color$unlocked :
-        (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) && canBuy ? Language.cosmetics$color$canbuy : Language.cosmetics$color$locked;
+        KCoreSettings.SkyWars.cosmetics$color$unlocked :
+        (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) && canBuy ? KCoreSettings.SkyWars.cosmetics$color$canbuy : KCoreSettings.SkyWars.cosmetics$color$locked;
     String desc = "";
     if (useDesc) {
       desc = (has && canBuy ?
-          (select ? "\n \n" + (isSelected ? Language.cosmetics$icon$has_desc$selected : Language.cosmetics$icon$has_desc$select) : Language.cosmetics$kit$icon$has_desc$start) :
+          (select ? "\n \n" + (isSelected ? KCoreSettings.SkyWars.cosmetics$icon$has_desc$selected : KCoreSettings.SkyWars.cosmetics$icon$has_desc$select) : KCoreSettings.SkyWars.cosmetics$kit$icon$has_desc$start) :
           select ?
               "" :
               canBuy ?
-                  Language.cosmetics$kit$icon$buy_desc$start.replace("{buy_desc_status}", (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) ?
-                      Language.cosmetics$icon$buy_desc$click_to_buy :
-                      Language.cosmetics$icon$buy_desc$enough) :
-                  Language.cosmetics$kit$icon$perm_desc$start
-                      .replace("{perm_desc_status}", role == null ? Language.cosmetics$icon$perm_desc$common : Language.cosmetics$icon$perm_desc$role.replace("{role}", role.getName())))
+                  KCoreSettings.SkyWars.cosmetics$kit$icon$buy_desc$start.replace("{buy_desc_status}", (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) ?
+                      KCoreSettings.SkyWars.cosmetics$icon$buy_desc$click_to_buy :
+                      KCoreSettings.SkyWars.cosmetics$icon$buy_desc$enough) :
+                  KCoreSettings.SkyWars.cosmetics$kit$icon$perm_desc$start
+                      .replace("{perm_desc_status}", role == null ? KCoreSettings.SkyWars.cosmetics$icon$perm_desc$common : KCoreSettings.SkyWars.cosmetics$icon$perm_desc$role.replace("{role}", role.getName())))
           .replaceFirst("Coins ", (Promotion.hasPromotion(this) && !has ? "" : "Coins "))
           .replaceFirst("Cash", (Promotion.hasPromotionCash(this) && !has ? "" : "Cash"))
           .replace("{name}", this.name).replace("{rarity}", this.getRarity().getName()).replace("{coins}", StringUtils.formatNumber(this.getCoins()) + (Promotion.hasPromotion(this) && !has ? " §6Coins §a§l" + String.valueOf(Promotion.getPromotion(this)).split("\\.")[0] + "% OFF§6" : ""))

@@ -5,7 +5,7 @@ import dev.slickcollections.kiwizin.nms.NMS;
 import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.player.hotbar.Hotbar;
 import dev.slickcollections.kiwizin.player.role.Role;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.hook.SWCoreHook;
 import dev.slickcollections.kiwizin.skywars.hook.mysteryboxes.MysteryBoxesHook;
@@ -41,7 +41,7 @@ public class PlayerJoinListener implements Listener {
       TagUtils.setTag(evt.getPlayer());
       
       if (Role.getPlayerRole(player).isBroadcast()) {
-        String broadcast = Language.lobby$broadcast
+        String broadcast = KCoreSettings.SkyWars.lobby$broadcast
             .replace("{player}", Role.getPrefixed(player.getName()));
         Profile.listProfiles().forEach(pf -> {
           if (!pf.playingGame()) {
@@ -59,8 +59,8 @@ public class PlayerJoinListener implements Listener {
     }, 10);
     
     NMS.sendTitle(player, "", "", 0, 1, 0);
-    if (Language.lobby$tab$enabled) {
-      NMS.sendTabHeaderFooter(player, Language.lobby$tab$header, Language.lobby$tab$footer);
+    if (KCoreSettings.SkyWars.lobby$tab$enabled) {
+      NMS.sendTabHeaderFooter(player, KCoreSettings.SkyWars.lobby$tab$header, KCoreSettings.SkyWars.lobby$tab$footer);
     }
     
     if (player.hasPermission("kskywars.cmd.skywars")) {

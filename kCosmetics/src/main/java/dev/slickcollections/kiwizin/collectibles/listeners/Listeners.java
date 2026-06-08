@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.collectibles.listeners;
 
-import dev.slickcollections.kiwizin.collectibles.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.collectibles.Main;
 import dev.slickcollections.kiwizin.collectibles.cosmetics.CosmeticType;
 import dev.slickcollections.kiwizin.collectibles.cosmetics.types.companions.name.CompanionNames;
@@ -139,10 +139,10 @@ public class Listeners implements Listener {
     LOGGER.run(Level.SEVERE, "Could not pass PlayerJoinEvent for ${n} v${v}", () -> {
       Player player = evt.getPlayer();
       CUser user = Users.loadUser(evt.getPlayer().getName());
-      if (Language.settings$mundos.contains(player.getWorld().getName())) {
+      if (KCoreSettings.Collectibles.settings$mundos.contains(player.getWorld().getName())) {
         user.enable();
-        if (Language.settings$item$usar) {
-          player.getInventory().setItem(Language.settings$item$slot - 1, BukkitUtils.deserializeItemStack(Language.settings$item$stack));
+        if (KCoreSettings.Collectibles.settings$item$usar) {
+          player.getInventory().setItem(KCoreSettings.Collectibles.settings$item$slot - 1, BukkitUtils.deserializeItemStack(KCoreSettings.Collectibles.settings$item$stack));
         }
       }
       if (player.hasPermission("kcosmetics.cmd.kcs")) {
@@ -177,12 +177,12 @@ public class Listeners implements Listener {
     
     CUser user = Users.getByName(player.getName());
     if (user != null) {
-      if (Language.settings$mundos.contains(player.getWorld().getName())) {
+      if (KCoreSettings.Collectibles.settings$mundos.contains(player.getWorld().getName())) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
           if (user.getProfile() != null && !user.getProfile().playingGame()) {
             user.enable();
-            if (Language.settings$item$usar) {
-              player.getInventory().setItem(Language.settings$item$slot - 1, BukkitUtils.deserializeItemStack(Language.settings$item$stack));
+            if (KCoreSettings.Collectibles.settings$item$usar) {
+              player.getInventory().setItem(KCoreSettings.Collectibles.settings$item$slot - 1, BukkitUtils.deserializeItemStack(KCoreSettings.Collectibles.settings$item$stack));
             }
           }
         }, 5L);
@@ -196,12 +196,12 @@ public class Listeners implements Listener {
   public void onPlayerInteract(PlayerInteractEvent evt) {
     Player player = evt.getPlayer();
     
-    if (Language.settings$item$usar && Language.settings$mundos.contains(player.getWorld().getName())) {
+    if (KCoreSettings.Collectibles.settings$item$usar && KCoreSettings.Collectibles.settings$mundos.contains(player.getWorld().getName())) {
       CUser user = Users.getByName(player.getName());
       if (user != null) {
         ItemStack item = player.getItemInHand();
         if (!evt.getAction().name().contains("PHYSICAL") && item != null) {
-          if (item.equals(player.getInventory().getItem(Language.settings$item$slot - 1))) {
+          if (item.equals(player.getInventory().getItem(KCoreSettings.Collectibles.settings$item$slot - 1))) {
             if (evt.getAction().name().contains("RIGHT")) {
               evt.setCancelled(true);
               if (user.isEnabled()) {
@@ -223,13 +223,13 @@ public class Listeners implements Listener {
   @EventHandler(priority = EventPriority.MONITOR)
   public void onInventoryClick(InventoryClickEvent evt) {
     if (evt.getWhoClicked() instanceof Player) {
-      if (Language.settings$mundos.contains(evt.getWhoClicked().getWorld().getName())) {
+      if (KCoreSettings.Collectibles.settings$mundos.contains(evt.getWhoClicked().getWorld().getName())) {
         CUser user = Users.getByName(evt.getWhoClicked().getName());
         if (user != null) {
           ItemStack item = evt.getCurrentItem();
           if (item != null && item.getType() != Material.AIR) {
-            if (Language.settings$item$usar) {
-              if (item.equals(evt.getWhoClicked().getInventory().getItem(Language.settings$item$slot - 1))) {
+            if (KCoreSettings.Collectibles.settings$item$usar) {
+              if (item.equals(evt.getWhoClicked().getInventory().getItem(KCoreSettings.Collectibles.settings$item$slot - 1))) {
                 evt.setCancelled(true);
                 if (user.isEnabled()) {
                   new CosmeticsMenu(user);

@@ -43,9 +43,7 @@ public class Main extends KPlugin {
     
     LCoreHook.setupHook();
     Lobby.setupLobbies();
-    Listeners.setupListeners();
-    Language.setupLanguage();
-    PlayNPC.setupNPCs();
+    Listeners.setupListeners();    PlayNPC.setupNPCs();
     DeliveryNPC.setupNPCs();
     Commands.setupCommands();
     

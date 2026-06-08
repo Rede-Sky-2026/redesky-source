@@ -2,7 +2,7 @@ package dev.slickcollections.kiwizin.thebridge.menus;
 
 import dev.slickcollections.kiwizin.libraries.menu.UpdatablePlayerPagedMenu;
 import dev.slickcollections.kiwizin.player.Profile;
-import dev.slickcollections.kiwizin.thebridge.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.thebridge.Main;
 import dev.slickcollections.kiwizin.thebridge.game.TheBridge;
 import dev.slickcollections.kiwizin.thebridge.game.enums.TheBridgeMode;
@@ -71,7 +71,7 @@ public class MenuMapSelector extends UpdatablePlayerPagedMenu {
                 EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
                 for (TheBridge game : this.games.get(mapName)) {
                   if (game.getState().canJoin() && game.getOnline() < game.getMaxPlayers()) {
-                    this.player.sendMessage(Language.lobby$npc$play$connect);
+                    this.player.sendMessage(KCoreSettings.TheBridge.lobby$npc$play$connect);
                     this.profile.setStats("kCoreTheBridge",
                         System.currentTimeMillis() + TimeUtils.getExpireIn(1), "lastmap");
                     game.join(this.profile);
@@ -110,8 +110,8 @@ public class MenuMapSelector extends UpdatablePlayerPagedMenu {
     }
     
     this.removeSlotsWith(BukkitUtils.deserializeItemStack(
-            Language.lobby$npc$play$menu$info$item.replace("{desc}", this.player.hasPermission("kthebridge.menu.selector") ? Language.lobby$npc$play$menu$info$desc_not_limit
-                : Language.lobby$npc$play$menu$info$desc_limit.replace("{limit}", this.can ? "0/1" : "1/1"))),
+            KCoreSettings.TheBridge.lobby$npc$play$menu$info$item.replace("{desc}", this.player.hasPermission("kthebridge.menu.selector") ? KCoreSettings.TheBridge.lobby$npc$play$menu$info$desc_not_limit
+                : KCoreSettings.TheBridge.lobby$npc$play$menu$info$desc_limit.replace("{limit}", this.can ? "0/1" : "1/1"))),
         30);
     this.setItems(items);
   }

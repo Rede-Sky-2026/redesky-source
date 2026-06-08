@@ -56,9 +56,7 @@ public class Main extends KPlugin {
       Core.setLobby(BukkitUtils.deserializeLocation(getConfig().getString("spawn")));
     }
     
-    AbstractSkyWars.setupGames();
-    Language.setupLanguage();
-    SWCoreHook.setupHook();
+    AbstractSkyWars.setupGames();    SWCoreHook.setupHook();
     Listeners.setupListeners();
     SkyWarsLeague.setupLeagues();
     Commands.setupCommands();

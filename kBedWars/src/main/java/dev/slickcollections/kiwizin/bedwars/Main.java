@@ -51,9 +51,7 @@ public class Main extends KPlugin {
     kMysteryBox = Bukkit.getPluginManager().getPlugin("kMysteryBox") != null;
     kCosmetics = Bukkit.getPluginManager().getPlugin("kCosmetics") != null;
     
-    BedWars.setupGames();
-    Language.setupLanguage();
-    
+    BedWars.setupGames();    
     Listeners.setupListeners();
     BWCoreHook.setupHook();
     Cosmetic.setupCosmetics();

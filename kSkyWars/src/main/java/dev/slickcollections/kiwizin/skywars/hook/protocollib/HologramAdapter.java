@@ -9,7 +9,7 @@ import dev.slickcollections.kiwizin.deliveries.Delivery;
 import dev.slickcollections.kiwizin.libraries.holograms.HologramLibrary;
 import dev.slickcollections.kiwizin.libraries.holograms.api.Hologram;
 import dev.slickcollections.kiwizin.player.Profile;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.utils.StringUtils;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Entity;
@@ -72,7 +72,7 @@ public class HologramAdapter extends PacketAdapter {
         if (deliveries == 0) {
           name = "";
         } else {
-          name = Language.lobby$npc$deliveries$deliveries.replace("{deliveries}", StringUtils.formatNumber(deliveries)).replace("{s}", deliveries > 1 ? "s" : "");
+          name = KCoreSettings.SkyWars.lobby$npc$deliveries$deliveries.replace("{deliveries}", StringUtils.formatNumber(deliveries)).replace("{s}", deliveries > 1 ? "s" : "");
         }
       }
       

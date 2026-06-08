@@ -2,7 +2,7 @@ package dev.slickcollections.kiwizin.thebridge.menus;
 
 import dev.slickcollections.kiwizin.libraries.menu.UpdatablePlayerMenu;
 import dev.slickcollections.kiwizin.player.Profile;
-import dev.slickcollections.kiwizin.thebridge.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.thebridge.Main;
 import dev.slickcollections.kiwizin.thebridge.game.TheBridge;
 import dev.slickcollections.kiwizin.thebridge.game.enums.TheBridgeMode;
@@ -50,7 +50,7 @@ public class MenuPlay extends UpdatablePlayerMenu {
               EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
               TheBridge game = TheBridge.findRandom(this.mode);
               if (game != null) {
-                this.player.sendMessage(Language.lobby$npc$play$connect);
+                this.player.sendMessage(KCoreSettings.TheBridge.lobby$npc$play$connect);
                 game.join(profile);
               }
             } else if (evt.getSlot() == 14) {

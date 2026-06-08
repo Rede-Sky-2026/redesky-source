@@ -4,7 +4,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import dev.slickcollections.kiwizin.Core;
 import dev.slickcollections.kiwizin.achievements.Achievement;
 import dev.slickcollections.kiwizin.achievements.types.MurderAchievement;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.murder.Main;
 import dev.slickcollections.kiwizin.murder.game.Murder;
 import dev.slickcollections.kiwizin.murder.game.MurderTeam;
@@ -48,7 +48,7 @@ public class MMCoreHook {
           }
         });
       }
-    }.runTaskTimerAsynchronously(Main.getInstance(), 0, Language.scoreboards$scroller$every_tick);
+    }.runTaskTimerAsynchronously(Main.getInstance(), 0, KCoreSettings.Murder.scoreboards$scroller$every_tick);
 
     new BukkitRunnable() {
       @Override
@@ -68,7 +68,7 @@ public class MMCoreHook {
     Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
       Achievement.listAchievements(MurderAchievement.class).stream().filter(ma -> ma.canComplete(profile)).forEach(ma -> {
         ma.complete(profile);
-        profile.getPlayer().sendMessage(Language.lobby$achievement.replace("{name}", ma.getName()));
+        profile.getPlayer().sendMessage(KCoreSettings.Murder.lobby$achievement.replace("{name}", ma.getName()));
       });
     });
   }
@@ -81,7 +81,7 @@ public class MMCoreHook {
     }
     Player player = profile.getPlayer();
     Murder game = profile.getGame(Murder.class);
-    List<String> lines = game == null ? Language.scoreboards$lobby : game.getState().canJoin() ? Language.scoreboards$waiting : game.getMode() == MurderMode.CLASSIC ? Language.scoreboards$classic : Language.scoreboards$assassins;
+    List<String> lines = game == null ? KCoreSettings.Murder.scoreboards$lobby : game.getState().canJoin() ? KCoreSettings.Murder.scoreboards$waiting : game.getMode() == MurderMode.CLASSIC ? KCoreSettings.Murder.scoreboards$classic : KCoreSettings.Murder.scoreboards$assassins;
     profile.setScoreboard(new KScoreboard() {
       @Override
       public void update() {
@@ -108,7 +108,7 @@ public class MMCoreHook {
               .replace("{mode}", game.getMode().getName())
               .replace("{players}", StringUtils.formatNumber(game.getOnline()))
               .replace("{max_players}", StringUtils.formatNumber(game.getMaxPlayers()))
-              .replace("{time}", game.getTimer() == 46 ? Language.scoreboards$time$waiting : Language.scoreboards$time$starting.replace("{time}", StringUtils.formatNumber(game.getTimer())));
+              .replace("{time}", game.getTimer() == 46 ? KCoreSettings.Murder.scoreboards$time$waiting : KCoreSettings.Murder.scoreboards$time$starting.replace("{time}", StringUtils.formatNumber(game.getTimer())));
           } else {
             line = PlaceholderAPI.setPlaceholders(player, line);
           }
@@ -116,7 +116,7 @@ public class MMCoreHook {
           this.add(15 - index, line);
         }
       }
-    }.scroller(new ScoreboardScroller(Language.scoreboards$scroller$titles)).to(player).build());
+    }.scroller(new ScoreboardScroller(KCoreSettings.Murder.scoreboards$scroller$titles)).to(player).build());
     profile.update();
     profile.getScoreboard().scroll();
   }

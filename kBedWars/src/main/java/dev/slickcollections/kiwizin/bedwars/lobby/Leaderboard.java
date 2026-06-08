@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.lobby;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.bedwars.lobby.leaderboards.BedsLeaderboard;
 import dev.slickcollections.kiwizin.bedwars.lobby.leaderboards.KillsLeaderboard;
@@ -50,7 +50,7 @@ public abstract class Leaderboard {
     }
   
     Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getInstance(), () ->
-        Profile.listProfiles().forEach(Profile::saveSync), 0, Language.lobby$leaderboard$minutes * 1200);
+        Profile.listProfiles().forEach(Profile::saveSync), 0, KCoreSettings.BedWars.lobby$leaderboard$minutes * 1200);
   
     Bukkit.getScheduler().runTaskTimer(Main.getInstance(), () ->
         listLeaderboards().forEach(Leaderboard::update), 0, 1);

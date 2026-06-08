@@ -5,7 +5,7 @@ import dev.slickcollections.kiwizin.libraries.holograms.api.Hologram;
 import dev.slickcollections.kiwizin.libraries.npclib.NPCLibrary;
 import dev.slickcollections.kiwizin.libraries.npclib.api.npc.NPC;
 import dev.slickcollections.kiwizin.plugin.config.KConfig;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.cosmetics.object.Promotion;
 import dev.slickcollections.kiwizin.skywars.lobby.trait.NPCSkinTrait;
@@ -90,19 +90,19 @@ public class PromotionNPC {
     }
     
     this.hologram = HologramLibrary.createHologram(this.location.clone().add(0, 0.5, 0));
-    for (int index = Language.lobby$npc$promotion$hologram.size(); index > 0; index--) {
-      this.hologram.withLine(Language.lobby$npc$promotion$hologram.get(index - 1));
+    for (int index = KCoreSettings.SkyWars.lobby$npc$promotion$hologram.size(); index > 0; index--) {
+      this.hologram.withLine(KCoreSettings.SkyWars.lobby$npc$promotion$hologram.get(index - 1));
     }
     
     this.npc = NPCLibrary.createNPC(EntityType.PLAYER, "§8[NPC] ");
     this.npc.data().set("promotion-npc", true);
     this.npc.data().set(NPC.HIDE_BY_TEAMS_KEY, true);
-    this.npc.addTrait(new NPCSkinTrait(this.npc, Language.lobby$npc$promotion$skin$value, Language.lobby$npc$promotion$skin$signature));
+    this.npc.addTrait(new NPCSkinTrait(this.npc, KCoreSettings.SkyWars.lobby$npc$promotion$skin$value, KCoreSettings.SkyWars.lobby$npc$promotion$skin$signature));
     this.npc.spawn(this.location);
   }
   
   public void update() {
-    int size = Language.lobby$npc$promotion$hologram.size();
+    int size = KCoreSettings.SkyWars.lobby$npc$promotion$hologram.size();
     for (int index = size; index > 0; index--) {
       if (this.hologram.getLine(size - (index - 1)).getLine().contains("{promotions") && Promotion.size() < 1) {
         this.hologram.getLine(size - (index - 1)).despawn();
@@ -110,7 +110,7 @@ public class PromotionNPC {
       } else if (this.hologram.getLine(size - (index - 1)).getLine().contains("{promotions}") && Promotion.size() >= 1) {
         this.hologram.getLine(size - (index - 1)).spawn();
       }
-      this.hologram.updateLine(size - (index - 1), Language.lobby$npc$promotion$hologram.get(index - 1).replace("{promotions}", StringUtils.formatNumber(Promotion.size())));
+      this.hologram.updateLine(size - (index - 1), KCoreSettings.SkyWars.lobby$npc$promotion$hologram.get(index - 1).replace("{promotions}", StringUtils.formatNumber(Promotion.size())));
     }
   }
   

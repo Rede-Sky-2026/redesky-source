@@ -1,7 +1,7 @@
 package dev.slickcollections.kiwizin.bedwars.listeners.player;
 
 import dev.slickcollections.kiwizin.Core;
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.bedwars.game.ArenaRollbackerTask;
 import dev.slickcollections.kiwizin.bedwars.hook.BWCoreHook;
@@ -42,7 +42,7 @@ public class PlayerJoinListener implements Listener {
       TagUtils.setTag(evt.getPlayer());
   
       if (Role.getPlayerRole(player).isBroadcast()) {
-        String broadcast = Language.lobby$broadcast.replace("{player}", Role.getPrefixed(player.getName()));
+        String broadcast = KCoreSettings.BedWars.lobby$broadcast.replace("{player}", Role.getPrefixed(player.getName()));
         Profile.listProfiles().forEach(pf -> {
           if (!pf.playingGame()) {
             Player players = pf.getPlayer();
@@ -59,8 +59,8 @@ public class PlayerJoinListener implements Listener {
     }, 10);
     
     NMS.sendTitle(player, "", "", 0, 1, 0);
-    if (Language.lobby$tab$enabled) {
-      NMS.sendTabHeaderFooter(player, Language.lobby$tab$header, Language.lobby$tab$footer);
+    if (KCoreSettings.BedWars.lobby$tab$enabled) {
+      NMS.sendTabHeaderFooter(player, KCoreSettings.BedWars.lobby$tab$header, KCoreSettings.BedWars.lobby$tab$footer);
     }
     
     if (player.hasPermission("kskywars.cmd.skywars")) {

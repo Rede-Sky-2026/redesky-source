@@ -33,7 +33,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.NameTagVisibility;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.murder.Main;
 import dev.slickcollections.kiwizin.murder.container.SelectedContainer;
 import dev.slickcollections.kiwizin.murder.cosmetics.CosmeticType;
@@ -168,10 +168,10 @@ public class AssassinsMurder extends Murder {
     }
 
     createAppearance(player);
-    this.broadcastMessage(Language.ingame$broadcast$join.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+    this.broadcastMessage(KCoreSettings.Murder.ingame$broadcast$join.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
       .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
-    if (this.getOnline() == this.getMaxPlayers() && this.timer > Language.options$start$full) {
-      this.timer = Language.options$start$full;
+    if (this.getOnline() == this.getMaxPlayers() && this.timer > KCoreSettings.Murder.options$start$full) {
+      this.timer = KCoreSettings.Murder.options$start$full;
     }
     this.updateTags();
   }
@@ -206,7 +206,7 @@ public class AssassinsMurder extends Murder {
         team.removeMember(player);
       }
       if (this.state == GameState.AGUARDANDO) {
-        this.broadcastMessage(Language.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+        this.broadcastMessage(KCoreSettings.Murder.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
           .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
       }
       resetAppearance(player);
@@ -230,7 +230,7 @@ public class AssassinsMurder extends Murder {
       team.removeMember(player);
     }
     if (this.state == GameState.AGUARDANDO) {
-      this.broadcastMessage(Language.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+      this.broadcastMessage(KCoreSettings.Murder.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
         .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
     }
     profile.setGame(null);
@@ -256,7 +256,7 @@ public class AssassinsMurder extends Murder {
     if (dm != null) {
       this.broadcastMessage(dm.getRandomMessage().replace("{name}", Role.getColored(player.getName())).replace("{killer}", Role.getColored(pk.getName())));
     } else {
-      this.broadcastMessage(Language.ingame$broadcast$default_killed_message.replace("{name}", Role.getColored(player.getName())).replace("{killer}", Role.getColored(pk.getName())) );
+      this.broadcastMessage(KCoreSettings.Murder.ingame$broadcast$default_killed_message.replace("{name}", Role.getColored(player.getName())).replace("{killer}", Role.getColored(pk.getName())) );
     }
 
     MurderSkin skin = this.getSkin(player);
@@ -370,7 +370,7 @@ public class AssassinsMurder extends Murder {
       if (dm != null) {
         this.broadcastMessage(dm.getRandomMessage().replace("{name}", Role.getColored(player.getName())).replace("{killer}", Role.getColored(pk.getName())));
       } else {
-        this.broadcastMessage(Language.ingame$broadcast$default_killed_message.replace("{name}", Role.getColored(player.getName())).replace("{killer}", Role.getColored(pk.getName())) );
+        this.broadcastMessage(KCoreSettings.Murder.ingame$broadcast$default_killed_message.replace("{name}", Role.getColored(player.getName())).replace("{killer}", Role.getColored(pk.getName())) );
       }
       DeathCry dc = profile.getAbstractContainer("kCoreMurder", "selected", SelectedContainer.class).getSelected(CosmeticType.DEATH_CRY, DeathCry.class);
       if (dc != null) {
@@ -431,7 +431,7 @@ public class AssassinsMurder extends Murder {
 
       if (winner != null && winner.equals(player)) {
         profile.addStats("kCoreMurder", "aswins");
-        profile.addCoinsWM("kCoreMurder", Language.options$coins$wins
+        profile.addCoinsWM("kCoreMurder", KCoreSettings.Murder.options$coins$wins
         );
         NMS.sendTitle(player, "§c§lFIM DE JOGO", "§fVocê venceu!", 10, 80, 10);
       } else {
@@ -500,7 +500,7 @@ public class AssassinsMurder extends Murder {
         player.getInventory().setItem(config.get("CO0", 1), BukkitUtils.deserializeItemStack("COMPASS : 1 : nome>&aLocalizador"));
       }
       // TODO: Setar mapa
-      player.sendMessage(Language.ingame$contract_updated);
+      player.sendMessage(KCoreSettings.Murder.ingame$contract_updated);
     }
   }
 

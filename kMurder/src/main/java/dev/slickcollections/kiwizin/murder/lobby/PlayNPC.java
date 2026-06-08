@@ -4,7 +4,7 @@ import dev.slickcollections.kiwizin.libraries.holograms.HologramLibrary;
 import dev.slickcollections.kiwizin.libraries.holograms.api.Hologram;
 import dev.slickcollections.kiwizin.libraries.npclib.NPCLibrary;
 import dev.slickcollections.kiwizin.libraries.npclib.api.npc.NPC;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.murder.Main;
 import dev.slickcollections.kiwizin.murder.game.Murder;
 import dev.slickcollections.kiwizin.murder.game.enums.MurderMode;
@@ -52,8 +52,8 @@ public class PlayNPC {
     }
 
     this.hologram = HologramLibrary.createHologram(this.location.clone().add(0, 0.5, 0));
-    for (int index = (this.mode == MurderMode.CLASSIC ? Language.lobby$npc$play$classic$hologram : Language.lobby$npc$play$assassins$hologram).size(); index > 0; index--) {
-      this.hologram.withLine((this.mode == MurderMode.CLASSIC ? Language.lobby$npc$play$classic$hologram : Language.lobby$npc$play$assassins$hologram).get(index - 1)
+    for (int index = (this.mode == MurderMode.CLASSIC ? KCoreSettings.Murder.lobby$npc$play$classic$hologram : KCoreSettings.Murder.lobby$npc$play$assassins$hologram).size(); index > 0; index--) {
+      this.hologram.withLine((this.mode == MurderMode.CLASSIC ? KCoreSettings.Murder.lobby$npc$play$classic$hologram : KCoreSettings.Murder.lobby$npc$play$assassins$hologram).get(index - 1)
         .replace("{players}", StringUtils.formatNumber(Murder.getWaiting(this.mode) + Murder.getPlaying(this.mode))));
     }
 
@@ -61,18 +61,18 @@ public class PlayNPC {
     this.npc.data().set("play-npc", this.mode.name());
     this.npc.data().set(NPC.HIDE_BY_TEAMS_KEY, true);
     if (this.mode == MurderMode.CLASSIC) {
-      this.npc.addTrait(new NPCSkinTrait(this.npc, Language.lobby$npc$play$classic$skin$value, Language.lobby$npc$play$classic$skin$signature));
+      this.npc.addTrait(new NPCSkinTrait(this.npc, KCoreSettings.Murder.lobby$npc$play$classic$skin$value, KCoreSettings.Murder.lobby$npc$play$classic$skin$signature));
     } else {
-      this.npc.addTrait(new NPCSkinTrait(this.npc, Language.lobby$npc$play$assassins$skin$value, Language.lobby$npc$play$assassins$skin$signature));
+      this.npc.addTrait(new NPCSkinTrait(this.npc, KCoreSettings.Murder.lobby$npc$play$assassins$skin$value, KCoreSettings.Murder.lobby$npc$play$assassins$skin$signature));
     }
     this.npc.spawn(this.location);
   }
 
   public void update() {
-    int size = (this.mode == MurderMode.CLASSIC ? Language.lobby$npc$play$classic$hologram : Language.lobby$npc$play$assassins$hologram).size();
+    int size = (this.mode == MurderMode.CLASSIC ? KCoreSettings.Murder.lobby$npc$play$classic$hologram : KCoreSettings.Murder.lobby$npc$play$assassins$hologram).size();
     for (int index = size; index > 0; index--) {
       this.hologram.updateLine(size - (index - 1),
-        (this.mode == MurderMode.CLASSIC ? Language.lobby$npc$play$classic$hologram : Language.lobby$npc$play$assassins$hologram).get(index - 1)
+        (this.mode == MurderMode.CLASSIC ? KCoreSettings.Murder.lobby$npc$play$classic$hologram : KCoreSettings.Murder.lobby$npc$play$assassins$hologram).get(index - 1)
           .replace("{players}", StringUtils.formatNumber(Murder.getWaiting(this.mode) + Murder.getPlaying(this.mode))));
     }
   }

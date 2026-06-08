@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.cosmetics.types;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.bedwars.hook.container.SelectedContainer;
 import dev.slickcollections.kiwizin.bedwars.cosmetics.Cosmetic;
@@ -256,15 +256,15 @@ public class Cage extends Cosmetic {
     
     Role role = Role.getRoleByPermission(this.getPermission());
     String color = has ?
-        (isSelected ? Language.cosmetics$color$selected : Language.cosmetics$color$unlocked) :
-        (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) && canBuy ? Language.cosmetics$color$canbuy : Language.cosmetics$color$locked;
+        (isSelected ? KCoreSettings.BedWars.cosmetics$color$selected : KCoreSettings.BedWars.cosmetics$color$unlocked) :
+        (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) && canBuy ? KCoreSettings.BedWars.cosmetics$color$canbuy : KCoreSettings.BedWars.cosmetics$color$locked;
     String desc = (has && canBuy ?
-        Language.cosmetics$cage$icon$has_desc$start.replace("{has_desc_status}", isSelected ? Language.cosmetics$icon$has_desc$selected : Language.cosmetics$icon$has_desc$select) :
+        KCoreSettings.BedWars.cosmetics$cage$icon$has_desc$start.replace("{has_desc_status}", isSelected ? KCoreSettings.BedWars.cosmetics$icon$has_desc$selected : KCoreSettings.BedWars.cosmetics$icon$has_desc$select) :
         canBuy ?
-            Language.cosmetics$cage$icon$buy_desc$start.replace("{buy_desc_status}",
-                (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) ? Language.cosmetics$icon$buy_desc$click_to_buy : Language.cosmetics$icon$buy_desc$enough) :
-            Language.cosmetics$cage$icon$perm_desc$start
-                .replace("{perm_desc_status}", (role == null ? Language.cosmetics$icon$perm_desc$common : Language.cosmetics$icon$perm_desc$role.replace("{role}", role.getName()))))
+            KCoreSettings.BedWars.cosmetics$cage$icon$buy_desc$start.replace("{buy_desc_status}",
+                (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) ? KCoreSettings.BedWars.cosmetics$icon$buy_desc$click_to_buy : KCoreSettings.BedWars.cosmetics$icon$buy_desc$enough) :
+            KCoreSettings.BedWars.cosmetics$cage$icon$perm_desc$start
+                .replace("{perm_desc_status}", (role == null ? KCoreSettings.BedWars.cosmetics$icon$perm_desc$common : KCoreSettings.BedWars.cosmetics$icon$perm_desc$role.replace("{role}", role.getName()))))
         .replace("{name}", this.name).replace("{rarity}", this.getRarity().getName()).replace("{coins}", StringUtils.formatNumber(this.getCoins()))
         .replace("{cash}", StringUtils.formatNumber(this.getCash()));
     ItemStack item = BukkitUtils.deserializeItemStack(this.icon + " : nome>" + color + this.name + " : desc>" + desc);

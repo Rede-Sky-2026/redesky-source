@@ -13,7 +13,7 @@ import dev.slickcollections.kiwizin.player.hotbar.HotbarButton;
 import dev.slickcollections.kiwizin.player.scoreboard.KScoreboard;
 import dev.slickcollections.kiwizin.player.scoreboard.scroller.ScoreboardScroller;
 import dev.slickcollections.kiwizin.plugin.config.KConfig;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.container.SelectedContainer;
 import dev.slickcollections.kiwizin.skywars.cosmetics.CosmeticType;
@@ -51,7 +51,7 @@ public class SWCoreHook {
           }
         });
       }
-    }.runTaskTimerAsynchronously(Main.getInstance(), 0, Language.scoreboards$scroller$every_tick);
+    }.runTaskTimerAsynchronously(Main.getInstance(), 0, KCoreSettings.SkyWars.scoreboards$scroller$every_tick);
     
     new BukkitRunnable() {
       @Override
@@ -71,7 +71,7 @@ public class SWCoreHook {
     Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
       Achievement.listAchievements(SkyWarsAchievement.class).stream().filter(swa -> swa.canComplete(profile)).forEach(swa -> {
         swa.complete(profile);
-        profile.getPlayer().sendMessage(Language.lobby$achievement.replace("{name}", swa.getName()));
+        profile.getPlayer().sendMessage(KCoreSettings.SkyWars.lobby$achievement.replace("{name}", swa.getName()));
       });
     });
   }
@@ -83,10 +83,10 @@ public class SWCoreHook {
     Player player = profile.getPlayer();
     AbstractSkyWars game = profile.getGame(AbstractSkyWars.class);
     List<String> lines = game == null ?
-        Language.scoreboards$lobby :
+        KCoreSettings.SkyWars.scoreboards$lobby :
         game.getState() == GameState.AGUARDANDO ?
-            Language.scoreboards$waiting :
-            (game.getMode() == SkyWarsMode.SOLO || game.getMode() == SkyWarsMode.RANKED ? Language.scoreboards$ingame$solo : Language.scoreboards$ingame$dupla);
+            KCoreSettings.SkyWars.scoreboards$waiting :
+            (game.getMode() == SkyWarsMode.SOLO || game.getMode() == SkyWarsMode.RANKED ? KCoreSettings.SkyWars.scoreboards$ingame$solo : KCoreSettings.SkyWars.scoreboards$ingame$dupla);
     
     profile.setScoreboard(new KScoreboard() {
       @Override
@@ -103,7 +103,7 @@ public class SWCoreHook {
                     .replace("{players}", StringUtils.formatNumber(game.getOnline()))
                     .replace("{teams}", StringUtils.formatNumber(game.listTeams().stream().filter(SkyWarsTeam::isAlive).count()))
                     .replace("{max_players}", StringUtils.formatNumber(game.getMaxPlayers()))
-                    .replace("{time}", game.getTimer() == 46 ? Language.scoreboards$time$waiting : Language.scoreboards$time$starting.replace("{time}", StringUtils.formatNumber(game.getTimer())))
+                    .replace("{time}", game.getTimer() == 46 ? KCoreSettings.SkyWars.scoreboards$time$waiting : KCoreSettings.SkyWars.scoreboards$time$starting.replace("{time}", StringUtils.formatNumber(game.getTimer())))
                     .replace("{kills}", StringUtils.formatNumber(game.getKills(player)))
                     .replace("{ranking_1}", game.getTopKill(1))
                     .replace("{ranking_2}", game.getTopKill(2))
@@ -118,7 +118,7 @@ public class SWCoreHook {
           this.add(15 - index, line);
         }
       }
-    }.scroller(new ScoreboardScroller(Language.scoreboards$scroller$titles)).to(player).build());
+    }.scroller(new ScoreboardScroller(KCoreSettings.SkyWars.scoreboards$scroller$titles)).to(player).build());
     if (game != null && game.getState() != GameState.AGUARDANDO) {
       profile.getScoreboard().health().updateHealth();
     }

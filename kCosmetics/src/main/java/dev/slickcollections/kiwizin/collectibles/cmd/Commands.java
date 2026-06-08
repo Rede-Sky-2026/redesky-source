@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.collectibles.cmd;
 
-import dev.slickcollections.kiwizin.collectibles.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.collectibles.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -26,7 +26,7 @@ public abstract class Commands extends Command {
   
   public static void setupCommands() {
     new CosmeticsCommand();
-    if (Language.settings$command$cosmetics) {
+    if (KCoreSettings.Collectibles.settings$command$cosmetics) {
       new CosmeticsMenuCommand();
     }
   }

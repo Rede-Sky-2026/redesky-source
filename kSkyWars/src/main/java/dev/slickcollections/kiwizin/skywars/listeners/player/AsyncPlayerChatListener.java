@@ -2,7 +2,7 @@ package dev.slickcollections.kiwizin.skywars.listeners.player;
 
 import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.player.role.Role;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.game.AbstractSkyWars;
 import dev.slickcollections.kiwizin.skywars.game.object.SkyWarsLeague;
 import dev.slickcollections.kiwizin.utils.StringUtils;
@@ -47,7 +47,7 @@ public class AsyncPlayerChatListener implements Listener {
             timeString = timeString.substring(0, timeString.lastIndexOf("."));
           }
           
-          player.sendMessage(Language.chat$delay.replace("{time}", timeString));
+          player.sendMessage(KCoreSettings.SkyWars.chat$delay.replace("{time}", timeString));
           return;
         }
       }
@@ -65,11 +65,11 @@ public class AsyncPlayerChatListener implements Listener {
     if (game == null || !game.isSpectator(player)) {
       String symbolColored = StringUtils.getFirstColor(SkyWarsLeague.getLeague(profile).getTag()) + "[" + SkyWarsLeague.getLeague(profile).getSymbol() + "]";
       evt.setFormat(
-          Language.chat$format$lobby.replace("{player}", role.getPrefix() + "%s").replace("{league}", symbolColored).replace("{color}", role.isDefault() ? Language.chat$color$default : Language.chat$color$custom)
+          KCoreSettings.SkyWars.chat$format$lobby.replace("{player}", role.getPrefix() + "%s").replace("{league}", symbolColored).replace("{color}", role.isDefault() ? KCoreSettings.SkyWars.chat$color$default : KCoreSettings.SkyWars.chat$color$custom)
               .replace("{message}", "%s"));
     } else {
       evt.setFormat(
-          Language.chat$format$spectator.replace("{player}", role.getPrefix() + "%s").replace("{color}", role.isDefault() ? Language.chat$color$default : Language.chat$color$custom)
+          KCoreSettings.SkyWars.chat$format$spectator.replace("{player}", role.getPrefix() + "%s").replace("{color}", role.isDefault() ? KCoreSettings.SkyWars.chat$color$default : KCoreSettings.SkyWars.chat$color$custom)
               .replace("{message}", "%s"));
     }
     evt.getRecipients().clear();

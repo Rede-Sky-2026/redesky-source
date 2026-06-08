@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.game;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.bedwars.game.interfaces.LoadCallback;
 import dev.slickcollections.kiwizin.bedwars.game.object.BedWarsBlock;
@@ -64,25 +64,25 @@ public class ArenaRollbackerTask extends BukkitRunnable {
     
     int count = 0;
     if (this.rollbacking != null) {
-      if (Language.options$regen$world_reload) {
+      if (KCoreSettings.BedWars.options$regen$world_reload) {
         this.locked = true;
         this.rollbacking.getConfig().reload(() -> {
           this.rollbacking.setState(GameState.AGUARDANDO);
-          this.rollbacking.setTimer(Language.options$start$waiting + 1);
+          this.rollbacking.setTimer(KCoreSettings.BedWars.options$start$waiting + 1);
           this.rollbacking.getTask().reset();
           this.rollbacking = null;
           this.iterator = null;
           this.locked = false;
         });
       } else {
-        while (this.iterator.hasNext() && count < Language.options$regen$block_regen$per_tick) {
+        while (this.iterator.hasNext() && count < KCoreSettings.BedWars.options$regen$block_regen$per_tick) {
           this.rollbacking.resetBlock(this.iterator.next());
           count++;
         }
         
         if (!this.iterator.hasNext()) {
           this.rollbacking.setState(GameState.AGUARDANDO);
-          this.rollbacking.setTimer(Language.options$start$waiting + 1);
+          this.rollbacking.setTimer(KCoreSettings.BedWars.options$start$waiting + 1);
           this.rollbacking.getTask().reset();
           this.rollbacking = null;
           this.iterator = null;

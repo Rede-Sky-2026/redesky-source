@@ -1,7 +1,7 @@
 package dev.slickcollections.kiwizin.murder.cosmetics.types;
 
 import dev.slickcollections.kiwizin.cash.CashManager;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.murder.Main;
 import dev.slickcollections.kiwizin.murder.container.SelectedContainer;
 import dev.slickcollections.kiwizin.murder.cosmetics.Cosmetic;
@@ -73,15 +73,15 @@ public abstract class WinAnimation extends Cosmetic {
             profile.getAbstractContainer("kCoreMurder", "selected", SelectedContainer.class).setSelected(getType(), 0);
         }
         Role role = Role.getRoleByPermission(this.getPermission());
-        String color = has ? (isSelected ? Language.cosmetics$color$selected : Language.cosmetics$color$unlocked)
-                : (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) && canBuy ? Language.cosmetics$color$canbuy : Language.cosmetics$color$locked;
+        String color = has ? (isSelected ? KCoreSettings.Murder.cosmetics$color$selected : KCoreSettings.Murder.cosmetics$color$unlocked)
+                : (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) && canBuy ? KCoreSettings.Murder.cosmetics$color$canbuy : KCoreSettings.Murder.cosmetics$color$locked;
         String desc = (has && canBuy ?
-                Language.cosmetics$win_animation$icon$has_desc$start.replace("{has_desc_status}", isSelected ? Language.cosmetics$icon$has_desc$selected : Language.cosmetics$icon$has_desc$select) :
+                KCoreSettings.Murder.cosmetics$win_animation$icon$has_desc$start.replace("{has_desc_status}", isSelected ? KCoreSettings.Murder.cosmetics$icon$has_desc$selected : KCoreSettings.Murder.cosmetics$icon$has_desc$select) :
                 canBuy ?
-                        Language.cosmetics$win_animation$icon$buy_desc$start
-                                .replace("{buy_desc_status}", (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) ? Language.cosmetics$icon$buy_desc$click_to_buy : Language.cosmetics$icon$buy_desc$enough) :
-                        Language.cosmetics$win_animation$icon$perm_desc$start
-                                .replace("{perm_desc_status}", (role == null ? Language.cosmetics$icon$perm_desc$common : Language.cosmetics$icon$perm_desc$role.replace("{role}", role.getName()))))
+                        KCoreSettings.Murder.cosmetics$win_animation$icon$buy_desc$start
+                                .replace("{buy_desc_status}", (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) ? KCoreSettings.Murder.cosmetics$icon$buy_desc$click_to_buy : KCoreSettings.Murder.cosmetics$icon$buy_desc$enough) :
+                        KCoreSettings.Murder.cosmetics$win_animation$icon$perm_desc$start
+                                .replace("{perm_desc_status}", (role == null ? KCoreSettings.Murder.cosmetics$icon$perm_desc$common : KCoreSettings.Murder.cosmetics$icon$perm_desc$role.replace("{role}", role.getName()))))
                 .replace("{name}", this.name).replace("{rarity}", this.getRarity().getName()).replace("{coins}", StringUtils.formatNumber(this.getCoins())).replace("{cash}", StringUtils.formatNumber(this.getCash()));
         ItemStack item = BukkitUtils.deserializeItemStack(this.icon + desc + " : nome>" + (color + this.name));
         if (isSelected) {

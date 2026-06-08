@@ -3,7 +3,7 @@ package dev.slickcollections.kiwizin.mysterybox.lobby;
 import com.google.common.collect.ImmutableList;
 import dev.slickcollections.kiwizin.libraries.holograms.HologramLibrary;
 import dev.slickcollections.kiwizin.libraries.holograms.api.Hologram;
-import dev.slickcollections.kiwizin.mysterybox.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.mysterybox.Main;
 import dev.slickcollections.kiwizin.mysterybox.box.action.BoxContent;
 import dev.slickcollections.kiwizin.mysterybox.cosmetics.CosmeticType;
@@ -52,7 +52,7 @@ public class BoxNPC {
     this.refreshCapsuleEntity();
     
     this.hologram = HologramLibrary.createHologram(this.location.clone());
-    List<String> lines = new ArrayList<>(Language.lobby$mysterybox$holograms);
+    List<String> lines = new ArrayList<>(KCoreSettings.MysteryBox.lobby$mysterybox$holograms);
     Collections.reverse(lines);
     for (String line : lines) {
       this.hologram.withLine(line);
@@ -161,7 +161,7 @@ public class BoxNPC {
       return;
     }
     
-    List<String> lines = new ArrayList<>(Language.lobby$mysterybox$holograms);
+    List<String> lines = new ArrayList<>(KCoreSettings.MysteryBox.lobby$mysterybox$holograms);
     int size = lines.size();
     for (int index = size; index > 0; index--) {
       this.hologram.updateLine(size - (index - 1), lines.get(index - 1));

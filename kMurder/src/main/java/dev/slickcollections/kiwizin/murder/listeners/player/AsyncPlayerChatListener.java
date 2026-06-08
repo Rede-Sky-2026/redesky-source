@@ -10,7 +10,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.murder.game.Murder;
 
 import java.text.DecimalFormat;
@@ -47,7 +47,7 @@ public class AsyncPlayerChatListener implements Listener {
             timeString = timeString.substring(0, timeString.lastIndexOf("."));
           }
 
-          player.sendMessage(Language.chat$delay.replace("{time}", timeString));
+          player.sendMessage(KCoreSettings.Murder.chat$delay.replace("{time}", timeString));
           return;
         }
       }
@@ -73,11 +73,11 @@ public class AsyncPlayerChatListener implements Listener {
 
     if (game == null || !game.isSpectator(player)) {
       evt.setFormat(
-        Language.chat$format$lobby.replace("{player}", role.getPrefix() + "%s").replace("{color}", role.isDefault() ? Language.chat$color$default : Language.chat$color$custom)
+        KCoreSettings.Murder.chat$format$lobby.replace("{player}", role.getPrefix() + "%s").replace("{color}", role.isDefault() ? KCoreSettings.Murder.chat$color$default : KCoreSettings.Murder.chat$color$custom)
           .replace("{message}", "%s"));
     } else {
       evt.setFormat(
-        Language.chat$format$spectator.replace("{player}", role.getPrefix() + "%s").replace("{color}", role.isDefault() ? Language.chat$color$default : Language.chat$color$custom)
+        KCoreSettings.Murder.chat$format$spectator.replace("{player}", role.getPrefix() + "%s").replace("{color}", role.isDefault() ? KCoreSettings.Murder.chat$color$default : KCoreSettings.Murder.chat$color$custom)
           .replace("{message}", "%s"));
     }
     evt.setFormat((suffix.equals(" ") ? "" : suffix) + "§r" + evt.getFormat());

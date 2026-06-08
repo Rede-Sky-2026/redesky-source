@@ -1,7 +1,7 @@
 package dev.slickcollections.kiwizin.skywars.game;
 
 import dev.slickcollections.kiwizin.plugin.logger.KLogger;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.game.events.AnnounceEvent;
 import dev.slickcollections.kiwizin.skywars.game.events.EndEvent;
@@ -21,7 +21,7 @@ public abstract class SkyWarsEvent {
     END_EVENT = new EndEvent();
     REFILL_EVENT = new RefillEvent();
     ANNOUNCE_EVENT = new AnnounceEvent();
-    for (String evt : Language.options$events$solo$timings) {
+    for (String evt : KCoreSettings.SkyWars.options$events$solo$timings) {
       Object[] event = parseEvent(evt);
       if (event == null) {
         LOGGER.log(Level.WARNING, "O evento solo \"" + evt + "\" nao e valido");
@@ -31,7 +31,7 @@ public abstract class SkyWarsEvent {
       SOLO.put((int) event[0], (SkyWarsEvent) event[1]);
     }
     
-    for (String evt : Language.options$events$ranked$timings) {
+    for (String evt : KCoreSettings.SkyWars.options$events$ranked$timings) {
       Object[] event = parseEvent(evt);
       if (event == null) {
         LOGGER.log(Level.WARNING, "O evento ranked \"" + evt + "\" nao e valido");
@@ -41,7 +41,7 @@ public abstract class SkyWarsEvent {
       RANKED.put((int) event[0], (SkyWarsEvent) event[1]);
     }
     
-    for (String evt : Language.options$events$dupla$timings) {
+    for (String evt : KCoreSettings.SkyWars.options$events$dupla$timings) {
       Object[] event = parseEvent(evt);
       if (event == null) {
         LOGGER.log(Level.WARNING, "O evento dupla \"" + evt + "\" nao e valido");

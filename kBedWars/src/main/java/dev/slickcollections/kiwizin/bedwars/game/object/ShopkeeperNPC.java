@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.game.object;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.cosmetics.CosmeticType;
 import dev.slickcollections.kiwizin.bedwars.cosmetics.types.ShopkeeperSkin;
 import dev.slickcollections.kiwizin.bedwars.game.BedWarsTeam;
@@ -47,7 +47,7 @@ public class ShopkeeperNPC {
       return;
     }
     
-    List<String> list = new ArrayList<>(type.equals("items") ? Language.ingame$npc$shop$item$hologram : Language.ingame$npc$shop$upgrade$hologram);
+    List<String> list = new ArrayList<>(type.equals("items") ? KCoreSettings.BedWars.ingame$npc$shop$item$hologram : KCoreSettings.BedWars.ingame$npc$shop$upgrade$hologram);
     for (int index = list.size(); index > 0; index--) {
       this.hologram.updateLine(list.size() - (index - 1), list.get(index - 1));
     }
@@ -81,7 +81,7 @@ public class ShopkeeperNPC {
       height = ((LivingEntity) this.npc.getEntity()).getEyeHeight() - 1.0;
     }
     this.hologram = HologramLibrary.createHologram(location.clone().add(0, height, 0));
-    List<String> list = new ArrayList<>(type.equals("items") ? Language.ingame$npc$shop$item$hologram : Language.ingame$npc$shop$upgrade$hologram);
+    List<String> list = new ArrayList<>(type.equals("items") ? KCoreSettings.BedWars.ingame$npc$shop$item$hologram : KCoreSettings.BedWars.ingame$npc$shop$upgrade$hologram);
     for (int index = (list.size()); index > 0; index--) {
       this.hologram.withLine(list.get(index - 1));
     }

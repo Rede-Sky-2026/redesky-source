@@ -15,7 +15,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.murder.game.Murder;
 
 import java.util.List;
@@ -44,16 +44,16 @@ public class ClassicIngame extends BukkitRunnable {
     }
 
     List<Player> players = this.game.listPlayers();
-    if (this.game.getTimer() > (Language.options$ingame$time - 15)) {
+    if (this.game.getTimer() > (KCoreSettings.Murder.options$ingame$time - 15)) {
       if (this.game.getTimer() % 5 == 0) {
-        String broadcast = Language.ingame$broadcast$knife.replace("{time}", String.valueOf(this.game.getTimer() - (Language.options$ingame$time - 15)))
-          .replace("{s}", (this.game.getTimer() - (Language.options$ingame$time - 15)) > 1 ? "s" : "");
+        String broadcast = KCoreSettings.Murder.ingame$broadcast$knife.replace("{time}", String.valueOf(this.game.getTimer() - (KCoreSettings.Murder.options$ingame$time - 15)))
+          .replace("{s}", (this.game.getTimer() - (KCoreSettings.Murder.options$ingame$time - 15)) > 1 ? "s" : "");
         players.forEach(player -> {
           EnumSound.CLICK.play(player, 1.0F, 1.0F);
           player.sendMessage(broadcast);
         });
       }
-    } else if (this.game.getTimer() == (Language.options$ingame$time - 15)) {
+    } else if (this.game.getTimer() == (KCoreSettings.Murder.options$ingame$time - 15)) {
       players.forEach(player -> {
         if (this.game.isKiller(player)) {
           Knife knife = Profile.getProfile(player.getName()).getAbstractContainer("kCoreMurder", "selected", SelectedContainer.class).getSelected(CosmeticType.KNIFE, Knife.class);
@@ -64,7 +64,7 @@ public class ClassicIngame extends BukkitRunnable {
                   " : 1 : esconder>tudo : nome>&cFaca do Assassino"));
           player.getInventory().setItem(config2.get("CO0", 1), BukkitUtils.deserializeItemStack("COMPASS : 1 : nome>&aLocalizador"));
         }
-        player.sendMessage(Language.ingame$broadcast$knife_received);
+        player.sendMessage(KCoreSettings.Murder.ingame$broadcast$knife_received);
       });
     }
 

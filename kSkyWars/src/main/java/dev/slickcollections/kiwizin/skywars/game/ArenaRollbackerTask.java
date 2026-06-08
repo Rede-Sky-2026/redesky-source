@@ -2,7 +2,7 @@ package dev.slickcollections.kiwizin.skywars.game;
 
 import dev.slickcollections.kiwizin.game.GameState;
 import dev.slickcollections.kiwizin.plugin.config.KConfig;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.game.interfaces.LoadCallback;
 import dev.slickcollections.kiwizin.skywars.game.object.SkyWarsBlock;
@@ -66,18 +66,18 @@ public class ArenaRollbackerTask extends BukkitRunnable {
     
     int count = 0;
     if (this.rollbacking != null) {
-      if (Language.options$regen$world_reload) {
+      if (KCoreSettings.SkyWars.options$regen$world_reload) {
         this.locked = true;
         this.rollbacking.getConfig().reload(() -> {
           this.rollbacking.setState(GameState.AGUARDANDO);
-          this.rollbacking.setTimer(Language.options$start$waiting + 1);
+          this.rollbacking.setTimer(KCoreSettings.SkyWars.options$start$waiting + 1);
           this.rollbacking.getTask().reset();
           this.rollbacking = null;
           this.iterator = null;
           this.locked = false;
         });
       } else {
-        while (this.iterator.hasNext() && count < Language.options$regen$block_regen$per_tick) {
+        while (this.iterator.hasNext() && count < KCoreSettings.SkyWars.options$regen$block_regen$per_tick) {
           this.rollbacking.resetBlock(this.iterator.next());
           count++;
         }
@@ -85,7 +85,7 @@ public class ArenaRollbackerTask extends BukkitRunnable {
         if (!this.iterator.hasNext()) {
           this.rollbacking.getWorld().getEntities().stream().filter(entity -> !(entity instanceof Player)).forEach(Entity::remove);
           this.rollbacking.setState(GameState.AGUARDANDO);
-          this.rollbacking.setTimer(Language.options$start$waiting + 1);
+          this.rollbacking.setTimer(KCoreSettings.SkyWars.options$start$waiting + 1);
           this.rollbacking.getTask().reset();
           this.rollbacking = null;
           this.iterator = null;

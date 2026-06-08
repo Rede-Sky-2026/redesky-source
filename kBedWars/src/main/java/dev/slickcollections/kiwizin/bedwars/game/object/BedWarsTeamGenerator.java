@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.game.object;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.game.BedWarsTeam;
 import dev.slickcollections.kiwizin.bedwars.utils.PlayerUtils;
 import dev.slickcollections.kiwizin.utils.BukkitUtils;
@@ -22,9 +22,9 @@ public class BedWarsTeamGenerator {
   
   public BedWarsTeamGenerator(BedWarsTeam team, String serialized) {
     this.team = team;
-    this.iron = Language.options$team_generator$iron$countdown;
-    this.gold = Language.options$team_generator$gold$countdown;
-    this.emerald = Language.options$team_generator$emerald$countdown;
+    this.iron = KCoreSettings.BedWars.options$team_generator$iron$countdown;
+    this.gold = KCoreSettings.BedWars.options$team_generator$gold$countdown;
+    this.emerald = KCoreSettings.BedWars.options$team_generator$emerald$countdown;
     this.serialized = serialized;
   }
   
@@ -37,7 +37,7 @@ public class BedWarsTeamGenerator {
     
     Location location = this.getLocation();
     if (this.iron == 0.0) {
-      this.iron = Language.options$team_generator$iron$countdown;
+      this.iron = KCoreSettings.BedWars.options$team_generator$iron$countdown;
       if (PlayerUtils.getAmountOfItem(Material.IRON_INGOT, location) < 48) {
         Item i = location.getWorld().dropItem(location, new ItemStack(Material.IRON_INGOT));
         i.setPickupDelay(0);
@@ -48,7 +48,7 @@ public class BedWarsTeamGenerator {
     }
     
     if (this.gold == 0.0) {
-      this.gold = Language.options$team_generator$gold$countdown;
+      this.gold = KCoreSettings.BedWars.options$team_generator$gold$countdown;
       if (PlayerUtils.getAmountOfItem(Material.GOLD_INGOT, location) < 32) {
         Item i = location.getWorld().dropItem(location, new ItemStack(Material.GOLD_INGOT));
         i.setPickupDelay(0);
@@ -61,7 +61,7 @@ public class BedWarsTeamGenerator {
     int level = team.getTier(IRON_FORGE);
     if (level > 2) {
       if (this.emerald == 0.0) {
-        this.emerald = Language.options$team_generator$emerald$countdown;
+        this.emerald = KCoreSettings.BedWars.options$team_generator$emerald$countdown;
         if (PlayerUtils.getAmountOfItem(Material.EMERALD, location) < 4) {
           Item i = location.getWorld().dropItem(location, new ItemStack(Material.EMERALD));
           i.setPickupDelay(0);
@@ -91,9 +91,9 @@ public class BedWarsTeamGenerator {
   }
   
   public void reset() {
-    this.iron = Language.options$team_generator$iron$countdown;
-    this.gold = Language.options$team_generator$gold$countdown;
-    this.emerald = Language.options$team_generator$emerald$countdown;
+    this.iron = KCoreSettings.BedWars.options$team_generator$iron$countdown;
+    this.gold = KCoreSettings.BedWars.options$team_generator$gold$countdown;
+    this.emerald = KCoreSettings.BedWars.options$team_generator$emerald$countdown;
   }
   
   public Location getLocation() {

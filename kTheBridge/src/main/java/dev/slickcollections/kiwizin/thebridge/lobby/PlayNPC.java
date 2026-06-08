@@ -5,7 +5,7 @@ import dev.slickcollections.kiwizin.libraries.holograms.api.Hologram;
 import dev.slickcollections.kiwizin.libraries.npclib.NPCLibrary;
 import dev.slickcollections.kiwizin.libraries.npclib.api.npc.NPC;
 import dev.slickcollections.kiwizin.plugin.config.KConfig;
-import dev.slickcollections.kiwizin.thebridge.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.thebridge.Main;
 import dev.slickcollections.kiwizin.thebridge.game.TheBridge;
 import dev.slickcollections.kiwizin.thebridge.game.enums.TheBridgeMode;
@@ -97,8 +97,8 @@ public class PlayNPC {
     }
     
     this.hologram = HologramLibrary.createHologram(this.location.clone().add(0, 0.5, 0));
-    for (int index = (this.mode == TheBridgeMode.SOLO ? Language.lobby$npc$play$solo$hologram.size() : Language.lobby$npc$play$dupla$hologram.size()); index > 0; index--) {
-      this.hologram.withLine((this.mode == TheBridgeMode.SOLO ? Language.lobby$npc$play$solo$hologram : Language.lobby$npc$play$dupla$hologram).get(index - 1).replace("{players}",
+    for (int index = (this.mode == TheBridgeMode.SOLO ? KCoreSettings.TheBridge.lobby$npc$play$solo$hologram.size() : KCoreSettings.TheBridge.lobby$npc$play$dupla$hologram.size()); index > 0; index--) {
+      this.hologram.withLine((this.mode == TheBridgeMode.SOLO ? KCoreSettings.TheBridge.lobby$npc$play$solo$hologram : KCoreSettings.TheBridge.lobby$npc$play$dupla$hologram).get(index - 1).replace("{players}",
           StringUtils.formatNumber(TheBridge.getWaiting(this.mode) + TheBridge.getPlaying(this.mode))));
     }
     
@@ -106,17 +106,17 @@ public class PlayNPC {
     this.npc.data().set("play-npc", this.mode.name());
     this.npc.data().set(NPC.HIDE_BY_TEAMS_KEY, true);
     if (this.mode == TheBridgeMode.SOLO) {
-      this.npc.addTrait(new NPCSkinTrait(this.npc, Language.lobby$npc$play$solo$skin$value, Language.lobby$npc$play$solo$skin$signature));
+      this.npc.addTrait(new NPCSkinTrait(this.npc, KCoreSettings.TheBridge.lobby$npc$play$solo$skin$value, KCoreSettings.TheBridge.lobby$npc$play$solo$skin$signature));
     } else {
-      this.npc.addTrait(new NPCSkinTrait(this.npc, Language.lobby$npc$play$dupla$skin$value, Language.lobby$npc$play$dupla$skin$signature));
+      this.npc.addTrait(new NPCSkinTrait(this.npc, KCoreSettings.TheBridge.lobby$npc$play$dupla$skin$value, KCoreSettings.TheBridge.lobby$npc$play$dupla$skin$signature));
     }
     this.npc.spawn(this.location);
   }
   
   public void update() {
-    int size = this.mode == TheBridgeMode.SOLO ? Language.lobby$npc$play$solo$hologram.size() : Language.lobby$npc$play$dupla$hologram.size();
+    int size = this.mode == TheBridgeMode.SOLO ? KCoreSettings.TheBridge.lobby$npc$play$solo$hologram.size() : KCoreSettings.TheBridge.lobby$npc$play$dupla$hologram.size();
     for (int index = size; index > 0; index--) {
-      this.hologram.updateLine(size - (index - 1), (this.mode == TheBridgeMode.SOLO ? Language.lobby$npc$play$solo$hologram : Language.lobby$npc$play$dupla$hologram).get(index - 1)
+      this.hologram.updateLine(size - (index - 1), (this.mode == TheBridgeMode.SOLO ? KCoreSettings.TheBridge.lobby$npc$play$solo$hologram : KCoreSettings.TheBridge.lobby$npc$play$dupla$hologram).get(index - 1)
           .replace("{players}", StringUtils.formatNumber(TheBridge.getWaiting(this.mode) + TheBridge.getPlaying(this.mode))));
     }
   }

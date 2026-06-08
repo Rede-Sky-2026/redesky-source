@@ -5,7 +5,7 @@ import dev.slickcollections.kiwizin.libraries.holograms.api.Hologram;
 import dev.slickcollections.kiwizin.libraries.npclib.NPCLibrary;
 import dev.slickcollections.kiwizin.libraries.npclib.api.npc.NPC;
 import dev.slickcollections.kiwizin.plugin.config.KConfig;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.cosmetics.object.Seasons;
 import dev.slickcollections.kiwizin.skywars.game.AbstractSkyWars;
@@ -98,8 +98,8 @@ public class PlayNPC {
     }
     
     this.hologram = HologramLibrary.createHologram(this.location.clone().add(0, 0.5, 0));
-    for (int index = (this.mode == SkyWarsMode.SOLO ? Language.lobby$npc$play$solo$hologram.size() : (this.mode == SkyWarsMode.RANKED ? Language.lobby$npc$play$ranked$hologram.size() : Language.lobby$npc$play$dupla$hologram.size())); index > 0; index--) {
-      this.hologram.withLine((this.mode == SkyWarsMode.SOLO ? Language.lobby$npc$play$solo$hologram : this.mode == SkyWarsMode.RANKED ? Language.lobby$npc$play$ranked$hologram : Language.lobby$npc$play$dupla$hologram).get(index - 1).replace("{players}",
+    for (int index = (this.mode == SkyWarsMode.SOLO ? KCoreSettings.SkyWars.lobby$npc$play$solo$hologram.size() : (this.mode == SkyWarsMode.RANKED ? KCoreSettings.SkyWars.lobby$npc$play$ranked$hologram.size() : KCoreSettings.SkyWars.lobby$npc$play$dupla$hologram.size())); index > 0; index--) {
+      this.hologram.withLine((this.mode == SkyWarsMode.SOLO ? KCoreSettings.SkyWars.lobby$npc$play$solo$hologram : this.mode == SkyWarsMode.RANKED ? KCoreSettings.SkyWars.lobby$npc$play$ranked$hologram : KCoreSettings.SkyWars.lobby$npc$play$dupla$hologram).get(index - 1).replace("{players}",
           StringUtils.formatNumber(AbstractSkyWars.getWaiting(this.mode) + AbstractSkyWars.getPlaying(this.mode))));
     }
     
@@ -107,20 +107,20 @@ public class PlayNPC {
     this.npc.data().set("play-npc", this.mode.name());
     this.npc.data().set(NPC.HIDE_BY_TEAMS_KEY, true);
     if (this.mode == SkyWarsMode.SOLO) {
-      this.npc.addTrait(new NPCSkinTrait(this.npc, Language.lobby$npc$play$solo$skin$value, Language.lobby$npc$play$solo$skin$signature));
+      this.npc.addTrait(new NPCSkinTrait(this.npc, KCoreSettings.SkyWars.lobby$npc$play$solo$skin$value, KCoreSettings.SkyWars.lobby$npc$play$solo$skin$signature));
     } else if (this.mode == SkyWarsMode.RANKED) {
-      this.npc.addTrait(new NPCSkinTrait(this.npc, Language.lobby$npc$play$ranked$skin$value, Language.lobby$npc$play$ranked$skin$signature));
+      this.npc.addTrait(new NPCSkinTrait(this.npc, KCoreSettings.SkyWars.lobby$npc$play$ranked$skin$value, KCoreSettings.SkyWars.lobby$npc$play$ranked$skin$signature));
     } else {
-      this.npc.addTrait(new NPCSkinTrait(this.npc, Language.lobby$npc$play$dupla$skin$value, Language.lobby$npc$play$dupla$skin$signature));
+      this.npc.addTrait(new NPCSkinTrait(this.npc, KCoreSettings.SkyWars.lobby$npc$play$dupla$skin$value, KCoreSettings.SkyWars.lobby$npc$play$dupla$skin$signature));
     }
     
     this.npc.spawn(this.location);
   }
   
   public void update() {
-    int size = this.mode == SkyWarsMode.SOLO ? Language.lobby$npc$play$solo$hologram.size() : Language.lobby$npc$play$dupla$hologram.size();
+    int size = this.mode == SkyWarsMode.SOLO ? KCoreSettings.SkyWars.lobby$npc$play$solo$hologram.size() : KCoreSettings.SkyWars.lobby$npc$play$dupla$hologram.size();
     for (int index = size; index > 0; index--) {
-      this.hologram.updateLine(size - (index - 1), (this.mode == SkyWarsMode.SOLO ? Language.lobby$npc$play$solo$hologram : this.mode == SkyWarsMode.RANKED ? Language.lobby$npc$play$ranked$hologram : Language.lobby$npc$play$dupla$hologram).get(index - 1)
+      this.hologram.updateLine(size - (index - 1), (this.mode == SkyWarsMode.SOLO ? KCoreSettings.SkyWars.lobby$npc$play$solo$hologram : this.mode == SkyWarsMode.RANKED ? KCoreSettings.SkyWars.lobby$npc$play$ranked$hologram : KCoreSettings.SkyWars.lobby$npc$play$dupla$hologram).get(index - 1)
           .replace("{players}", StringUtils.formatNumber(AbstractSkyWars.getWaiting(this.mode) + AbstractSkyWars.getPlaying(this.mode))));
     }
   }

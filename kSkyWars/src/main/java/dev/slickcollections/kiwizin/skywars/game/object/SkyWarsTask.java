@@ -3,7 +3,7 @@ package dev.slickcollections.kiwizin.skywars.game.object;
 import dev.slickcollections.kiwizin.game.GameState;
 import dev.slickcollections.kiwizin.nms.NMS;
 import dev.slickcollections.kiwizin.player.Profile;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.container.SelectedContainer;
 import dev.slickcollections.kiwizin.skywars.cosmetics.CosmeticType;
@@ -54,20 +54,20 @@ public class SkyWarsTask {
           Profile profile = Profile.getProfile(player.getName());
           Kit kit = profile.getAbstractContainer("kCoreSkyWars", "selected", SelectedContainer.class).getSelected(CosmeticType.KIT, Kit.class, game.getMode().getCosmeticIndex());
           
-          NMS.sendActionBar(player, Language.ingame$actionbar$kitselected.replace("{kit}", kit == null ? "Nenhum" : kit.getName()));
+          NMS.sendActionBar(player, KCoreSettings.SkyWars.ingame$actionbar$kitselected.replace("{kit}", kit == null ? "Nenhum" : kit.getName()));
         });
         
         if (game.getOnline() < game.getConfig().getMinPlayers()) {
-          if (game.getTimer() != (Language.options$start$waiting + 1)) {
-            game.setTimer(Language.options$start$waiting + 1);
+          if (game.getTimer() != (KCoreSettings.SkyWars.options$start$waiting + 1)) {
+            game.setTimer(KCoreSettings.SkyWars.options$start$waiting + 1);
           }
           
           game.listPlayers().forEach(player -> Profile.getProfile(player.getName()).update());
           return;
         }
         
-        if (game.getTimer() == (Language.options$start$waiting + 1)) {
-          game.setTimer(Language.options$start$waiting);
+        if (game.getTimer() == (KCoreSettings.SkyWars.options$start$waiting + 1)) {
+          game.setTimer(KCoreSettings.SkyWars.options$start$waiting);
         }
         
         game.listPlayers().forEach(player -> {
@@ -78,7 +78,7 @@ public class SkyWarsTask {
         });
         
         if (game.getTimer() == 30 || game.getTimer() == 15 || game.getTimer() == 10 || game.getTimer() <= 5) {
-          game.broadcastMessage(Language.ingame$broadcast$starting.replace("{time}", StringUtils.formatNumber(game.getTimer())).replace("{s}", game.getTimer() > 1 ? "s" : ""));
+          game.broadcastMessage(KCoreSettings.SkyWars.ingame$broadcast$starting.replace("{time}", StringUtils.formatNumber(game.getTimer())).replace("{s}", game.getTimer() > 1 ? "s" : ""));
         }
         
         game.setTimer(game.getTimer() - 1);
@@ -109,7 +109,7 @@ public class SkyWarsTask {
               if (game.isSpectator(player)) {
                 player.teleport(game.getCubeId().getCenterLocation());
               } else if (player.getLocation().getY() > 1) {
-                NMS.sendTitle(player, Language.ingame$titles$border$header, Language.ingame$titles$border$footer, 0, 30, 0);
+                NMS.sendTitle(player, KCoreSettings.SkyWars.ingame$titles$border$header, KCoreSettings.SkyWars.ingame$titles$border$footer, 0, 30, 0);
                 player.damage(2.0D);
               }
             }

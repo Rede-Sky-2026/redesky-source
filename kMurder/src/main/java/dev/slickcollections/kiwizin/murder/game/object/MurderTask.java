@@ -11,7 +11,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.murder.Main;
 import dev.slickcollections.kiwizin.murder.game.Murder;
 import dev.slickcollections.kiwizin.murder.game.MurderTeam;
@@ -47,7 +47,7 @@ public class MurderTask {
   public void swap(MurderTeam winners) {
     this.cancel();
     if (this.game.getState() == GameState.EMJOGO) {
-      this.game.setTimer(Language.options$ingame$time);
+      this.game.setTimer(KCoreSettings.Murder.options$ingame$time);
       this.game.getWorld().getEntities().stream().filter(entity -> !(entity instanceof Player)).forEach(Entity::remove);
       this.task = (this.game instanceof ClassicMurder ? new ClassicIngame(this.game) : new AssassinsIngame(this.game)).runTaskTimer(Main.getInstance(), 0, 20);
     } else if (this.game.getState() == GameState.ENCERRADO) {

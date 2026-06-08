@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.lobby;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.bedwars.lobby.trait.NPCSkinTrait;
 import dev.slickcollections.kiwizin.libraries.holograms.HologramLibrary;
@@ -89,21 +89,21 @@ public class DeliveryNPC {
     }
     
     this.hologram = HologramLibrary.createHologram(this.location.clone().add(0, 0.5, 0));
-    for (int index = Language.lobby$npc$deliveries$hologram.size(); index > 0; index--) {
-      this.hologram.withLine(Language.lobby$npc$deliveries$hologram.get(index - 1));
+    for (int index = KCoreSettings.BedWars.lobby$npc$deliveries$hologram.size(); index > 0; index--) {
+      this.hologram.withLine(KCoreSettings.BedWars.lobby$npc$deliveries$hologram.get(index - 1));
     }
     
     this.npc = NPCLibrary.createNPC(EntityType.PLAYER, "§8[NPC] ");
     this.npc.data().set("delivery-npc", true);
     this.npc.data().set(NPC.HIDE_BY_TEAMS_KEY, true);
-    this.npc.addTrait(new NPCSkinTrait(this.npc, Language.lobby$npc$deliveries$skin$value, Language.lobby$npc$deliveries$skin$signature));
+    this.npc.addTrait(new NPCSkinTrait(this.npc, KCoreSettings.BedWars.lobby$npc$deliveries$skin$value, KCoreSettings.BedWars.lobby$npc$deliveries$skin$signature));
     this.npc.spawn(this.location);
   }
   
   public void update() {
-    int size = Language.lobby$npc$deliveries$hologram.size();
+    int size = KCoreSettings.BedWars.lobby$npc$deliveries$hologram.size();
     for (int index = size; index > 0; index--) {
-      this.hologram.updateLine(size - (index - 1), Language.lobby$npc$deliveries$hologram.get(index - 1));
+      this.hologram.updateLine(size - (index - 1), KCoreSettings.BedWars.lobby$npc$deliveries$hologram.get(index - 1));
     }
   }
   

@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.collectibles.hook.player;
 
-import dev.slickcollections.kiwizin.collectibles.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.collectibles.cosmetics.Cosmetic;
 import dev.slickcollections.kiwizin.collectibles.cosmetics.CosmeticType;
 import dev.slickcollections.kiwizin.collectibles.cosmetics.object.*;
@@ -381,15 +381,15 @@ public class CUser {
       GadgetsCosmetic gadgetsCosmetic = Cosmetic.listCosmetics(GadgetsCosmetic.class).stream().filter(c -> c.getUniqueId() == gadgetId).findFirst().orElse(null);
       if (gadgetsCosmetic == null) {
         this.getSelectedContainer().set(CosmeticType.GADGET, 0);
-        this.getPlayer().getInventory().setItem(Language.settings$gadget$slot - 1, null);
+        this.getPlayer().getInventory().setItem(KCoreSettings.Collectibles.settings$gadget$slot - 1, null);
       } else {
-        this.getPlayer().getInventory().setItem(Language.settings$gadget$slot - 1, gadgetsCosmetic.getItem());
+        this.getPlayer().getInventory().setItem(KCoreSettings.Collectibles.settings$gadget$slot - 1, gadgetsCosmetic.getItem());
       }
       
       this.gadget = gadgetsCosmetic;
     } else if (this.gadget != null) {
       this.gadget = null;
-      this.getPlayer().getInventory().setItem(Language.settings$gadget$slot - 1, null);
+      this.getPlayer().getInventory().setItem(KCoreSettings.Collectibles.settings$gadget$slot - 1, null);
     }
   }
   

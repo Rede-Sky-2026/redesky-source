@@ -6,7 +6,7 @@ import dev.slickcollections.kiwizin.libraries.holograms.HologramLibrary;
 import dev.slickcollections.kiwizin.libraries.holograms.api.Hologram;
 import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.plugin.config.KConfig;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.game.object.SkyWarsLeague;
 import dev.slickcollections.kiwizin.skywars.lobby.leaderboards.KillsLeaderboard;
@@ -52,7 +52,7 @@ public abstract class Leaderboard {
     }
     
     Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getInstance(), () ->
-        Profile.listProfiles().forEach(Profile::saveSync), 0, Language.lobby$leaderboard$minutes * 1200);
+        Profile.listProfiles().forEach(Profile::saveSync), 0, KCoreSettings.SkyWars.lobby$leaderboard$minutes * 1200);
     
     Bukkit.getScheduler().runTaskTimer(Main.getInstance(), () ->
         listLeaderboards().forEach(Leaderboard::update), 0, 8);

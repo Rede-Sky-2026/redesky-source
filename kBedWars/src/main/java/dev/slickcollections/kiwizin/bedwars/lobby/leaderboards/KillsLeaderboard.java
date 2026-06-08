@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.lobby.leaderboards;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.lobby.Leaderboard;
 import dev.slickcollections.kiwizin.database.Database;
 import dev.slickcollections.kiwizin.database.data.DataContainer;
@@ -27,13 +27,13 @@ public class KillsLeaderboard extends Leaderboard {
         Collections.singletonList("monthlykills") : Arrays.asList("1v1finalkills", "2v2finalkills", "4v4finalkills")).toArray(new String[0]));
     
     while (list.size() < 10) {
-      list.add(new String[]{Language.lobby$leaderboard$empty, "0"});
+      list.add(new String[]{KCoreSettings.BedWars.lobby$leaderboard$empty, "0"});
     }
     return list;
   }
   
   @Override
   public List<String> getHologramLines() {
-    return Language.lobby$leaderboard$kills$hologram;
+    return KCoreSettings.BedWars.lobby$leaderboard$kills$hologram;
   }
 }

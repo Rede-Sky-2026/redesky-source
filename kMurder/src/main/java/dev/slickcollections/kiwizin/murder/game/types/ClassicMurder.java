@@ -41,7 +41,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.NameTagVisibility;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.murder.Main;
 import dev.slickcollections.kiwizin.murder.container.SelectedContainer;
 import dev.slickcollections.kiwizin.murder.cosmetics.CosmeticType;
@@ -163,10 +163,10 @@ public class ClassicMurder extends Murder {
       players.showPlayer(player);
     }
 
-    this.broadcastMessage(Language.ingame$broadcast$join.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+    this.broadcastMessage(KCoreSettings.Murder.ingame$broadcast$join.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
       .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
-    if (this.getOnline() == this.getMaxPlayers() && this.timer > Language.options$start$full) {
-      this.timer = Language.options$start$full;
+    if (this.getOnline() == this.getMaxPlayers() && this.timer > KCoreSettings.Murder.options$start$full) {
+      this.timer = KCoreSettings.Murder.options$start$full;
     }
     this.calculateChance();
   }
@@ -201,7 +201,7 @@ public class ClassicMurder extends Murder {
         team.removeMember(player);
       }
       if (this.state == GameState.AGUARDANDO) {
-        this.broadcastMessage(Language.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+        this.broadcastMessage(KCoreSettings.Murder.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
           .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
       }
       if (Profile.isOnline(player.getName())) {
@@ -224,7 +224,7 @@ public class ClassicMurder extends Murder {
       team.removeMember(player);
     }
     if (this.state == GameState.AGUARDANDO) {
-      this.broadcastMessage(Language.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+      this.broadcastMessage(KCoreSettings.Murder.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
         .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
     }
     profile.setGame(null);
@@ -266,7 +266,7 @@ public class ClassicMurder extends Murder {
           this.detectiveBow = null;
         }
       });
-      this.broadcastMessage(Language.ingame$broadcast$detective_died);
+      this.broadcastMessage(KCoreSettings.Murder.ingame$broadcast$detective_died);
     }
 
     killer.addStats("kCoreMurder", "clkills");
@@ -370,7 +370,7 @@ public class ClassicMurder extends Murder {
           this.detectiveBow = null;
         }
       });
-      this.broadcastMessage(Language.ingame$broadcast$detective_died);
+      this.broadcastMessage(KCoreSettings.Murder.ingame$broadcast$detective_died);
     }
 
     if (pk != null) {
@@ -518,11 +518,11 @@ public class ClassicMurder extends Murder {
         }
         if (!name.isEmpty()) {
           long quickest = profile.getStats("kCoreMurder", name);
-          if (quickest == 0 || quickest > (Language.options$ingame$time - timer)) {
-            profile.setStats("kCoreMurder", Language.options$ingame$time - timer, name);
+          if (quickest == 0 || quickest > (KCoreSettings.Murder.options$ingame$time - timer)) {
+            profile.setStats("kCoreMurder", KCoreSettings.Murder.options$ingame$time - timer, name);
           }
         }
-        profile.addCoinsWM("kCoreMurder", Language.options$coins$wins);
+        profile.addCoinsWM("kCoreMurder", KCoreSettings.Murder.options$coins$wins);
       }
 
       NMS.sendTitle(player, "§c§lFIM DE JOGO", "§fVencedor{es}: §a{winner}".replace("{es}", !winner.equalsIgnoreCase("assassino") ? "es" : "").replace("{winner}", winner), 10, 80,

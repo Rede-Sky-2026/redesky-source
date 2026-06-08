@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.lobby;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.bedwars.game.BedWars;
 import dev.slickcollections.kiwizin.bedwars.game.enums.BedWarsMode;
@@ -98,8 +98,8 @@ public class PlayNPC {
     }
     
     this.hologram = HologramLibrary.createHologram(this.location.clone().add(0, 0.5, 0));
-    for (int index = (this.mode == BedWarsMode.DUPLA ? Language.lobby$npc$play$dupla$hologram.size() : this.mode == BedWarsMode.SOLO ? Language.lobby$npc$play$solo$hologram.size() : Language.lobby$npc$play$quarteto$hologram.size()); index > 0; index--) {
-      this.hologram.withLine((this.mode == BedWarsMode.DUPLA ? Language.lobby$npc$play$dupla$hologram : this.mode == BedWarsMode.SOLO ? Language.lobby$npc$play$solo$hologram : Language.lobby$npc$play$quarteto$hologram).get(index - 1).replace("{players}",
+    for (int index = (this.mode == BedWarsMode.DUPLA ? KCoreSettings.BedWars.lobby$npc$play$dupla$hologram.size() : this.mode == BedWarsMode.SOLO ? KCoreSettings.BedWars.lobby$npc$play$solo$hologram.size() : KCoreSettings.BedWars.lobby$npc$play$quarteto$hologram.size()); index > 0; index--) {
+      this.hologram.withLine((this.mode == BedWarsMode.DUPLA ? KCoreSettings.BedWars.lobby$npc$play$dupla$hologram : this.mode == BedWarsMode.SOLO ? KCoreSettings.BedWars.lobby$npc$play$solo$hologram : KCoreSettings.BedWars.lobby$npc$play$quarteto$hologram).get(index - 1).replace("{players}",
           StringUtils.formatNumber(BedWars.getWaiting(this.mode) + BedWars.getPlaying(this.mode))));
     }
     
@@ -107,19 +107,19 @@ public class PlayNPC {
     this.npc.data().set("play-npc", this.mode.name());
     this.npc.data().set(NPC.HIDE_BY_TEAMS_KEY, true);
     if (this.mode == BedWarsMode.DUPLA) {
-      this.npc.addTrait(new NPCSkinTrait(this.npc, Language.lobby$npc$play$dupla$skin$value, Language.lobby$npc$play$dupla$skin$signature));
+      this.npc.addTrait(new NPCSkinTrait(this.npc, KCoreSettings.BedWars.lobby$npc$play$dupla$skin$value, KCoreSettings.BedWars.lobby$npc$play$dupla$skin$signature));
     } else if (this.mode == BedWarsMode.QUARTETO) {
-      this.npc.addTrait(new NPCSkinTrait(this.npc, Language.lobby$npc$play$quarteto$skin$value, Language.lobby$npc$play$quarteto$skin$signature));
+      this.npc.addTrait(new NPCSkinTrait(this.npc, KCoreSettings.BedWars.lobby$npc$play$quarteto$skin$value, KCoreSettings.BedWars.lobby$npc$play$quarteto$skin$signature));
     } else {
-      this.npc.addTrait(new NPCSkinTrait(this.npc, Language.lobby$npc$play$solo$skin$value, Language.lobby$npc$play$solo$skin$signature));
+      this.npc.addTrait(new NPCSkinTrait(this.npc, KCoreSettings.BedWars.lobby$npc$play$solo$skin$value, KCoreSettings.BedWars.lobby$npc$play$solo$skin$signature));
     }
     this.npc.spawn(this.location);
   }
   
   public void update() {
-    int size = this.mode == BedWarsMode.DUPLA ? Language.lobby$npc$play$dupla$hologram.size() : this.mode == BedWarsMode.SOLO ? Language.lobby$npc$play$solo$hologram.size() : Language.lobby$npc$play$quarteto$hologram.size();
+    int size = this.mode == BedWarsMode.DUPLA ? KCoreSettings.BedWars.lobby$npc$play$dupla$hologram.size() : this.mode == BedWarsMode.SOLO ? KCoreSettings.BedWars.lobby$npc$play$solo$hologram.size() : KCoreSettings.BedWars.lobby$npc$play$quarteto$hologram.size();
     for (int index = size; index > 0; index--) {
-      this.hologram.updateLine(size - (index - 1), (this.mode == BedWarsMode.DUPLA ? Language.lobby$npc$play$dupla$hologram : this.mode == BedWarsMode.SOLO ? Language.lobby$npc$play$solo$hologram : Language.lobby$npc$play$quarteto$hologram).get(index - 1)
+      this.hologram.updateLine(size - (index - 1), (this.mode == BedWarsMode.DUPLA ? KCoreSettings.BedWars.lobby$npc$play$dupla$hologram : this.mode == BedWarsMode.SOLO ? KCoreSettings.BedWars.lobby$npc$play$solo$hologram : KCoreSettings.BedWars.lobby$npc$play$quarteto$hologram).get(index - 1)
           .replace("{players}", StringUtils.formatNumber(BedWars.getWaiting(this.mode) + BedWars.getPlaying(this.mode))));
     }
   }

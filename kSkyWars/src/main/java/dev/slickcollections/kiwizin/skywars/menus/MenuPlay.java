@@ -2,7 +2,7 @@ package dev.slickcollections.kiwizin.skywars.menus;
 
 import dev.slickcollections.kiwizin.libraries.menu.UpdatablePlayerMenu;
 import dev.slickcollections.kiwizin.player.Profile;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.cosmetics.object.Seasons;
 import dev.slickcollections.kiwizin.skywars.game.AbstractSkyWars;
@@ -54,7 +54,7 @@ public class MenuPlay extends UpdatablePlayerMenu {
               EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
               AbstractSkyWars game = AbstractSkyWars.findRandom(this.mode);
               if (game != null) {
-                this.player.sendMessage(Language.lobby$npc$play$connect);
+                this.player.sendMessage(KCoreSettings.SkyWars.lobby$npc$play$connect);
                 game.join(profile);
               }
             } else if (evt.getSlot() == 14) {

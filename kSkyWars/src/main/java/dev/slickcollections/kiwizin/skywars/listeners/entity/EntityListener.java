@@ -5,7 +5,7 @@ import dev.slickcollections.kiwizin.game.GameTeam;
 import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.player.enums.BloodAndGore;
 import dev.slickcollections.kiwizin.player.role.Role;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.game.AbstractSkyWars;
 import dev.slickcollections.kiwizin.utils.StringUtils;
@@ -80,7 +80,7 @@ public class EntityListener implements Listener {
               if (proj instanceof Arrow) {
                 Player finalDamager = damager;
                 Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> finalDamager
-                        .sendMessage(Language.ingame$messages$bow$hit.replace("{name}", Role.getColored(player.getName())).replace("{hp}", StringUtils.formatNumber(player.getHealth()))),
+                        .sendMessage(KCoreSettings.SkyWars.ingame$messages$bow$hit.replace("{name}", Role.getColored(player.getName())).replace("{hp}", StringUtils.formatNumber(player.getHealth()))),
                     5L);
               }
             }

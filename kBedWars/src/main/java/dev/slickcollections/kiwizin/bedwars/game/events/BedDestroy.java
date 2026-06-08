@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.game.events;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.game.BedWars;
 import dev.slickcollections.kiwizin.bedwars.game.BedWarsEvent;
 import dev.slickcollections.kiwizin.bedwars.game.BedWarsTeam;
@@ -19,6 +19,6 @@ public class BedDestroy extends BedWarsEvent {
   
   @Override
   public String getName() {
-    return Language.options$events$beddestroy;
+    return KCoreSettings.BedWars.options$events$beddestroy;
   }
 }

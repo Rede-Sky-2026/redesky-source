@@ -60,9 +60,7 @@ public class Main extends KPlugin {
     
     MBCoreHook.setupHook();
     BoxNPC.setupBoxNPCs();
-    Listeners.setupListeners();
-    Language.setupLanguage();
-    Commands.setupCommands();
+    Listeners.setupListeners();    Commands.setupCommands();
     
     validInit = true;
     this.getLogger().info("O plugin foi ativado.");

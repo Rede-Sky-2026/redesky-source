@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.listeners.player;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.game.BedWars;
 import dev.slickcollections.kiwizin.bedwars.game.enums.BedWarsMode;
 import dev.slickcollections.kiwizin.database.data.DataContainer;
@@ -59,7 +59,7 @@ public class AsyncPlayerChatListener implements Listener {
                     timeString = timeString.substring(0, timeString.lastIndexOf("."));
                   }
                   
-                  player.sendMessage(Language.chat$delay.replace("{time}", timeString));
+                  player.sendMessage(KCoreSettings.BedWars.chat$delay.replace("{time}", timeString));
                   return;
                 }
               }
@@ -87,9 +87,9 @@ public class AsyncPlayerChatListener implements Listener {
               evt.setCancelled(false);
               return;
             }
-            game.broadcastMessage(Language.chat$format$ingame$global.replace("{team}", StringUtils.getFirstColor(game.getTeam(player).getName()) + "[" + game.getTeam(player).getName() + "]").replace("{player}",
+            game.broadcastMessage(KCoreSettings.BedWars.chat$format$ingame$global.replace("{team}", StringUtils.getFirstColor(game.getTeam(player).getName()) + "[" + game.getTeam(player).getName() + "]").replace("{player}",
                 role.getPrefix() + player.getName()).replace("{color}",
-                role.isDefault() ? Language.chat$color$default : Language.chat$color$custom).replace("{message}", message));
+                role.isDefault() ? KCoreSettings.BedWars.chat$color$default : KCoreSettings.BedWars.chat$color$custom).replace("{message}", message));
           }
         }
       } else {
@@ -125,7 +125,7 @@ public class AsyncPlayerChatListener implements Listener {
             timeString = timeString.substring(0, timeString.lastIndexOf("."));
           }
           
-          player.sendMessage(Language.chat$delay.replace("{time}", timeString));
+          player.sendMessage(KCoreSettings.BedWars.chat$delay.replace("{time}", timeString));
           return;
         }
       }
@@ -150,23 +150,23 @@ public class AsyncPlayerChatListener implements Listener {
     }
     if (game == null) {
       evt.setFormat(
-          Language.chat$format$lobby.replace("{player}", role.getPrefix() + "%s").replace("{color}", role.isDefault() ? Language.chat$color$default : Language.chat$color$custom)
+          KCoreSettings.BedWars.chat$format$lobby.replace("{player}", role.getPrefix() + "%s").replace("{color}", role.isDefault() ? KCoreSettings.BedWars.chat$color$default : KCoreSettings.BedWars.chat$color$custom)
               .replace("{message}", "%s"));
     } else if (!game.isSpectator(player)) {
       if (game.getMode().equals(BedWarsMode.SOLO)) {
         evt.setFormat(
-            Language.chat$format$ingame$global.replace("{team}", StringUtils.getFirstColor(game.getTeam(player).getName()) + "[" + game.getTeam(player).getName() + "]").replace("{player}",
+            KCoreSettings.BedWars.chat$format$ingame$global.replace("{team}", StringUtils.getFirstColor(game.getTeam(player).getName()) + "[" + game.getTeam(player).getName() + "]").replace("{player}",
                 role.getPrefix() + "%s").replace("{color}",
-                role.isDefault() ? Language.chat$color$default : Language.chat$color$custom).replace("{message}", "%s"));
+                role.isDefault() ? KCoreSettings.BedWars.chat$color$default : KCoreSettings.BedWars.chat$color$custom).replace("{message}", "%s"));
         
       } else {
         evt.setFormat(
-            Language.chat$format$ingame$team.replace("{player}", role.getPrefix() + "%s").replace("{color}", role.isDefault() ? Language.chat$color$default : Language.chat$color$custom)
+            KCoreSettings.BedWars.chat$format$ingame$team.replace("{player}", role.getPrefix() + "%s").replace("{color}", role.isDefault() ? KCoreSettings.BedWars.chat$color$default : KCoreSettings.BedWars.chat$color$custom)
                 .replace("{message}", "%s"));
       }
     } else if (game.isSpectator(player)) {
       evt.setFormat(
-          Language.chat$format$spectator.replace("{player}", role.getPrefix() + "%s").replace("{color}", role.isDefault() ? Language.chat$color$default : Language.chat$color$custom)
+          KCoreSettings.BedWars.chat$format$spectator.replace("{player}", role.getPrefix() + "%s").replace("{color}", role.isDefault() ? KCoreSettings.BedWars.chat$color$default : KCoreSettings.BedWars.chat$color$custom)
               .replace("{message}", "%s"));
     }
     evt.getRecipients().clear();

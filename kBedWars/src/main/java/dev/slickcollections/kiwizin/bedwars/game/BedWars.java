@@ -3,7 +3,7 @@ package dev.slickcollections.kiwizin.bedwars.game;
 import com.google.gson.JsonObject;
 import dev.slickcollections.kiwizin.Core;
 import dev.slickcollections.kiwizin.Manager;
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.bedwars.hook.container.SelectedContainer;
 import dev.slickcollections.kiwizin.bedwars.cosmetics.CosmeticType;
@@ -99,7 +99,7 @@ public class BedWars implements Game<BedWarsTeam> {
     this.state = GameState.AGUARDANDO;
     this.task.reset();
     
-    if (!Language.options$regen$world_reload) {
+    if (!KCoreSettings.BedWars.options$regen$world_reload) {
       KConfig config = Main.getInstance().getConfig("blocos", name);
       if (config.contains("dataBlocks")) {
         for (String blockdata : config.getStringList("dataBlocks")) {
@@ -125,7 +125,7 @@ public class BedWars implements Game<BedWarsTeam> {
   
   public static void setupGames() {
     BedWarsEvent.setupEvents();
-    new ArenaRollbackerTask().runTaskTimer(Main.getInstance(), 0, Language.options$regen$world_reload ? 100 : 1);
+    new ArenaRollbackerTask().runTaskTimer(Main.getInstance(), 0, KCoreSettings.BedWars.options$regen$world_reload ? 100 : 1);
     
     File ymlFolder = new File("plugins/kBedWars/arenas");
     File mapFolder = new File("plugins/kBedWars/mundos");
@@ -238,7 +238,7 @@ public class BedWars implements Game<BedWarsTeam> {
     }
     
     breaker.addStats("kCoreBedWars", this.getMode().getStats() + "bedsdestroyeds");
-    breaker.addCoinsWM("kCoreBedWars", Language.options$coins$beds);
+    breaker.addCoinsWM("kCoreBedWars", KCoreSettings.BedWars.options$coins$beds);
     
     this.beds.put(breaker.getName(), (this.beds.get(breaker.getName()) == null ? 0 : this.beds.get(breaker.getName())) + 1);
     
@@ -252,12 +252,12 @@ public class BedWars implements Game<BedWarsTeam> {
     team.listPlayers().forEach(t -> Profile.getProfile(t.getName()).addStats("kCoreBedWars", this.getMode().getStats() + "bedslosteds"));
     
     for (Player player : this.listPlayers(true)) {
-      String message = team.hasMember(player) ? Language.ingame$broadcast$bed_destroyself.replace("{name}", getTeam(breaker.getPlayer()).getColored(breaker.getPlayer())) : Language.ingame$broadcast$bed_destroy.replace("{team}", team.getName()).replace("{name}", getTeam(breaker.getPlayer()).getColored(breaker.getPlayer()));
+      String message = team.hasMember(player) ? KCoreSettings.BedWars.ingame$broadcast$bed_destroyself.replace("{name}", getTeam(breaker.getPlayer()).getColored(breaker.getPlayer())) : KCoreSettings.BedWars.ingame$broadcast$bed_destroy.replace("{team}", team.getName()).replace("{name}", getTeam(breaker.getPlayer()).getColored(breaker.getPlayer()));
       
       player.sendMessage(message);
       EnumSound.ENDERDRAGON_GROWL.play(player, 1.0F, 1.0F);
       if (team.hasMember(player)) {
-        NMS.sendTitle(player, Language.ingame$titles$beddestroy_self$header, Language.ingame$titles$beddestroy_self$footer);
+        NMS.sendTitle(player, KCoreSettings.BedWars.ingame$titles$beddestroy_self$header, KCoreSettings.BedWars.ingame$titles$beddestroy_self$footer);
       }
     }
   }
@@ -358,10 +358,10 @@ public class BedWars implements Game<BedWarsTeam> {
       players.showPlayer(player);
     }
     
-    this.broadcastMessage(Language.ingame$broadcast$join.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+    this.broadcastMessage(KCoreSettings.BedWars.ingame$broadcast$join.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
         .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
-    if (this.getOnline() == this.getMaxPlayers() && this.timer > Language.options$start$full) {
-      this.timer = Language.options$start$full;
+    if (this.getOnline() == this.getMaxPlayers() && this.timer > KCoreSettings.BedWars.options$start$full) {
+      this.timer = KCoreSettings.BedWars.options$start$full;
     }
   }
   
@@ -410,7 +410,7 @@ public class BedWars implements Game<BedWarsTeam> {
         TagUtils.setTag(player);
       }
       if (this.state == GameState.AGUARDANDO) {
-        this.broadcastMessage(Language.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+        this.broadcastMessage(KCoreSettings.BedWars.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
             .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
       }
       this.check();
@@ -444,7 +444,7 @@ public class BedWars implements Game<BedWarsTeam> {
     profile.setHotbar(Hotbar.getHotbarById("lobby"));
     profile.refresh();
     if (this.state == GameState.AGUARDANDO) {
-      this.broadcastMessage(Language.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
+      this.broadcastMessage(KCoreSettings.BedWars.ingame$broadcast$leave.replace("{player}", Role.getColored(player.getName())).replace("{players}", String.valueOf(this.getOnline()))
           .replace("{max_players}", String.valueOf(this.getMaxPlayers())));
     }
     this.check();
@@ -537,7 +537,7 @@ public class BedWars implements Game<BedWarsTeam> {
       }, 3);
       
       if (killer == null) {
-        this.broadcastMessage(Language.ingame$broadcast$suicide.replace("{name}", team.getColored(player)));
+        this.broadcastMessage(KCoreSettings.BedWars.ingame$broadcast$suicide.replace("{name}", team.getColored(player)));
       } else {
         BedWarsTeam killerTeam = this.getTeam(pk);
         if (player.getLastDamageCause() == null || player.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.VOID) {
@@ -550,14 +550,14 @@ public class BedWars implements Game<BedWarsTeam> {
         
         String suffix = this.addKills(pk);
         EnumSound.ORB_PICKUP.play(pk, 1.0F, 1.0F);
-        killer.addCoinsWM("kCoreBedWars", Language.options$coins$kills);
+        killer.addCoinsWM("kCoreBedWars", KCoreSettings.BedWars.options$coins$kills);
         killer.addStats("kCoreBedWars", this.getMode().getStats() + "kills");
         
         DeathMessage dm = killer.getAbstractContainer("kCoreBedWars", "selected", SelectedContainer.class).getSelected(CosmeticType.DEATH_MESSAGE, DeathMessage.class);
         if (dm != null) {
           this.broadcastMessage(dm.getRandomMessage().replace("{name}", team.getColored(player)).replace("{killer}", killerTeam.getColored(pk)) + suffix);
         } else {
-          this.broadcastMessage(Language.ingame$broadcast$killed.replace("{name}", team.getColored(player)).replace("{killer}", killerTeam.getColored(pk)) + suffix);
+          this.broadcastMessage(KCoreSettings.BedWars.ingame$broadcast$killed.replace("{name}", team.getColored(player)).replace("{killer}", killerTeam.getColored(pk)) + suffix);
         }
       }
       
@@ -574,7 +574,7 @@ public class BedWars implements Game<BedWarsTeam> {
     }
     
     if (killer == null) {
-      this.broadcastMessage(Language.ingame$broadcast$suicide.replace("{name}", team.getColored(player)));
+      this.broadcastMessage(KCoreSettings.BedWars.ingame$broadcast$suicide.replace("{name}", team.getColored(player)));
     } else {
       BedWarsTeam killerTeam = this.getTeam(pk);
       
@@ -586,7 +586,7 @@ public class BedWars implements Game<BedWarsTeam> {
       }
       
       killer.addStats("kCoreBedWars", this.getMode().getStats() + "finalkills");
-      killer.addCoinsWM("kCoreBedWars", Language.options$coins$kills);
+      killer.addCoinsWM("kCoreBedWars", KCoreSettings.BedWars.options$coins$kills);
       killer.addStats("kCoreBedWars", "monthlykills");
       
       String suffix = this.addKills(pk);
@@ -595,7 +595,7 @@ public class BedWars implements Game<BedWarsTeam> {
       if (dm != null) {
         this.broadcastMessage(dm.getRandomMessage().replace("{name}", team.getColored(player)).replace("{killer}", killerTeam.getColored(pk)) + suffix + "§f§l. ABATE FINAL");
       } else {
-        this.broadcastMessage(Language.ingame$broadcast$killed.replace("{name}", team.getColored(player)).replace("{killer}", killerTeam.getColored(pk)) + suffix + "§f§l. ABATE FINAL");
+        this.broadcastMessage(KCoreSettings.BedWars.ingame$broadcast$killed.replace("{name}", team.getColored(player)).replace("{killer}", killerTeam.getColored(pk)) + suffix + "§f§l. ABATE FINAL");
       }
     }
     
@@ -630,16 +630,16 @@ public class BedWars implements Game<BedWarsTeam> {
         }
         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
           if (player.isOnline()) {
-            int coinsKill = (int) profile.calculateWM(this.getKills(player) * Language.options$coins$kills);
-            int coinsBeds = (int) profile.calculateWM(this.beds.get(player.getName()) == null ? 0 : this.beds.get(player.getName()) * Language.options$coins$beds);
+            int coinsKill = (int) profile.calculateWM(this.getKills(player) * KCoreSettings.BedWars.options$coins$kills);
+            int coinsBeds = (int) profile.calculateWM(this.beds.get(player.getName()) == null ? 0 : this.beds.get(player.getName()) * KCoreSettings.BedWars.options$coins$beds);
             
             if (coinsKill > 0) {
-              player.sendMessage(Language.ingame$messages$coins$base.replace("{coins}", StringUtils.formatNumber(coinsKill + coinsBeds)).replace("{coins_beds}", coinsBeds > 0 ? Language.ingame$messages$coins$beds.replace("{coins}", StringUtils.formatNumber(coinsBeds)).replace("{s}", (this.beds.get(player.getName()) == null ? 0 : this.beds.get(player.getName())) > 1 ? "s" : "").replace("{beds}", StringUtils.formatNumber(this.beds.get(player.getName()) == null ? 0 : this.beds.get(player.getName()))).replace("{coins}", StringUtils.formatNumber(coinsBeds)) : "").replace("{coins_win}", "").replace("{coins_kills}",
-                  Language.ingame$messages$coins$kills.replace("{coins}", StringUtils.formatNumber(coinsKill)).replace("{kills}", StringUtils.formatNumber(this.getKills(player)))
+              player.sendMessage(KCoreSettings.BedWars.ingame$messages$coins$base.replace("{coins}", StringUtils.formatNumber(coinsKill + coinsBeds)).replace("{coins_beds}", coinsBeds > 0 ? KCoreSettings.BedWars.ingame$messages$coins$beds.replace("{coins}", StringUtils.formatNumber(coinsBeds)).replace("{s}", (this.beds.get(player.getName()) == null ? 0 : this.beds.get(player.getName())) > 1 ? "s" : "").replace("{beds}", StringUtils.formatNumber(this.beds.get(player.getName()) == null ? 0 : this.beds.get(player.getName()))).replace("{coins}", StringUtils.formatNumber(coinsBeds)) : "").replace("{coins_win}", "").replace("{coins_kills}",
+                  KCoreSettings.BedWars.ingame$messages$coins$kills.replace("{coins}", StringUtils.formatNumber(coinsKill)).replace("{kills}", StringUtils.formatNumber(this.getKills(player)))
                       .replace("{s}", this.getKills(player) > 1 ? "s" : "")));
             }
             
-            NMS.sendTitle(player, Language.ingame$titles$death$header, Language.ingame$titles$death$footer, 0, 60, 0);
+            NMS.sendTitle(player, KCoreSettings.BedWars.ingame$titles$death$header, KCoreSettings.BedWars.ingame$titles$death$footer, 0, 60, 0);
           }
         }, 27);
       }
@@ -722,7 +722,7 @@ public class BedWars implements Game<BedWarsTeam> {
     BedWarsTeam team = getTeam(player);
     
     if (pk == null) {
-      this.broadcastMessage(Language.ingame$broadcast$suicide.replace("{name}", team.getColored(player)));
+      this.broadcastMessage(KCoreSettings.BedWars.ingame$broadcast$suicide.replace("{name}", team.getColored(player)));
     } else {
       BedWarsTeam killerTeam = getTeam(pk);
       
@@ -740,11 +740,11 @@ public class BedWars implements Game<BedWarsTeam> {
       if (dm != null) {
         this.broadcastMessage(dm.getRandomMessage().replace("{name}", team.getColored(player)).replace("{killer}", killerTeam.getColored(pk)) + suffix);
       } else {
-        this.broadcastMessage(Language.ingame$broadcast$killed.replace("{name}", team.getColored(player)).replace("{killer}", killerTeam.getColored(pk)) + suffix);
+        this.broadcastMessage(KCoreSettings.BedWars.ingame$broadcast$killed.replace("{name}", team.getColored(player)).replace("{killer}", killerTeam.getColored(pk)) + suffix);
       }
       
       killer.addStats("kCoreBedWars", this.getMode().getStats() + "finalkills");
-      killer.addCoinsWM("kCoreBedWars", Language.options$coins$kills);
+      killer.addCoinsWM("kCoreBedWars", KCoreSettings.BedWars.options$coins$kills);
       killer.addStats("kCoreBedWars", "monthlykills");
     }
     
@@ -801,9 +801,9 @@ public class BedWars implements Game<BedWarsTeam> {
       players.clear();
     }
     if (name.toString().isEmpty()) {
-      this.broadcastMessage(Language.ingame$broadcast$end);
+      this.broadcastMessage(KCoreSettings.BedWars.ingame$broadcast$end);
     } else {
-      this.broadcastMessage((this.getMode() == BedWarsMode.SOLO ? Language.ingame$broadcast$win$solo : Language.ingame$broadcast$win$dupla)
+      this.broadcastMessage((this.getMode() == BedWarsMode.SOLO ? KCoreSettings.BedWars.ingame$broadcast$win$solo : KCoreSettings.BedWars.ingame$broadcast$win$dupla)
           .replace("{name}", name.toString()));
     }
     for (Player player : this.listPlayers(false)) {
@@ -811,33 +811,33 @@ public class BedWars implements Game<BedWarsTeam> {
       profile.update();
       BedWarsTeam team = this.getTeam(player);
       if (team != null) {
-        int coinsWin = (int) (team.equals(winners) ? profile.calculateWM(Language.options$coins$wins) : 0);
-        int coinsKill = (int) profile.calculateWM(this.getKills(player) * Language.options$coins$kills);
-        int coinsBeds = (int) profile.calculateWM(this.beds.get(player.getName()) == null ? 0 : this.beds.get(player.getName()) * Language.options$coins$beds);
+        int coinsWin = (int) (team.equals(winners) ? profile.calculateWM(KCoreSettings.BedWars.options$coins$wins) : 0);
+        int coinsKill = (int) profile.calculateWM(this.getKills(player) * KCoreSettings.BedWars.options$coins$kills);
+        int coinsBeds = (int) profile.calculateWM(this.beds.get(player.getName()) == null ? 0 : this.beds.get(player.getName()) * KCoreSettings.BedWars.options$coins$beds);
         
         int totalCoins = coinsWin + coinsKill + coinsBeds;
         if (totalCoins > 0) {
           Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> player.sendMessage(
-              Language.ingame$messages$coins$base.replace("{coins}", StringUtils.formatNumber(totalCoins))
-                  .replace("{coins_win}", coinsWin > 0 ? Language.ingame$messages$coins$win.replace("{coins}", StringUtils.formatNumber(coinsWin)) : "").replace("{coins_beds}", coinsBeds > 0 ? Language.ingame$messages$coins$beds.replace("{coins}", StringUtils.formatNumber(coinsBeds)).replace("{s}", (this.beds.get(player.getName()) == null ? 0 : this.beds.get(player.getName())) > 1 ? "s" : "").replace("{beds}", StringUtils.formatNumber(this.beds.get(player.getName()) == null ? 0 : this.beds.get(player.getName()))) : "")
+              KCoreSettings.BedWars.ingame$messages$coins$base.replace("{coins}", StringUtils.formatNumber(totalCoins))
+                  .replace("{coins_win}", coinsWin > 0 ? KCoreSettings.BedWars.ingame$messages$coins$win.replace("{coins}", StringUtils.formatNumber(coinsWin)) : "").replace("{coins_beds}", coinsBeds > 0 ? KCoreSettings.BedWars.ingame$messages$coins$beds.replace("{coins}", StringUtils.formatNumber(coinsBeds)).replace("{s}", (this.beds.get(player.getName()) == null ? 0 : this.beds.get(player.getName())) > 1 ? "s" : "").replace("{beds}", StringUtils.formatNumber(this.beds.get(player.getName()) == null ? 0 : this.beds.get(player.getName()))) : "")
                   .replace("{coins_kills}",
                       coinsKill > 0 ?
-                          Language.ingame$messages$coins$kills.replace("{coins}", StringUtils.formatNumber(coinsKill)).replace("{kills}", StringUtils.formatNumber(this.getKills(player)))
+                          KCoreSettings.BedWars.ingame$messages$coins$kills.replace("{coins}", StringUtils.formatNumber(coinsKill)).replace("{kills}", StringUtils.formatNumber(this.getKills(player)))
                               .replace("{s}", this.getKills(player) > 1 ? "s" : "") :
                           "")), 30);
         }
       }
       
       if (winners != null && winners.hasMember(player)) {
-        profile.addCoinsWM("kCoreBedWars", Language.options$coins$wins);
+        profile.addCoinsWM("kCoreBedWars", KCoreSettings.BedWars.options$coins$wins);
         profile.addStats("kCoreBedWars", this.getMode().getStats() + "wins");
         
         // Mensal
         profile.addStats("kCoreBedWars", "monthlywins");
         
-        NMS.sendTitle(player, Language.ingame$titles$win$header, Language.ingame$titles$win$footer, 10, 80, 10);
+        NMS.sendTitle(player, KCoreSettings.BedWars.ingame$titles$win$header, KCoreSettings.BedWars.ingame$titles$win$footer, 10, 80, 10);
       } else {
-        NMS.sendTitle(player, Language.ingame$titles$lose$header, Language.ingame$titles$lose$footer, 10, 80, 10);
+        NMS.sendTitle(player, KCoreSettings.BedWars.ingame$titles$lose$header, KCoreSettings.BedWars.ingame$titles$lose$footer, 10, 80, 10);
       }
       
       this.spectators.add(player.getUniqueId());
@@ -956,8 +956,8 @@ public class BedWars implements Game<BedWarsTeam> {
         this.streak.get(player.getName())[0] = System.currentTimeMillis();
         this.streak.get(player.getName())[1] = streak + 1L;
         return streak == 2 ?
-            Language.ingame$broadcast$double_kill :
-            streak == 3 ? Language.ingame$broadcast$triple_kill : streak == 4 ? Language.ingame$broadcast$quadra_kill : Language.ingame$broadcast$monster_kill;
+            KCoreSettings.BedWars.ingame$broadcast$double_kill :
+            streak == 3 ? KCoreSettings.BedWars.ingame$broadcast$triple_kill : streak == 4 ? KCoreSettings.BedWars.ingame$broadcast$quadra_kill : KCoreSettings.BedWars.ingame$broadcast$monster_kill;
       }
     }
     
@@ -1068,7 +1068,7 @@ public class BedWars implements Game<BedWarsTeam> {
     Generator emerald = this.listGenerators().stream().filter(collect -> collect.getType().equals(Generator.Type.EMERALD))
         .findAny().orElse(null);
     
-    return this.event.getValue().getName().replace("{tier}", this.event.getValue().getName().equals(Language.options$events$diamond) ?
+    return this.event.getValue().getName().replace("{tier}", this.event.getValue().getName().equals(KCoreSettings.BedWars.options$events$diamond) ?
         StringUtils.repeat("I", diamond == null ? 1 : (diamond.getTier() + 1)) : StringUtils.repeat("I", emerald == null ? 1 : (emerald.getTier() + 1))
     ) + " " + SDF.format((this.event.getKey() - this.getTimer()) * 1000);
   }

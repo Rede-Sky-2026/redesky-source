@@ -5,7 +5,7 @@ import dev.slickcollections.kiwizin.nms.NMS;
 import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.player.hotbar.Hotbar;
 import dev.slickcollections.kiwizin.player.role.Role;
-import dev.slickcollections.kiwizin.thebridge.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.thebridge.Main;
 import dev.slickcollections.kiwizin.thebridge.hook.TBCoreHook;
 import dev.slickcollections.kiwizin.thebridge.hook.mysteryboxes.MysteryBoxesHook;
@@ -42,7 +42,7 @@ public class PlayerJoinListener implements Listener {
     Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
       TagUtils.setTag(evt.getPlayer());
       if (Role.getPlayerRole(player).isBroadcast()) {
-        String broadcast = Language.lobby$broadcast.replace("{player}", Role.getPrefixed(player.getName()));
+        String broadcast = KCoreSettings.TheBridge.lobby$broadcast.replace("{player}", Role.getPrefixed(player.getName()));
         Profile.listProfiles().forEach(pf -> {
           if (!pf.playingGame()) {
             Player players = pf.getPlayer();
@@ -55,8 +55,8 @@ public class PlayerJoinListener implements Listener {
     }, 5);
     
     NMS.sendTitle(player, "", "", 0, 1, 0);
-    if (Language.lobby$tab$enabled) {
-      NMS.sendTabHeaderFooter(player, Language.lobby$tab$header, Language.lobby$tab$footer);
+    if (KCoreSettings.TheBridge.lobby$tab$enabled) {
+      NMS.sendTabHeaderFooter(player, KCoreSettings.TheBridge.lobby$tab$header, KCoreSettings.TheBridge.lobby$tab$footer);
     }
     
     if (player.hasPermission("kthebridge.cmd.thebridge")) {

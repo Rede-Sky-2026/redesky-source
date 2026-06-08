@@ -1,7 +1,7 @@
 package dev.slickcollections.kiwizin.mysterybox.cosmetics.types;
 
 import dev.slickcollections.kiwizin.cash.CashManager;
-import dev.slickcollections.kiwizin.mysterybox.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.mysterybox.box.action.BoxContent;
 import dev.slickcollections.kiwizin.mysterybox.box.animation.DefaultOpener;
 import dev.slickcollections.kiwizin.mysterybox.box.animation.LootChestsOpener;
@@ -60,15 +60,15 @@ public abstract class Opener extends Cosmetic {
     }
     
     Role role = Role.getRoleByPermission(this.getPermission());
-    String color = has ? (isSelected ? Language.cosmetics$color$selected : Language.cosmetics$color$unlocked)
-        : ((CashManager.CASH && cash >= this.getCash())) && canBuy ? Language.cosmetics$color$canbuy : Language.cosmetics$color$locked;
+    String color = has ? (isSelected ? KCoreSettings.MysteryBox.cosmetics$color$selected : KCoreSettings.MysteryBox.cosmetics$color$unlocked)
+        : ((CashManager.CASH && cash >= this.getCash())) && canBuy ? KCoreSettings.MysteryBox.cosmetics$color$canbuy : KCoreSettings.MysteryBox.cosmetics$color$locked;
     String desc = (has && canBuy ?
-        Language.cosmetics$opener$icon$has_desc$start.replace("{has_desc_status}", isSelected ? Language.cosmetics$icon$has_desc$selected : Language.cosmetics$icon$has_desc$select) :
+        KCoreSettings.MysteryBox.cosmetics$opener$icon$has_desc$start.replace("{has_desc_status}", isSelected ? KCoreSettings.MysteryBox.cosmetics$icon$has_desc$selected : KCoreSettings.MysteryBox.cosmetics$icon$has_desc$select) :
         canBuy ?
-            Language.cosmetics$opener$icon$buy_desc$start
-                .replace("{buy_desc_status}", ((CashManager.CASH && cash >= this.getCash())) ? Language.cosmetics$icon$buy_desc$click_to_buy : Language.cosmetics$icon$buy_desc$enough) :
-            Language.cosmetics$opener$icon$perm_desc$start
-                .replace("{perm_desc_status}", (role == null ? Language.cosmetics$icon$perm_desc$common : Language.cosmetics$icon$perm_desc$role.replace("{role}", role.getName()))))
+            KCoreSettings.MysteryBox.cosmetics$opener$icon$buy_desc$start
+                .replace("{buy_desc_status}", ((CashManager.CASH && cash >= this.getCash())) ? KCoreSettings.MysteryBox.cosmetics$icon$buy_desc$click_to_buy : KCoreSettings.MysteryBox.cosmetics$icon$buy_desc$enough) :
+            KCoreSettings.MysteryBox.cosmetics$opener$icon$perm_desc$start
+                .replace("{perm_desc_status}", (role == null ? KCoreSettings.MysteryBox.cosmetics$icon$perm_desc$common : KCoreSettings.MysteryBox.cosmetics$icon$perm_desc$role.replace("{role}", role.getName()))))
         .replace("{name}", this.name).replace("{rarity}", this.getRarity().getName()).replace("{cash}", StringUtils.formatNumber(this.getCash()));
     ItemStack item = BukkitUtils.deserializeItemStack(this.icon + " : nome>" + color + this.name + " : desc>" + desc);
     if (isSelected) {

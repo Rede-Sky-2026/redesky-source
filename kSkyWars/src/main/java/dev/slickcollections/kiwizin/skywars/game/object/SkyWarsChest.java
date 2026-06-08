@@ -6,7 +6,7 @@ import dev.slickcollections.kiwizin.libraries.holograms.api.Hologram;
 import dev.slickcollections.kiwizin.nms.NMS;
 import dev.slickcollections.kiwizin.plugin.config.KConfig;
 import dev.slickcollections.kiwizin.plugin.logger.KLogger;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.Main;
 import dev.slickcollections.kiwizin.skywars.game.AbstractSkyWars;
 import dev.slickcollections.kiwizin.utils.BukkitUtils;
@@ -44,7 +44,7 @@ public class SkyWarsChest {
       }
       
       NMS.playChestAction(this.getLocation(), true);
-      if (game.getEvent().contains(Language.options$events$refill) && !game.getEvent().contains("de")) {
+      if (game.getEvent().contains(KCoreSettings.SkyWars.options$events$refill) && !game.getEvent().contains("de")) {
         this.hologram.updateLine(1, "§e{time}".replace("{time}", game.getEvent().split(" ")[1]));
       } else {
         this.destroy();

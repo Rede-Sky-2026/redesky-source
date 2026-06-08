@@ -1,7 +1,7 @@
 package dev.slickcollections.kiwizin.thebridge.cmd;
 
 import dev.slickcollections.kiwizin.player.Profile;
-import dev.slickcollections.kiwizin.thebridge.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.thebridge.game.TheBridge;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -40,7 +40,7 @@ public class SpectateCommand extends Commands {
           return;
         }
         
-        player.sendMessage(Language.lobby$npc$play$connect);
+        player.sendMessage(KCoreSettings.TheBridge.lobby$npc$play$connect);
         profile.getGame(TheBridge.class).spectate(player, target);
       }
     }

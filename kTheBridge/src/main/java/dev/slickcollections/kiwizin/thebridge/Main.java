@@ -52,10 +52,7 @@ public class Main extends KPlugin {
     kCosmetics = Bukkit.getPluginManager().getPlugin("kCosmetics") != null;
     kMysteryBox = Bukkit.getPluginManager().getPlugin("kMysteryBox") != null;
     
-    TheBridge.setupGames();
-    
-    Language.setupLanguage();
-    Listeners.setupListeners();
+    TheBridge.setupGames();    Listeners.setupListeners();
   
     TBCoreHook.setupHook();
     Lobby.setupLobbies();

@@ -13,7 +13,7 @@ import dev.slickcollections.kiwizin.utils.StringUtils;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class HologramAdapter extends PacketAdapter {
         if (deliveries == 0) {
           name = "";
         } else {
-          name = Language.lobby$npc$deliveries$deliveries.replace("{deliveries}", StringUtils.formatNumber(deliveries)).replace("{s}", deliveries > 1 ? "s" : "");
+          name = KCoreSettings.Murder.lobby$npc$deliveries$deliveries.replace("{deliveries}", StringUtils.formatNumber(deliveries)).replace("{s}", deliveries > 1 ? "s" : "");
         }
       }
 

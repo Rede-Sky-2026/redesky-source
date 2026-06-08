@@ -4,7 +4,7 @@ import dev.slickcollections.kiwizin.cash.CashManager;
 import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.player.role.Role;
 import dev.slickcollections.kiwizin.plugin.config.KConfig;
-import dev.slickcollections.kiwizin.thebridge.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.thebridge.Main;
 import dev.slickcollections.kiwizin.thebridge.container.SelectedContainer;
 import dev.slickcollections.kiwizin.thebridge.cosmetics.Cosmetic;
@@ -86,15 +86,15 @@ public abstract class KillEffect extends Cosmetic {
     
     Role role = Role.getRoleByPermission(this.getPermission());
     String color = has ?
-        (isSelected ? Language.cosmetics$color$selected : Language.cosmetics$color$unlocked) :
-        (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) && canBuy ? Language.cosmetics$color$canbuy : Language.cosmetics$color$locked;
+        (isSelected ? KCoreSettings.TheBridge.cosmetics$color$selected : KCoreSettings.TheBridge.cosmetics$color$unlocked) :
+        (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) && canBuy ? KCoreSettings.TheBridge.cosmetics$color$canbuy : KCoreSettings.TheBridge.cosmetics$color$locked;
     String desc = (has && canBuy ?
-        Language.cosmetics$kill_effect$icon$has_desc$start.replace("{has_desc_status}", isSelected ? Language.cosmetics$icon$has_desc$selected : Language.cosmetics$icon$has_desc$select) :
+        KCoreSettings.TheBridge.cosmetics$kill_effect$icon$has_desc$start.replace("{has_desc_status}", isSelected ? KCoreSettings.TheBridge.cosmetics$icon$has_desc$selected : KCoreSettings.TheBridge.cosmetics$icon$has_desc$select) :
         canBuy ?
-            Language.cosmetics$kill_effect$icon$buy_desc$start
-                .replace("{buy_desc_status}", (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) ? Language.cosmetics$icon$buy_desc$click_to_buy : Language.cosmetics$icon$buy_desc$enough) :
-            Language.cosmetics$kill_effect$icon$perm_desc$start
-                .replace("{perm_desc_status}", (role == null ? Language.cosmetics$icon$perm_desc$common : Language.cosmetics$icon$perm_desc$role.replace("{role}", role.getName()))))
+            KCoreSettings.TheBridge.cosmetics$kill_effect$icon$buy_desc$start
+                .replace("{buy_desc_status}", (coins >= this.getCoins() || (CashManager.CASH && cash >= this.getCash())) ? KCoreSettings.TheBridge.cosmetics$icon$buy_desc$click_to_buy : KCoreSettings.TheBridge.cosmetics$icon$buy_desc$enough) :
+            KCoreSettings.TheBridge.cosmetics$kill_effect$icon$perm_desc$start
+                .replace("{perm_desc_status}", (role == null ? KCoreSettings.TheBridge.cosmetics$icon$perm_desc$common : KCoreSettings.TheBridge.cosmetics$icon$perm_desc$role.replace("{role}", role.getName()))))
         .replace("{name}", this.name).replace("{rarity}", this.getRarity().getName()).replace("{coins}", StringUtils.formatNumber(this.getCoins())).replace("{cash}", StringUtils.formatNumber(this.getCash()));
     ItemStack item = BukkitUtils.deserializeItemStack(this.icon + desc + " : nome>" + (color + this.name));
     if (isSelected) {

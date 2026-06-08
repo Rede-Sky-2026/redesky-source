@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import dev.slickcollections.kiwizin.game.Game;
 import dev.slickcollections.kiwizin.game.GameState;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.murder.Main;
 import dev.slickcollections.kiwizin.murder.game.enums.MurderMode;
 import dev.slickcollections.kiwizin.murder.game.interfaces.LoadCallback;
@@ -44,7 +44,7 @@ public abstract class Murder implements Game<MurderTeam> {
   public Murder(String name) {
     this.name = name;
     this.config = new MurderConfig(name);
-    this.timer = Language.options$start$waiting + 1;
+    this.timer = KCoreSettings.Murder.options$start$waiting + 1;
     this.task = new MurderTask(this);
     this.task.reset();
     this.state = GameState.AGUARDANDO;

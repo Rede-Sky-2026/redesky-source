@@ -1,6 +1,6 @@
 package dev.slickcollections.kiwizin.bedwars.menus;
 
-import dev.slickcollections.kiwizin.bedwars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.bedwars.Main;
 import dev.slickcollections.kiwizin.bedwars.game.BedWars;
 import dev.slickcollections.kiwizin.bedwars.game.enums.BedWarsMode;
@@ -50,7 +50,7 @@ public class MenuPlay extends UpdatablePlayerMenu {
               EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
               BedWars game = BedWars.findRandom(this.mode);
               if (game != null) {
-                this.player.sendMessage(Language.lobby$npc$play$connect);
+                this.player.sendMessage(KCoreSettings.BedWars.lobby$npc$play$connect);
                 game.join(profile);
               }
             } else if (evt.getSlot() == 14) {

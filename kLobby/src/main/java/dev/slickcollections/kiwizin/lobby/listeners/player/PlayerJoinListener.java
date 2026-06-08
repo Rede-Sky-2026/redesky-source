@@ -1,7 +1,7 @@
 package dev.slickcollections.kiwizin.lobby.listeners.player;
 
 import dev.slickcollections.kiwizin.Core;
-import dev.slickcollections.kiwizin.lobby.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.lobby.Main;
 import dev.slickcollections.kiwizin.lobby.hook.LCoreHook;
 import dev.slickcollections.kiwizin.lobby.utils.tagger.TagUtils;
@@ -35,7 +35,7 @@ public class PlayerJoinListener implements Listener {
     Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
       TagUtils.setTag(evt.getPlayer());
       if (Role.getPlayerRole(player).isBroadcast()) {
-        String broadcast = Language.lobby$broadcast.replace("{player}", Role.getPrefixed(player.getName()));
+        String broadcast = KCoreSettings.LobbyPlugin.lobby$broadcast.replace("{player}", Role.getPrefixed(player.getName()));
         Profile.listProfiles().forEach(pf -> {
           if (!pf.playingGame()) {
             Player players = pf.getPlayer();
@@ -48,8 +48,8 @@ public class PlayerJoinListener implements Listener {
     }, 5);
     
     NMS.sendTitle(player, "", "", 0, 1, 0);
-    if (Language.lobby$tab$enabled) {
-      NMS.sendTabHeaderFooter(player, Language.lobby$tab$header, Language.lobby$tab$footer);
+    if (KCoreSettings.LobbyPlugin.lobby$tab$enabled) {
+      NMS.sendTabHeaderFooter(player, KCoreSettings.LobbyPlugin.lobby$tab$header, KCoreSettings.LobbyPlugin.lobby$tab$footer);
     }
   }
 }

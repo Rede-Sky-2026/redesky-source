@@ -5,7 +5,7 @@ import dev.slickcollections.kiwizin.libraries.holograms.api.Hologram;
 import dev.slickcollections.kiwizin.libraries.npclib.NPCLibrary;
 import dev.slickcollections.kiwizin.libraries.npclib.api.npc.NPC;
 import dev.slickcollections.kiwizin.libraries.npclib.trait.NPCTrait;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.murder.Main;
 import dev.slickcollections.kiwizin.plugin.config.KConfig;
 import dev.slickcollections.kiwizin.utils.BukkitUtils;
@@ -49,8 +49,8 @@ public class StatsNPC {
     }
 
     this.hologram = HologramLibrary.createHologram(this.location.clone().add(0, 0.5, 0));
-    for (int index = Language.lobby$npc$stats$hologram.size(); index > 0; index--) {
-      this.hologram.withLine(Language.lobby$npc$stats$hologram.get(index - 1));
+    for (int index = KCoreSettings.Murder.lobby$npc$stats$hologram.size(); index > 0; index--) {
+      this.hologram.withLine(KCoreSettings.Murder.lobby$npc$stats$hologram.get(index - 1));
     }
 
     this.npc = NPCLibrary.createNPC(EntityType.PLAYER, "§8[NPC] ");

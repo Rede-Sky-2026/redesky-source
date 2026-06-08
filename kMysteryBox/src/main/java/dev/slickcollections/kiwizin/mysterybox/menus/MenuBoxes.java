@@ -2,7 +2,7 @@ package dev.slickcollections.kiwizin.mysterybox.menus;
 
 
 import dev.slickcollections.kiwizin.libraries.menu.UpdatablePlayerPagedMenu;
-import dev.slickcollections.kiwizin.mysterybox.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.mysterybox.Main;
 import dev.slickcollections.kiwizin.mysterybox.api.MysteryBoxAPI;
 import dev.slickcollections.kiwizin.mysterybox.box.Box;
@@ -121,21 +121,21 @@ public class MenuBoxes extends UpdatablePlayerPagedMenu {
     }
     
     if (items.size() == 0) {
-      this.removeSlotsWith(BukkitUtils.deserializeItemStack(Language.menus$boxes$no_have_boxes), (this.rows * 4) - 3);
+      this.removeSlotsWith(BukkitUtils.deserializeItemStack(KCoreSettings.MysteryBox.menus$boxes$no_have_boxes), (this.rows * 4) - 3);
     }
     
     this.removeSlotsWith(BukkitUtils.deserializeItemStack("" +
         "REDSTONE_COMPARATOR : 1 : nome>&aCustomizar Animação : desc>&7Customize a sua animação\n&7de abertura de cápsula!\n \n&eClique para comprar ou selecionar!"), (this.rows * 9) - 7);
     
     this.removeSlotsWith(BukkitUtils.deserializeItemStack
-        (Language.menus$boxes$fabricate_box), (this.rows * 9) - 6);
+        (KCoreSettings.MysteryBox.menus$boxes$fabricate_box), (this.rows * 9) - 6);
     
-    this.removeSlotsWith(BukkitUtils.deserializeItemStack(Language.menus$boxes$info.replace("{boxes}",
+    this.removeSlotsWith(BukkitUtils.deserializeItemStack(KCoreSettings.MysteryBox.menus$boxes$info.replace("{boxes}",
         StringUtils.formatNumber(MysteryBoxAPI.getMysteryBoxes(profile))).
         replace("{last_rewards}", Profile.getProfile(player.getName()).getAbstractContainer("kMysteryBox", "lastRewards", MysteryBoxRewardedContainer.class).getLastItems()).replace("{frags}",
         profile.getFormatedStats("kMysteryBox", "mystery_frags"))), (this.rows * 9) - 5);
     
-    this.removeSlotsWith(BukkitUtils.deserializeItemStack(Language.menus$boxes$open_multiples_boxes
+    this.removeSlotsWith(BukkitUtils.deserializeItemStack(KCoreSettings.MysteryBox.menus$boxes$open_multiples_boxes
         .replace("{open_desc}", (!player.hasPermission("kmysterybox.open.multiplesboxes") ? "§cVocê não possui permissão para isto." : MysteryBoxAPI.getMysteryBoxes(profile) < 2 ? "§cVocê não possui caixas suficientes." : "§eClique para abrir"))), (this.rows * 9) - 4);
     
     this.removeSlotsWith(BukkitUtils.deserializeItemStack(

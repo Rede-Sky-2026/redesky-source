@@ -1,7 +1,7 @@
 package dev.slickcollections.kiwizin.skywars.cmd;
 
 import dev.slickcollections.kiwizin.player.Profile;
-import dev.slickcollections.kiwizin.skywars.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.skywars.game.AbstractSkyWars;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -40,7 +40,7 @@ public class SpectateCommand extends Commands {
           return;
         }
         
-        player.sendMessage(Language.lobby$npc$play$connect);
+        player.sendMessage(KCoreSettings.SkyWars.lobby$npc$play$connect);
         profile.getGame(AbstractSkyWars.class).spectate(player, target);
       }
     }

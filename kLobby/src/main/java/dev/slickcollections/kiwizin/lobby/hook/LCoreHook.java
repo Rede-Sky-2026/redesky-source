@@ -1,7 +1,7 @@
 package dev.slickcollections.kiwizin.lobby.hook;
 
 import com.comphenix.protocol.ProtocolLibrary;
-import dev.slickcollections.kiwizin.lobby.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.lobby.Main;
 import dev.slickcollections.kiwizin.lobby.hook.hotbar.LHotbarActionType;
 import dev.slickcollections.kiwizin.lobby.hook.protocollib.HologramAdapter;
@@ -36,7 +36,7 @@ public class LCoreHook {
           }
         });
       }
-    }.runTaskTimerAsynchronously(Main.getInstance(), 0, Language.scoreboards$scroller$every_tick);
+    }.runTaskTimerAsynchronously(Main.getInstance(), 0, KCoreSettings.LobbyPlugin.scoreboards$scroller$every_tick);
     
     new BukkitRunnable() {
       @Override
@@ -54,7 +54,7 @@ public class LCoreHook {
   
   public static void reloadScoreboard(Profile profile) {
     Player player = profile.getPlayer();
-    List<String> lines = new ArrayList<>(Language.scoreboards$lobby);
+    List<String> lines = new ArrayList<>(KCoreSettings.LobbyPlugin.scoreboards$lobby);
     Collections.reverse(lines);
     profile.setScoreboard(new KScoreboard() {
       @Override
@@ -67,7 +67,7 @@ public class LCoreHook {
           this.add(index + 1, line);
         }
       }
-    }.scroller(new ScoreboardScroller(Language.scoreboards$scroller$titles)).to(profile.getPlayer()).build());
+    }.scroller(new ScoreboardScroller(KCoreSettings.LobbyPlugin.scoreboards$scroller$titles)).to(profile.getPlayer()).build());
     profile.update();
     profile.getScoreboard().scroll();
   }

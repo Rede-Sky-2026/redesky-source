@@ -14,7 +14,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-import dev.slickcollections.kiwizin.murder.Language;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.murder.game.Murder;
 
 import java.text.DecimalFormat;
@@ -48,16 +48,16 @@ public class AssassinsIngame extends BukkitRunnable {
     }
 
     List<Player> players = this.game.listPlayers();
-    if (this.game.getTimer() > (Language.options$ingame$time - 10)) {
-      if (this.game.getTimer() <= (Language.options$ingame$time - 5) || this.game.getTimer() == (Language.options$ingame$time - 10)) {
-        String broadcast = Language.ingame$broadcast$contract.replace("{time}", String.valueOf(this.game.getTimer() - (Language.options$ingame$time - 10)))
-          .replace("{s}", (this.game.getTimer() - (Language.options$ingame$time - 10)) > 1 ? "s" : "");
+    if (this.game.getTimer() > (KCoreSettings.Murder.options$ingame$time - 10)) {
+      if (this.game.getTimer() <= (KCoreSettings.Murder.options$ingame$time - 5) || this.game.getTimer() == (KCoreSettings.Murder.options$ingame$time - 10)) {
+        String broadcast = KCoreSettings.Murder.ingame$broadcast$contract.replace("{time}", String.valueOf(this.game.getTimer() - (KCoreSettings.Murder.options$ingame$time - 10)))
+          .replace("{s}", (this.game.getTimer() - (KCoreSettings.Murder.options$ingame$time - 10)) > 1 ? "s" : "");
         players.forEach(player -> {
           EnumSound.CLICK.play(player, 1.0F, 1.0F);
           player.sendMessage(broadcast);
         });
       }
-    } else if (this.game.getTimer() == (Language.options$ingame$time - 10)) {
+    } else if (this.game.getTimer() == (KCoreSettings.Murder.options$ingame$time - 10)) {
       this.game.createContracts();
     }
 
