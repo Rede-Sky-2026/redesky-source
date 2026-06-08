@@ -1,5 +1,5 @@
 author: Kiwizin
-name: ${project.artifactId}
-version: ${project.version}
+name: kCore
+version: 1.0
 
-main: ${main-bungee}
+main: dev.slickcollections.kiwizin.bungee.Bungee

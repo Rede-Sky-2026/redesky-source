@@ -1,9 +1,6 @@
 package dev.slickcollections.kiwizin.mysterybox.box.action;
 
 import dev.slickcollections.kiwizin.database.Database;
-import dev.slickcollections.kiwizin.database.HikariDatabase;
-import dev.slickcollections.kiwizin.database.MongoDBDatabase;
-import dev.slickcollections.kiwizin.database.MySQLDatabase;
 import dev.slickcollections.kiwizin.mysterybox.Main;
 import dev.slickcollections.kiwizin.mysterybox.hook.container.MysteryBoxRewardedContainer;
 import dev.slickcollections.kiwizin.player.Profile;
@@ -44,13 +41,8 @@ public class BoxContent {
   
   public static void setupRewards() {
     CONTENTS.clear();
-    CachedRowSet rs;
-      if (Database.getInstance() instanceof MySQLDatabase) {
-        rs = ((MySQLDatabase) Database.getInstance()).query("SELECT * FROM `kMysteryBoxContent`");
-      } else {
-        rs = ((HikariDatabase) Database.getInstance()).query("SELECT * FROM `kMysteryBoxContent`");
-      
-      try {
+    if (Database.getInstance().isSql()) {
+      try (CachedRowSet rs = Database.getInstance().query("SELECT * FROM `kMysteryBoxContent`")) {
         if (rs != null) {
           rs.beforeFirst();
           while (rs.next()) {
@@ -64,12 +56,6 @@ public class BoxContent {
         }
       } catch (SQLException ex) {
         LOGGER.log(Level.WARNING, "Ocorreu um erro ao buscar os premios: ", ex);
-      } finally {
-        if (rs != null) {
-          try {
-            rs.close();
-          } catch (SQLException ignored) {}
-        }
       }
     }
   }

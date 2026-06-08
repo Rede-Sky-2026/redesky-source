@@ -35,12 +35,12 @@ plugins {
         }
 
         dependencies { implementation(project(":kCore"))
-
+            implementation(project(":kMysteryBox"))
         compileOnly("org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT")
 
-                compileOnly(files("C:/Users/guilherme/Desktop/Rede Sky 2026/RedeSky/libs/ProtocolLib.jar"))
+                compileOnly(files("../libs/ProtocolLib.jar"))
 
-                compileOnly(files("C:/Users/guilherme/Desktop/Rede Sky 2026/RedeSky/libs/PlaceholderAPI.jar"))
+                compileOnly(files("../libs/PlaceholderAPI.jar"))
         }
 
         tasks {

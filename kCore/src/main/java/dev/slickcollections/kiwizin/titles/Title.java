@@ -1,12 +1,8 @@
 package dev.slickcollections.kiwizin.titles;
 
-import com.mongodb.client.MongoCursor;
-import dev.slickcollections.kiwizin.database.Database;
-import dev.slickcollections.kiwizin.database.MongoDBDatabase;
 import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.utils.BukkitUtils;
 import dev.slickcollections.kiwizin.utils.StringUtils;
-import org.bson.Document;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -41,18 +37,6 @@ public class Title {
     TITLES.add(new Title("bwk", "§cDestruidor de Sonhos", "&8Pode ser desbloqueado através do\n&8Desafio \"Assasino a espreita\"&8."));
     TITLES.add(new Title("bww", "§6Anjo Sonolento", "&8Pode ser desbloqueado através do\n&8Desafio \"Protetor de Camas\"&8."));
     TITLES.add(new Title("bwp", "§4Pesadelo", "&8Pode ser desbloqueado através do\n&8Desafio \"Freddy Krueger\"&8."));
-    
-    if (Database.getInstance() instanceof MongoDBDatabase) {
-      MongoDBDatabase database = ((MongoDBDatabase) Database.getInstance());
-      
-      MongoCursor<Document> titles = database.getDatabase().getCollection("kCoreTitles").find().cursor();
-      while (titles.hasNext()) {
-        Document title = titles.next();
-        TITLES.add(new Title(title.getString("_id"), title.getString("name"), title.getString("description")));
-      }
-      
-      titles.close();
-    }
   }
   
   public static Title getById(String id) {

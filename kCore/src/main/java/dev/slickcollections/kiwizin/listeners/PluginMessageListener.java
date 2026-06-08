@@ -87,20 +87,20 @@ public class PluginMessageListener implements org.bukkit.plugin.messaging.Plugin
               }
               party = BukkitPartyManager.createParty(leader, 0);
             }
-            
+
             if (delete) {
               party.delete();
               return;
             }
-            
+
             if (changes.containsKey("newLeader")) {
               party.transfer(changes.get("newLeader").toString());
             }
-            
+
             if (changes.containsKey("remove")) {
               party.listMembers().removeIf(pp -> pp.getName().equalsIgnoreCase(changes.get("remove").toString()));
             }
-            
+
             for (Object object : (JSONArray) changes.get("members")) {
               if (!party.isMember(object.toString())) {
                 party.listMembers().add(new PartyPlayer(object.toString(), MEMBER));
@@ -109,6 +109,19 @@ public class PluginMessageListener implements org.bukkit.plugin.messaging.Plugin
           } catch (ParseException ignore) {
           }
           break;
+        case "SYNC_PERMISSIONS": {
+          Player player = Bukkit.getPlayerExact(in.readUTF());
+          if (player != null) {
+            in.readUTF();
+            int size = in.readInt();
+            java.util.LinkedHashSet<String> permissions = new java.util.LinkedHashSet<>();
+            for (int index = 0; index < size; index++) {
+              permissions.add(in.readUTF());
+            }
+            dev.slickcollections.kiwizin.player.role.SpigotRolePermissionApplier.apply(player, permissions);
+          }
+          break;
+        }
       }
     }
   }

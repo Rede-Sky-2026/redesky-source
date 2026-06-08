@@ -3,7 +3,6 @@ package dev.slickcollections.kiwizin.skywars.game;
 import dev.slickcollections.kiwizin.Manager;
 import dev.slickcollections.kiwizin.bukkit.BukkitParty;
 import dev.slickcollections.kiwizin.bukkit.BukkitPartyManager;
-import dev.slickcollections.kiwizin.clans.api.ClanAPI;
 import dev.slickcollections.kiwizin.game.FakeGame;
 import dev.slickcollections.kiwizin.game.Game;
 import dev.slickcollections.kiwizin.game.GameState;
@@ -469,11 +468,6 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
       reloadScoreboard(profile);
       profile.setHotbar(null);
       profile.addStats("kCoreSkyWars", this.getMode().getStats() + "games");
-      if (Main.kClans) {
-        if (ClanAPI.getClanByPlayerName(profile.getName()) != null) {
-          ClanAPI.addCoins(ClanAPI.getClanByPlayerName(profile.getName()), Language.options$coins$clan$play);
-        }
-      }
       
       profile.refresh();
       player.getInventory().clear();
@@ -589,11 +583,6 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
       killer.addCoinsWM("kCoreSkyWars", Language.options$coins$kills);
       killer.addStats("kCoreSkyWars", this.getMode().getStats() + "kills");
       killer.addStats("kCoreSkyWars", "monthlykills");
-      if (Main.kClans) {
-        if (ClanAPI.getClanByPlayerName(killer.getName()) != null) {
-          ClanAPI.addCoins(ClanAPI.getClanByPlayerName(killer.getName()), Language.options$coins$clan$kills);
-        }
-      }
       
       DeathMessage dm = killer.getAbstractContainer("kCoreSkyWars", "selected", SelectedContainer.class).getSelected(CosmeticType.DEATH_MESSAGE, DeathMessage.class);
       if (dm != null) {
@@ -698,11 +687,6 @@ public abstract class AbstractSkyWars implements Game<SkyWarsTeam> {
         profile.addCoinsWM("kCoreSkyWars", Language.options$coins$wins);
         if (this.getMode().equals(SkyWarsMode.RANKED)) {
           profile.addStats("kCoreSkyWars", Language.options$points$wins, "rankedpoints");
-        }
-        if (Main.kClans) {
-          if (ClanAPI.getClanByPlayerName(profile.getName()) != null) {
-            ClanAPI.addCoins(ClanAPI.getClanByPlayerName(profile.getName()), Language.options$coins$clan$wins);
-          }
         }
         profile.addStats("kCoreSkyWars", this.getMode().getStats() + "wins");
         profile.addStats("kCoreSkyWars", "monthlywins");

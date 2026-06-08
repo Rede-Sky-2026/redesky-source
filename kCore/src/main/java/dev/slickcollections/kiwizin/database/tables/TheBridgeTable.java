@@ -1,8 +1,8 @@
 package dev.slickcollections.kiwizin.database.tables;
 
+import dev.slickcollections.kiwizin.database.AbstractSqlDatabase;
 import dev.slickcollections.kiwizin.database.Database;
-import dev.slickcollections.kiwizin.database.HikariDatabase;
-import dev.slickcollections.kiwizin.database.MySQLDatabase;
+import dev.slickcollections.kiwizin.database.SqlHelper;
 import dev.slickcollections.kiwizin.database.data.DataContainer;
 import dev.slickcollections.kiwizin.database.data.DataTable;
 import dev.slickcollections.kiwizin.database.data.interfaces.DataTableInfo;
@@ -20,14 +20,8 @@ public class TheBridgeTable extends DataTable {
   
   @Override
   public void init(Database database) {
-    if (database instanceof MySQLDatabase) {
-      if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `kCoreTheBridge` LIKE 'hotbar'") == null) {
-        ((MySQLDatabase) database).execute("ALTER TABLE `kCoreTheBridge` ADD `hotbar` TEXT AFTER `lastmap`");
-      }
-    } else if (database instanceof HikariDatabase) {
-      if (((HikariDatabase) database).query("SHOW COLUMNS FROM `kCoreTheBridge` LIKE 'hotbar'") == null) {
-        ((HikariDatabase) database).execute("ALTER TABLE `kCoreTheBridge` ADD `hotbar` TEXT AFTER `lastmap`");
-      }
+    if (database instanceof AbstractSqlDatabase) {
+      SqlHelper.addColumnIfMissing((AbstractSqlDatabase) database, "kCoreTheBridge", "hotbar", "TEXT DEFAULT '{}'");
     }
   }
   

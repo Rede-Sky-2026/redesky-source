@@ -113,6 +113,23 @@ public class Manager {
   }
   
   public static boolean hasPermission(Object player, String permission) {
+    if (BUNGEE) {
+      try {
+        Class<?> managerClass = Class.forName("dev.slickcollections.kiwizin.player.role.RolePermissionManager");
+        Class<?> proxiedPlayerClass = Class.forName("net.md_5.bungee.api.connection.ProxiedPlayer");
+        if (proxiedPlayerClass.isInstance(player)) {
+          Object result = managerClass.getMethod("hasPermission", proxiedPlayerClass, String.class).invoke(null, player, permission);
+          if (result instanceof Boolean && (Boolean) result) {
+            return true;
+          }
+        }
+      } catch (ReflectiveOperationException ignore) {
+      }
+    } else if (player instanceof org.bukkit.entity.Player) {
+      if (dev.slickcollections.kiwizin.player.role.SpigotRolePermissionApplier.hasManagedPermission((org.bukkit.entity.Player) player, permission)) {
+        return true;
+      }
+    }
     return (boolean) HAS_PERMISSION.invoke(player, permission);
   }
   

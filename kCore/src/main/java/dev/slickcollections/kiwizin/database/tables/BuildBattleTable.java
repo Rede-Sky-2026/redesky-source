@@ -1,8 +1,8 @@
 package dev.slickcollections.kiwizin.database.tables;
 
+import dev.slickcollections.kiwizin.database.AbstractSqlDatabase;
 import dev.slickcollections.kiwizin.database.Database;
-import dev.slickcollections.kiwizin.database.HikariDatabase;
-import dev.slickcollections.kiwizin.database.MySQLDatabase;
+import dev.slickcollections.kiwizin.database.SqlHelper;
 import dev.slickcollections.kiwizin.database.data.DataContainer;
 import dev.slickcollections.kiwizin.database.data.DataTable;
 import dev.slickcollections.kiwizin.database.data.interfaces.DataTableInfo;
@@ -23,16 +23,8 @@ public class BuildBattleTable extends DataTable {
   
   @Override
   public void init(Database database) {
-    if (database instanceof MySQLDatabase) {
-      if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `kCoreBuildBattle` LIKE 'lastmap'") == null) {
-        ((MySQLDatabase) database).execute(
-            "ALTER TABLE `kCoreBuildBattle` ADD `lastmap` LONG DEFAULT 0 AFTER `coins`");
-      }
-    } else if (database instanceof HikariDatabase) {
-      if (((HikariDatabase) database).query("SHOW COLUMNS FROM `kCoreBuildBattle` LIKE 'lastmap'") == null) {
-        ((HikariDatabase) database).execute(
-            "ALTER TABLE `kCoreBuildBattle` ADD `lastmap` LONG DEFAULT 0 AFTER `coins`");
-      }
+    if (database instanceof AbstractSqlDatabase) {
+      SqlHelper.addColumnIfMissing((AbstractSqlDatabase) database, "kCoreBuildBattle", "lastmap", "BIGINT DEFAULT 0");
     }
   }
   

@@ -4,7 +4,7 @@ plugins {
         }
 
         group = "dev.slickcollections.kiwizin"
-        version = "1.9"
+        version = "1.0"
 
         val protocollibVersion = "4.5.0"
         val placeholderApiVersion = "2.10.5"
@@ -40,20 +40,16 @@ plugins {
         dependencies {
         implementation("io.socket:socket.io-client:1.0.0")
 
-        implementation("org.mariadb.jdbc:mariadb-java-client:2.6.0")
-
-        implementation("com.zaxxer:HikariCP:3.4.5")
-
-        implementation("org.mongodb:mongodb-driver-sync:4.0.5")
+        implementation("org.postgresql:postgresql:42.7.4")
 
         compileOnly("org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT")
 
         // BungeeCord local
-        compileOnly(files("C:/Users/guilherme/Desktop/Rede Sky 2026/RedeSky/libs/Zartema.jar"))
+        compileOnly(files("../libs/Zartema.jar"))
 
-                compileOnly(files("C:/Users/guilherme/Desktop/Rede Sky 2026/RedeSky/libs/ProtocolLib.jar"))
+                compileOnly(files("../libs/ProtocolLib.jar"))
 
-                compileOnly(files("C:/Users/guilherme/Desktop/Rede Sky 2026/RedeSky/libs/PlaceholderAPI.jar"))
+                compileOnly(files("../libs/PlaceholderAPI.jar"))
         }
 
         tasks {

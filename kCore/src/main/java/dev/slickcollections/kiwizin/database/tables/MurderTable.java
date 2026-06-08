@@ -1,8 +1,8 @@
 package dev.slickcollections.kiwizin.database.tables;
 
+import dev.slickcollections.kiwizin.database.AbstractSqlDatabase;
 import dev.slickcollections.kiwizin.database.Database;
-import dev.slickcollections.kiwizin.database.HikariDatabase;
-import dev.slickcollections.kiwizin.database.MySQLDatabase;
+import dev.slickcollections.kiwizin.database.SqlHelper;
 import dev.slickcollections.kiwizin.database.data.DataContainer;
 import dev.slickcollections.kiwizin.database.data.DataTable;
 import dev.slickcollections.kiwizin.database.data.interfaces.DataTableInfo;
@@ -19,16 +19,11 @@ public class MurderTable extends DataTable {
   
   @Override
   public void init(Database database) {
-    if (database instanceof MySQLDatabase) {
-      if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `kCoreMurder` LIKE 'askills'") == null) {
-        ((MySQLDatabase) database).execute(
-            "ALTER TABLE `kCoreMurder` ADD `askills` LONG DEFAULT 0 AFTER `clchancekiller`, ADD `asthrownknifekills` LONG DEFAULT 0 AFTER `askills`, ADD `aswins` LONG DEFAULT 0 AFTER `asthrownknifekills`");
-      }
-    } else if (database instanceof HikariDatabase) {
-      if (((HikariDatabase) database).query("SHOW COLUMNS FROM `kCoreMurder` LIKE 'askills'") == null) {
-        ((HikariDatabase) database).execute(
-            "ALTER TABLE `kCoreMurder` ADD `askills` LONG DEFAULT 0 AFTER `clchancekiller`, ADD `asthrownknifekills` LONG DEFAULT 0 AFTER `askills`, ADD `aswins` LONG DEFAULT 0 AFTER `asthrownknifekills`");
-      }
+    if (database instanceof AbstractSqlDatabase) {
+      AbstractSqlDatabase sql = (AbstractSqlDatabase) database;
+      SqlHelper.addColumnIfMissing(sql, "kCoreMurder", "askills", "BIGINT DEFAULT 0");
+      SqlHelper.addColumnIfMissing(sql, "kCoreMurder", "asthrownknifekills", "BIGINT DEFAULT 0");
+      SqlHelper.addColumnIfMissing(sql, "kCoreMurder", "aswins", "BIGINT DEFAULT 0");
     }
   }
   

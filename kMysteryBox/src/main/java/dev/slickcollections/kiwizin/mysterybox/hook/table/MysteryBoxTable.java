@@ -1,8 +1,7 @@
 package dev.slickcollections.kiwizin.mysterybox.hook.table;
 
+import dev.slickcollections.kiwizin.database.AbstractSqlDatabase;
 import dev.slickcollections.kiwizin.database.Database;
-import dev.slickcollections.kiwizin.database.HikariDatabase;
-import dev.slickcollections.kiwizin.database.MySQLDatabase;
 import dev.slickcollections.kiwizin.database.data.DataContainer;
 import dev.slickcollections.kiwizin.database.data.DataTable;
 import dev.slickcollections.kiwizin.database.data.interfaces.DataTableInfo;
@@ -21,10 +20,8 @@ public class MysteryBoxTable extends DataTable {
   
   @Override
   public void init(Database database) {
-    if (database instanceof MySQLDatabase) {
-      ((MySQLDatabase) database).execute("CREATE TABLE IF NOT EXISTS `kMysteryBoxContent` (`id` VARCHAR(32), `name` TEXT, `rarity` TEXT, `action` TEXT, `dependency` TEXT, PRIMARY KEY(`id`));");
-    } else if (database instanceof HikariDatabase) {
-      ((HikariDatabase) database).execute("CREATE TABLE IF NOT EXISTS `kMysteryBoxContent` (`id` VARCHAR(32), `name` TEXT, `rarity` TEXT, `action` TEXT, `dependency` TEXT, PRIMARY KEY(`id`));");
+    if (database instanceof AbstractSqlDatabase) {
+      ((AbstractSqlDatabase) database).execute("CREATE TABLE IF NOT EXISTS `kMysteryBoxContent` (`id` VARCHAR(32), `name` TEXT, `rarity` TEXT, `action` TEXT, `dependency` TEXT, PRIMARY KEY(`id`));");
     }
   }
   

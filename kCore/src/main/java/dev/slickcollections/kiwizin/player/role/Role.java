@@ -107,13 +107,17 @@ public class Role {
     if (!removeFake && Manager.isFake(Manager.getName(player))) {
       return Manager.getFakeRole(Manager.getName(player));
     }
-    
+
+    if (Manager.BUNGEE && RolePermissionManager.hasStoredRole(Manager.getName(player))) {
+      return RolePermissionManager.getAssignedRole(Manager.getName(player));
+    }
+
     for (Role role : ROLES) {
       if (role.has(player)) {
         return role;
       }
     }
-    
+
     return getLastRole();
   }
   

@@ -7,6 +7,7 @@ import dev.slickcollections.kiwizin.achievements.Achievement;
 import dev.slickcollections.kiwizin.booster.Booster;
 import dev.slickcollections.kiwizin.cmd.Commands;
 import dev.slickcollections.kiwizin.database.Database;
+import dev.slickcollections.kiwizin.database.DatabaseConnectionException;
 import dev.slickcollections.kiwizin.deliveries.Delivery;
 import dev.slickcollections.kiwizin.hook.KCoreExpansion;
 import dev.slickcollections.kiwizin.hook.protocollib.FakeAdapter;
@@ -22,7 +23,7 @@ import dev.slickcollections.kiwizin.player.Profile;
 import dev.slickcollections.kiwizin.player.fake.FakeManager;
 import dev.slickcollections.kiwizin.player.role.Role;
 import dev.slickcollections.kiwizin.plugin.KPlugin;
-import dev.slickcollections.kiwizin.plugin.config.KConfig;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.servers.ServerItem;
 import dev.slickcollections.kiwizin.titles.Title;
 import dev.slickcollections.kiwizin.utils.SlickUpdater;
@@ -83,24 +84,7 @@ public class Core extends KPlugin {
     }
     
     Player player = profile.getPlayer();
-    if (Core.getInstance().getConfig("utils").getBoolean("queue")) {
-      if (player != null) {
-        player.closeInventory();
-        Queue queue = player.hasPermission("kcore.queue") ? Queue.VIP : Queue.MEMBER;
-        QueuePlayer qp = queue.getQueuePlayer(player);
-        if (qp != null) {
-          if (qp.server.equalsIgnoreCase(name)) {
-            qp.player.sendMessage("§cVocê já está na fila de conexão!");
-          } else {
-            qp.server = name;
-          }
-          return;
-        }
-        
-        queue.queue(player, profile, name);
-      }
-    } else {
-      if (player != null) {
+    if (player != null) {
         Bukkit.getScheduler().runTask(Core.getInstance(), () -> {
           if (player.isOnline()) {
             player.closeInventory();
@@ -113,7 +97,6 @@ public class Core extends KPlugin {
           }
         });
       }
-    }
   }
   
   @Override
@@ -132,7 +115,6 @@ public class Core extends KPlugin {
       return;
     }
     
-    saveDefaultConfig();
     lobby = Bukkit.getWorlds().get(0).getSpawnLocation();
     
     // Remover o spawn-protection-size
@@ -185,23 +167,19 @@ public class Core extends KPlugin {
     }
     
     PlaceholderAPI.registerExpansion(new KCoreExpansion());
-    
-    Database.setupDatabase(
-        getConfig().getString("database.tipo"),
-        getConfig().getString("database.mysql.host"),
-        getConfig().getString("database.mysql.porta"),
-        getConfig().getString("database.mysql.nome"),
-        getConfig().getString("database.mysql.usuario"),
-        getConfig().getString("database.mysql.senha"),
-        getConfig().getBoolean("database.mysql.hikari", false),
-        getConfig().getBoolean("database.mysql.mariadb", false),
-        getConfig().getString("database.mongodb.url", "")
-    );
+
+    try {
+      Database.setupDatabase();
+    } catch (DatabaseConnectionException ex) {
+      getLogger().log(Level.SEVERE, "kCore desabilitado: banco de dados indisponivel.", ex);
+      this.setEnabled(false);
+      return;
+    }
     
     NPCLibrary.setupNPCs(this);
     HologramLibrary.setupHolograms(this);
     
-    setupRoles();
+    KCoreSettings.Roles.registerRoles();
     FakeManager.setupFake();
     Title.setupTitles();
     Booster.setupBoosters();
@@ -252,22 +230,5 @@ public class Core extends KPlugin {
       }
     }
     this.getLogger().info("O plugin foi desativado.");
-  }
-  
-  private void setupRoles() {
-    KConfig config = getConfig("roles");
-    for (String key : config.getSection("roles").getKeys(false)) {
-      String name = config.getString("roles." + key + ".name");
-      String prefix = config.getString("roles." + key + ".prefix");
-      String permission = config.getString("roles." + key + ".permission");
-      boolean broadcast = config.getBoolean("roles." + key + ".broadcast", true);
-      boolean alwaysVisible = config.getBoolean("roles." + key + ".alwaysvisible", false);
-      
-      Role.listRoles().add(new Role(name, prefix, permission, alwaysVisible, broadcast));
-    }
-    
-    if (Role.listRoles().isEmpty()) {
-      Role.listRoles().add(new Role("&7Membro", "&7", "", false, false));
-    }
   }
 }

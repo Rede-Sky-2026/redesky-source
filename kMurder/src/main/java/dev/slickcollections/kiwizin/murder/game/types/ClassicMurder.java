@@ -13,7 +13,6 @@ import javax.annotation.Nonnull;
 
 import dev.slickcollections.kiwizin.bukkit.BukkitParty;
 import dev.slickcollections.kiwizin.bukkit.BukkitPartyManager;
-import dev.slickcollections.kiwizin.clans.api.ClanAPI;
 import dev.slickcollections.kiwizin.game.FakeGame;
 import dev.slickcollections.kiwizin.game.Game;
 import dev.slickcollections.kiwizin.game.GameState;
@@ -452,11 +451,6 @@ public class ClassicMurder extends Murder {
       Profile profile = Profile.getProfile(player.getName());
       reloadScoreboard(profile);
       profile.setHotbar(null);
-      if (Main.kClans) {
-        if (ClanAPI.getClanByPlayerName(profile.getName()) != null) {
-          ClanAPI.addCoins(ClanAPI.getClanByPlayerName(profile.getName()), Language.options$coins$clan$play);
-        }
-      }
       profile.refresh();
       player.getInventory().clear();
       player.getInventory().setArmorContents(null);
@@ -521,11 +515,6 @@ public class ClassicMurder extends Murder {
         } else if (isKiller(player)) {
           name = "clquickestkiller";
           profile.addStats("kCoreMurder", "clkillerwins");
-        }
-        if (Main.kClans) {
-          if (ClanAPI.getClanByPlayerName(profile.getName()) != null) {
-            ClanAPI.addCoins(ClanAPI.getClanByPlayerName(profile.getName()), Language.options$coins$clan$wins);
-          }
         }
         if (!name.isEmpty()) {
           long quickest = profile.getStats("kCoreMurder", name);

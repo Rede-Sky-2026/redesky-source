@@ -1,6 +1,6 @@
 author: EsinaKiwi
-name: ${project.artifactId}
-version: ${project.version}
+name: kBedWars
+version: 1.0
 depend: [ kCore ]
 
-main: ${main}
+main: dev.slickcollections.kiwizin.bedwars.Main

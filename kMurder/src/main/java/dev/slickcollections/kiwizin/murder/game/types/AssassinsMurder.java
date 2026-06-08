@@ -5,7 +5,6 @@ import com.google.common.io.ByteStreams;
 import dev.slickcollections.kiwizin.Core;
 import dev.slickcollections.kiwizin.bukkit.BukkitParty;
 import dev.slickcollections.kiwizin.bukkit.BukkitPartyManager;
-import dev.slickcollections.kiwizin.clans.api.ClanAPI;
 import dev.slickcollections.kiwizin.game.FakeGame;
 import dev.slickcollections.kiwizin.game.Game;
 import dev.slickcollections.kiwizin.game.GameState;
@@ -394,11 +393,6 @@ public class AssassinsMurder extends Murder {
       profile.setHotbar(null);
       profile.refresh();
       player.getInventory().clear();
-      if (Main.kClans) {
-        if (ClanAPI.getClanByPlayerName(profile.getName()) != null) {
-          ClanAPI.addCoins(ClanAPI.getClanByPlayerName(profile.getName()), Language.options$coins$clan$play);
-        }
-      }
 
       player.getInventory().setArmorContents(null);
       Hat hat = profile.getAbstractContainer("kCoreMurder", "selected", SelectedContainer.class).getSelected(CosmeticType.HAT, Hat.class);
@@ -437,11 +431,6 @@ public class AssassinsMurder extends Murder {
 
       if (winner != null && winner.equals(player)) {
         profile.addStats("kCoreMurder", "aswins");
-        if (Main.kClans) {
-          if (ClanAPI.getClanByPlayerName(profile.getName()) != null) {
-            ClanAPI.addCoins(ClanAPI.getClanByPlayerName(profile.getName()), Language.options$coins$clan$wins);
-          }
-        }
         profile.addCoinsWM("kCoreMurder", Language.options$coins$wins
         );
         NMS.sendTitle(player, "§c§lFIM DE JOGO", "§fVocê venceu!", 10, 80, 10);

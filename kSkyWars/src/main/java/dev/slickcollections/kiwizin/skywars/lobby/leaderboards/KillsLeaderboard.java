@@ -1,12 +1,8 @@
 package dev.slickcollections.kiwizin.skywars.lobby.leaderboards;
 
 import dev.slickcollections.kiwizin.database.Database;
-import dev.slickcollections.kiwizin.database.MySQLDatabase;
-import dev.slickcollections.kiwizin.database.data.DataContainer;
-import dev.slickcollections.kiwizin.database.exception.ProfileLoadException;
 import dev.slickcollections.kiwizin.skywars.Language;
 import dev.slickcollections.kiwizin.skywars.lobby.Leaderboard;
-import dev.slickcollections.kiwizin.utils.StringUtils;
 import org.bukkit.Location;
 
 import java.util.*;

@@ -1,8 +1,8 @@
 package dev.slickcollections.kiwizin.database.tables;
 
+import dev.slickcollections.kiwizin.database.AbstractSqlDatabase;
 import dev.slickcollections.kiwizin.database.Database;
-import dev.slickcollections.kiwizin.database.HikariDatabase;
-import dev.slickcollections.kiwizin.database.MySQLDatabase;
+import dev.slickcollections.kiwizin.database.SqlHelper;
 import dev.slickcollections.kiwizin.database.data.DataContainer;
 import dev.slickcollections.kiwizin.database.data.DataTable;
 import dev.slickcollections.kiwizin.database.data.interfaces.DataTableInfo;
@@ -23,16 +23,10 @@ public class BedWarsTable extends DataTable {
   
   @Override
   public void init(Database database) {
-    if (database instanceof MySQLDatabase) {
-      if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `kCoreBedWars` LIKE 'lastmap'") == null) {
-        ((MySQLDatabase) database).execute(
-            "ALTER TABLE `kCoreBedWars` ADD `lastmap` LONG DEFAULT 0 AFTER `coins`, ADD `favorites` TEXT AFTER `selected`");
-      }
-    } else if (database instanceof HikariDatabase) {
-      if (((HikariDatabase) database).query("SHOW COLUMNS FROM `kCoreBedWars` LIKE 'lastmap'") == null) {
-        ((HikariDatabase) database).execute(
-            "ALTER TABLE `kCoreBedWars` ADD `lastmap` LONG DEFAULT 0 AFTER `coins`, ADD `favorites` TEXT AFTER `selected`");
-      }
+    if (database instanceof AbstractSqlDatabase) {
+      AbstractSqlDatabase sql = (AbstractSqlDatabase) database;
+      SqlHelper.addColumnIfMissing(sql, "kCoreBedWars", "lastmap", "BIGINT DEFAULT 0");
+      SqlHelper.addColumnIfMissing(sql, "kCoreBedWars", "favorites", "TEXT DEFAULT '{}'");
     }
   }
   

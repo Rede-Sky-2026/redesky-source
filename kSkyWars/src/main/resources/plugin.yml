@@ -1,6 +1,6 @@
 author: NyystesinaKiwi
-name: ${project.artifactId}
-version: ${project.version}
+name: kSkyWars
+version: 1.0
 depend: [kCore]
 
-main: ${main}
+main: dev.slickcollections.kiwizin.skywars.Main

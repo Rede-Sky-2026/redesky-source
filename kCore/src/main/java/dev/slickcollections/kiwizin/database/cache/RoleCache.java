@@ -29,6 +29,10 @@ public class RoleCache {
   public static boolean isPresent(String playerName) {
     return CACHE.containsKey(playerName.toLowerCase());
   }
+
+  public static void removeCache(String playerName) {
+    CACHE.remove(playerName.toLowerCase());
+  }
   
   public static TimerTask clearCache() {
     return new TimerTask() {

@@ -18,9 +18,8 @@ public class Language {
   
   public static final KLogger LOGGER = ((KLogger) Main.getInstance().getLogger())
       .getModule("LANGUAGE");
-  private static final KConfig CONFIG = Main.getInstance().getConfig("language");~
+  private static final KConfig CONFIG = Main.getInstance().getConfig("language");
 
-  public static String a$b = "~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~/~";
   public static long scoreboards$scroller$every_tick = 1;
   public static List<String> scoreboards$scroller$titles = Arrays
       .asList("§a§lSKY WARS", "§6§lS§a§lKY WARS", "§f§lS§6§lK§a§lY WARS", "§f§lSK§6§lY §a§lWARS",

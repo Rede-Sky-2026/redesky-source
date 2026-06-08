@@ -1,7 +1,6 @@
 package dev.slickcollections.kiwizin.cmd;
 
 import dev.slickcollections.kiwizin.Core;
-import dev.slickcollections.kiwizin.database.Database;
 import dev.slickcollections.kiwizin.utils.SlickUpdater;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -22,10 +21,10 @@ public class CoreCommand extends Commands {
       }
       
       if (args.length == 0) {
-        player.sendMessage(" \n§6/kc atualizar §f- §7Atualizar o kCore.\n§6/kc converter §f- §7Converter seu Banco de Dados.\n ");
+        player.sendMessage(" \n§6/kc atualizar §f- §7Atualizar o kCore.\n ");
         return;
       }
-      
+
       String action = args[0];
       if (action.equalsIgnoreCase("atualizar")) {
         if (SlickUpdater.UPDATER != null) {
@@ -39,11 +38,8 @@ public class CoreCommand extends Commands {
         } else {
           player.sendMessage("§aO plugin já se encontra em sua última versão.");
         }
-      } else if (action.equalsIgnoreCase("converter")) {
-        player.sendMessage("§fBanco de Dados: " + Database.getInstance().getClass().getSimpleName().replace("Database", ""));
-        Database.getInstance().convertDatabase(player);
       } else {
-        player.sendMessage(" \n§6/kc atualizar §f- §7Atualizar o kCore.\n§6/kc converter §f- §7Converter seu Banco de Dados.\n ");
+        player.sendMessage(" \n§6/kc atualizar §f- §7Atualizar o kCore.\n ");
       }
     } else {
       sender.sendMessage("§cApenas jogadores podem utilizar este comando.");

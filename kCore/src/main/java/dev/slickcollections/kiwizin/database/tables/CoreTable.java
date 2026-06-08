@@ -1,8 +1,8 @@
 package dev.slickcollections.kiwizin.database.tables;
 
+import dev.slickcollections.kiwizin.database.AbstractSqlDatabase;
 import dev.slickcollections.kiwizin.database.Database;
-import dev.slickcollections.kiwizin.database.HikariDatabase;
-import dev.slickcollections.kiwizin.database.MySQLDatabase;
+import dev.slickcollections.kiwizin.database.SqlHelper;
 import dev.slickcollections.kiwizin.database.data.DataContainer;
 import dev.slickcollections.kiwizin.database.data.DataTable;
 import dev.slickcollections.kiwizin.database.data.interfaces.DataTableInfo;
@@ -18,20 +18,14 @@ import java.util.Map;
     update = "UPDATE `kCoreProfile` SET `cash` = ?, `role` = ?, `deliveries` = ?, `preferences` = ?, `titles` = ?, `boosters` = ?, `achievements` = ?, `selected` = ?, `created` = ?, `clan` = ?, `lastlogin` = ? WHERE LOWER(`name`) = ?"
 )
 public class CoreTable extends DataTable {
-  
+
   @Override
   public void init(Database database) {
-    if (database instanceof MySQLDatabase) {
-      if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `kCoreProfile` LIKE 'cash'") == null) {
-        ((MySQLDatabase) database).execute("ALTER TABLE `kCoreProfile` ADD `cash` LONG AFTER `name`");
-      }
-    } else if (database instanceof HikariDatabase) {
-      if (((HikariDatabase) database).query("SHOW COLUMNS FROM `kCoreProfile` LIKE 'cash'") == null) {
-        ((HikariDatabase) database).execute("ALTER TABLE `kCoreProfile` ADD `cash` LONG AFTER `name`");
-      }
+    if (database instanceof AbstractSqlDatabase) {
+      SqlHelper.addColumnIfMissing((AbstractSqlDatabase) database, "kCoreProfile", "cash", "BIGINT DEFAULT 0");
     }
   }
-  
+
   public Map<String, DataContainer> getDefaultValues() {
     Map<String, DataContainer> defaultValues = new LinkedHashMap<>();
     defaultValues.put("cash", new DataContainer(0L));

@@ -2,10 +2,10 @@ package dev.slickcollections.kiwizin.player.fake;
 
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.comphenix.protocol.wrappers.WrappedSignedProperty;
+import dev.slickcollections.kiwizin.KCoreSettings;
 import dev.slickcollections.kiwizin.Core;
 import dev.slickcollections.kiwizin.libraries.profile.Mojang;
 import dev.slickcollections.kiwizin.player.role.Role;
-import dev.slickcollections.kiwizin.plugin.config.KConfig;
 import dev.slickcollections.kiwizin.utils.BukkitUtils;
 import dev.slickcollections.kiwizin.utils.StringUtils;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -30,7 +30,6 @@ public class FakeManager {
   public static final String ALEX =
       "eyJ0aW1lc3RhbXAiOjE1ODcxMzkyMDU4MzUsInByb2ZpbGVJZCI6Ijc1MTQ0NDgxOTFlNjQ1NDY4Yzk3MzlhNmUzOTU3YmViIiwicHJvZmlsZU5hbWUiOiJUaGFua3NNb2phbmciLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzNiNjBhMWY2ZDU2MmY1MmFhZWJiZjE0MzRmMWRlMTQ3OTMzYTNhZmZlMGU3NjRmYTQ5ZWEwNTc1MzY2MjNjZDMiLCJtZXRhZGF0YSI6eyJtb2RlbCI6InNsaW0ifX19fQ==:W60UUuAYlWfLFt5Ay3Lvd/CGUbKuuU8+HTtN/cZLhc0BC22XNgbY1btTite7ZtBUGiZyFOhYqQi+LxVWrdjKEAdHCSYWpCRMFhB1m0zEfu78yg4XMcFmd1v7y9ZfS45b3pLAJ463YyjDaT64kkeUkP6BUmgsTA2iIWvM33k6Tj3OAM39kypFSuH+UEpkx603XtxratD+pBjUCUvWyj2DMxwnwclP/uACyh0ZVrI7rC5xJn4jSura+5J2/j6Z/I7lMBBGLESt7+pGn/3/kArDE/1RShOvm5eYKqrTMRfK4n3yd1U1DRsMzxkU2AdlCrv1swT4o+Cq8zMI97CF/xyqk8z2L98HKlzLjtvXIE6ogljyHc9YsfU9XhHwZ7SKXRNkmHswOgYIQCSa1RdLHtlVjN9UdUyUoQIIO2AWPzdKseKJJhXwqKJ7lzfAtStErRzDjmjr7ld/5tFd3TTQZ8yiq3D6aRLRUnOMTr7kFOycPOPhOeZQlTjJ6SH3PWFsdtMMQsGzb2vSukkXvJXFVUM0TcwRZlqT5MFHyKBBPprIt0wVN6MmSKc8m5kdk7ZBU2ICDs/9Cd/fyzAIRDu3Kzm7egbAVK9zc1kXwGzowUkGGy1XvZxyRS5jF1zu6KzVgaXOGcrOLH4z/OHzxvbyW22/UwahWGN7MD4j37iJ7gjZDrk=";
   
-  private static final KConfig CONFIG = Core.getInstance().getConfig("utils");
   private static final Pattern REAL_PATTERN = Pattern.compile("(?i)kcorefakereal:\\w*"), NOT_CHANGE_PATTERN = Pattern.compile("(?i)kcorenotchange:\\w*");
   
   public static Map<String, String> fakeNames = new HashMap<>();
@@ -44,14 +43,11 @@ public class FakeManager {
   private static Boolean bungeeSide;
   
   public static void setupFake() {
-    if (CONFIG.get("fake.role") instanceof String) {
-      CONFIG.set("fake.role", Arrays.asList(CONFIG.getString("fake.role")));
-    }
     FAKE_ROLES = new TextComponent("");
     for (BaseComponent component : TextComponent.fromLegacyText("§5§lALTERAR NICKNAME\n \n§0Escolha o cargo que gostaria de utilizar enquanto está disfarçado:\n ")) {
       FAKE_ROLES.addExtra(component);
     }
-    for (String roleName : CONFIG.getStringList("fake.role")) {
+    for (String roleName : KCoreSettings.Fake.ALLOWED_ROLES) {
       Role role = Role.getRoleByName(roleName);
       if (role != null) {
         TextComponent component = new TextComponent("\n §0▪ " + role.getName());
@@ -100,7 +96,7 @@ public class FakeManager {
   
   public static void applyFake(Player player, String fakeName, String role, String skin) {
     if (!isBungeeSide()) {
-      player.kickPlayer(StringUtils.formatColors(CONFIG.getString("fake.kick-apply")).replace("\\n", "\n"));
+      player.kickPlayer(StringUtils.formatColors(KCoreSettings.Fake.KICK_APPLY).replace("\\n", "\n"));
     }
     fakeNames.put(player.getName(), fakeName);
     fakeRoles.put(player.getName(), Role.getRoleByName(role));
@@ -109,7 +105,7 @@ public class FakeManager {
   
   public static void removeFake(Player player) {
     if (!isBungeeSide()) {
-      player.kickPlayer(StringUtils.formatColors(CONFIG.getString("fake.kick-remove")).replace("\\n", "\n"));
+      player.kickPlayer(StringUtils.formatColors(KCoreSettings.Fake.KICK_REMOVE).replace("\\n", "\n"));
     }
     fakeNames.remove(player.getName());
     fakeRoles.remove(player.getName());
@@ -146,19 +142,19 @@ public class FakeManager {
   
   public static List<String> getRandomNicks() {
     if (randoms == null) {
-      randoms = CONFIG.getStringList("fake.randoms");
+      randoms = KCoreSettings.Fake.RANDOM_NICKS;
     }
     
     return randoms;
   }
   
   public static boolean isFakeRole(String roleName) {
-    return CONFIG.getStringList("fake.role").stream().anyMatch(role -> role.equalsIgnoreCase(roleName));
+    return KCoreSettings.Fake.ALLOWED_ROLES.stream().anyMatch(role -> role.equalsIgnoreCase(roleName));
   }
   
   public static boolean isBungeeSide() {
     if (bungeeSide == null) {
-      bungeeSide = CONFIG.getBoolean("bungeecord");
+      bungeeSide = KCoreSettings.General.BUNGEECORD;
     }
     
     return bungeeSide;

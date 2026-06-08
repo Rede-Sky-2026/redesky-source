@@ -1,6 +1,6 @@
 author: EsinaKiwi
-name: ${project.artifactId}
-version: ${project.version}
+name: kCore
+version: 1.0
 depend: [ProtocolLib, PlaceholderAPI]
 
-main: ${main-bukkit}
+main: dev.slickcollections.kiwizin.Core

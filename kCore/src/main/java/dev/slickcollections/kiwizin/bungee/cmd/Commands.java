@@ -18,6 +18,9 @@ public abstract class Commands extends Command {
     new FakeListCommand();
     new PartyCommand();
     new PartyChatCommand();
+    new SetRankCommand();
+    new RankCommand();
+    new PermissionCommand();
   }
   
   public abstract void perform(CommandSender sender, String[] args);

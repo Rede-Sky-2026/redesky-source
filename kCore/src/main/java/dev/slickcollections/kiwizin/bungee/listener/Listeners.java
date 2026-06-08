@@ -44,6 +44,7 @@ public class Listeners implements Listener {
   public void onPostLogin(PostLoginEvent evt) {
     TELL_CACHE.remove(evt.getPlayer().getName().toLowerCase());
     PROTECTION_CACHE.remove(evt.getPlayer().getName().toLowerCase());
+    dev.slickcollections.kiwizin.player.role.RolePermissionManager.applyPermissions(evt.getPlayer());
   }
   
   @EventHandler
@@ -76,6 +77,7 @@ public class Listeners implements Listener {
   @EventHandler(priority = (byte) 128)
   public void onServerConnected(ServerConnectedEvent evt) {
     ProxiedPlayer player = evt.getPlayer();
+    dev.slickcollections.kiwizin.player.role.RolePermissionManager.applyPermissions(player);
     
     BungeeParty party = BungeePartyManager.getLeaderParty(player.getName());
     if (party != null) {
